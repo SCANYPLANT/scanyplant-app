@@ -1,16 +1,12 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 
 
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
+export default function Login() {
 
-    render() {
-        return (
-            <>
-            </>
-        );
-    }
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Login Screen</Text>
+        </View>
+    );
 }
