@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
 
 export default function Login({navigation}) {
@@ -8,9 +9,9 @@ export default function Login({navigation}) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Login Screen</Text>
             <Button
-                title="Go to Details... again"
-                onPress={() => navigation.navigate('Register')}
-            />
+                onPress={() => navigation.navigate('Register')} >
+                Register
+            </Button>
         </View>
     );
 }

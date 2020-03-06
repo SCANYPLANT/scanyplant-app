@@ -5,11 +5,20 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 const Stack = createStackNavigator();
-
+const theme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: 'tomato',
+        accent: 'yellow',
+    },
+};
 export default function App() {
     return (
+        <PaperProvider theme={theme}>
         <NavigationContainer>
             <Stack.Navigator
                 initialRouteName="Login"
@@ -30,6 +39,7 @@ export default function App() {
                 />
             </Stack.Navigator>
         </NavigationContainer>
+        </PaperProvider>
     );
 }
 
