@@ -5,12 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import {
-	HomeScreen,
-	LoginScreen,
-	RegisterScreen,
-
-} from '../views';
+import { HomeScreen, LoginScreen, RegisterScreen } from '../views';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -22,7 +17,7 @@ function HomeStack() {
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="Login" component={LoginScreen} />
 			<Stack.Screen name="Home" component={HomeScreen} />
-			<Stack.Screen name="Discover" component={RegisterScreen} />
+			<Stack.Screen name="Register" component={RegisterScreen} />
 		</Stack.Navigator>
 	);
 }
@@ -51,14 +46,9 @@ export default function Navigation() {
 				}}
 			>
 				<Tab.Screen name="Home" component={HomeStack} />
-				<Tab.Screen name="Search" component={LoginScreen} />
-				<Tab.Screen name="Information" component={RegisterScreen} />
+				<Tab.Screen name="Login" component={LoginScreen} />
+				<Tab.Screen name="Register" component={RegisterScreen} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
-// const Homeoptions = (routes) => {
-//     if (routes.name === 'Login') {
-//         return { tabBarVisible: true };
-//     }
-// };
