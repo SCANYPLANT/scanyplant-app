@@ -1,77 +1,75 @@
-import React from 'react'
-import { StyleSheet, SafeAreaView, View } from 'react-native'
-import { Button } from 'react-native-elements'
-import FormInput from '../components/FormInput'
-import FormButton from '../components/FormButton'
-// https://dev.to/amanhimself/build-and-validate-forms-in-react-native-using-formik-and-yup-54oc
-export default class Login extends React.Component {
-    state = {
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-elements';
+// import FormInput from '../components/FormInput';
+// import FormButton from '../components/FormButton';
+
+export default function Login({ navigation }) {
+    const [login, setLogin] = useState<Partial<any>>({
         email: '',
         password: ''
-    }
+    });
 
-    handleEmailChange = email => {
-        this.setState({ email })
-    }
+    const handleEmailChange = email => {
+        setLogin({ email });
+    };
 
-    handlePasswordChange = password => {
-        this.setState({ password })
-    }
+    const handlePasswordChange = password => {
+        setLogin({ password });
+    };
 
-    onLogin = async () => {
-        const { email, password } = this.state
+    const onLogin = async () => {
+        const { email, password } = login;
         try {
             if (email.length > 0 && password.length > 0) {
-                this.props.navigation.navigate('App')
+                navigation.navigate('App');
             }
         } catch (error) {
-            alert(error)
+            alert(error);
         }
-    }
+    };
+    const { email, password } = login;
 
-    goToSignup = () => this.props.navigation.navigate('Signup')
-    render() {
-        const { email, password } = this.state
+    const goToSignup = () => navigation.navigate('Signup');
 
-        return (
-            <SafeAreaView style={styles.container}>
-                <FormInput
-                    name="email"
-                    value={email}
-                    placeholder="Enter email"
-                    autoCapitalize="none"
-                    onChangeText={this.handleEmailChange}
-                    iconName="ios-mail"
-                    iconColor="#2C384A"
+    return (
+        <SafeAreaView style={styles.container}>
+            <FormInput
+                name="email"
+                value={email}
+                placeholder="Enter email"
+                autoCapitalize="none"
+                onChangeText={handleEmailChange}
+                iconName="ios-mail"
+                iconColor="#2C384A"
+            />
+            <FormInput
+                name="password"
+                value={password}
+                placeholder="Enter password"
+                secureTextEntry
+                onChangeText={handlePasswordChange}
+                iconName="ios-lock"
+                iconColor="#2C384A"
+            />
+            <View style={styles.buttonContainer}>
+                <FormButton
+                    buttonType="outline"
+                    //  onPress={handleOnLogin}
+                    title="LOGIN"
+                    buttonColor="#039BE5"
                 />
-                <FormInput
-                    name="password"
-                    value={password}
-                    placeholder="Enter password"
-                    secureTextEntry
-                    onChangeText={this.handlePasswordChange}
-                    iconName="ios-lock"
-                    iconColor="#2C384A"
-                />
-                <View style={styles.buttonContainer}>
-                    <FormButton
-                        buttonType="outline"
-                        onPress={this.handleOnLogin}
-                        title="LOGIN"
-                        buttonColor="#039BE5"
-                    />
-                </View>
-                <Button
-                    title="Don't have an account? Sign Up"
-                    onPress={this.goToSignup}
-                    titleStyle={{
-                        color: '#F57C00'
-                    }}
-                    type="clear"
-                />
-            </SafeAreaView>
-        )
-    }
+            </View>
+            <Button
+                title="Don't have an account? Sign Up"
+                onPress={goToSignup}
+                titleStyle={{
+                    color: '#F57C00'
+                }}
+                type="clear"
+            />
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -82,4 +80,4 @@ const styles = StyleSheet.create({
     buttonContainer: {
         margin: 25
     }
-})
+});

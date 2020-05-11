@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Blank Template (TypeScript)",
+    "name": "Scanny plant",
     "slug": "scanyplant-front",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -11,6 +11,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
+    "entryPoint": "./src/App.tsx",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

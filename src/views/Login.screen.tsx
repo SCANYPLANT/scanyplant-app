@@ -3,7 +3,7 @@ import { Button, Card, Paragraph, Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native';
 
 
-export default function Login({ navigation }) {
+export default function LoginScreen({ navigation }) {
 
     return (
         <SafeAreaView>

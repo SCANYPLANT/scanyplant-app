@@ -1,7 +1,7 @@
 import React from 'react';
-import Home from './src/screens/Home.screen';
-import Login from './src/screens/Login.screen';
-import Register from './src/screens/Register.screen';
+import Home from './src/views/Home.screen';
+import Login from './src/views/Login.screen';
+import Register from './src/views/Register.screen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
