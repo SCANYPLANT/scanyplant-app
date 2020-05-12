@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Text, View, TextInput, Button, Alert } from "react-native";
 import { useForm } from "react-hook-form";
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
     const { register, setValue, handleSubmit, errors } = useForm();
     const onSubmit = data => Alert.alert("Register Form Data", JSON.stringify(data));
 
@@ -17,7 +17,7 @@ export default function RegisterScreen() {
 
     return (
         <View>
-
+            <h1> M'Inscrire </h1>
             <TextInput textContentType="familyName" placeholder="Nom *" onChangeText={text => setValue("nom", text, true)} />
             {errors.nom && <Text>This is required.</Text>}
 
@@ -35,6 +35,7 @@ export default function RegisterScreen() {
       />
 
             <Button title="INSCRIPTION" onPress={handleSubmit(onSubmit)} />
+            <Button title="Me connecter" onPress={() => navigation.navigate('Login')} />
         </View>
     );
 }

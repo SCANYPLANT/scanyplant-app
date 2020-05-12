@@ -7,17 +7,8 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <View>
-            <Card>
-                <Card.Content>
-                    <Title>Card title</Title>
-                    <Paragraph>Card content</Paragraph>
-                </Card.Content>
-
-                <Card.Actions>
-                    <Button>Cancel</Button>
-                    <Button>Login</Button>
-                </Card.Actions>
-            </Card>
+     
+     <h1> Me connecter</h1>
             <Button
                 onPress={() => navigation.navigate('Register')}>
                 Register
