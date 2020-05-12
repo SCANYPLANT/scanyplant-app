@@ -13,6 +13,12 @@ export const passwordValidator = (password: string) => {
     return '';
 };
 
+export const confirmPasswordValidator = (confirmPassword: string) => {
+    if (!confirmPassword || confirmPassword.length <= 0) return 'Veuillez confirmer votre mot de passe ';
+
+    return '';
+};
+
 export const nomValidator = (nom: string) => {
     if (!nom || nom.length <= 0) return 'Le nom est obligatoire';
 

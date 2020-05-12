@@ -1,12 +1,8 @@
 import React from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import { Ionicons } from '@expo/vector-icons';
-
-import { HomeScreen, LoginScreen, RegisterScreen } from '../views';
-
+import { LoginScreen, RegisterScreen } from '../views';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -16,7 +12,6 @@ function HomeStack() {
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="Login" component={LoginScreen} />
-			<Stack.Screen name="Home" component={HomeScreen} />
 			<Stack.Screen name="Register" component={RegisterScreen} />
 		</Stack.Navigator>
 	);
