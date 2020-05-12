@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Card, Paragraph, Title } from 'react-native-paper';
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 
 
 export default function LoginScreen({ navigation }) {
 
     return (
-        <SafeAreaView>
+        <View>
             <Card>
                 <Card.Content>
                     <Title>Card title</Title>
@@ -22,6 +22,6 @@ export default function LoginScreen({ navigation }) {
                 onPress={() => navigation.navigate('Register')}>
                 Register
             </Button>
-        </SafeAreaView>
+        </View>
     );
 }
