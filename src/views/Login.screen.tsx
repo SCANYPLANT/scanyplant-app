@@ -1,27 +1,32 @@
 import React from 'react';
-import { Button, Card, Paragraph, Title } from 'react-native-paper';
-import { SafeAreaView } from 'react-native';
+import { Button, Card, TextInput } from 'react-native-paper';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
+const styles = StyleSheet.create({
+    button: {
+        textDecorationColor: "#ffffff",
+        marginLeft: 20,
+        marginRight: 20,
+        marginVertical: 10
+    },
+});
 
 export default function LoginScreen({ navigation }) {
 
     return (
         <SafeAreaView>
-            <Card>
                 <Card.Content>
-                    <Title>Card title</Title>
-                    <Paragraph>Card content</Paragraph>
+                    <TextInput
+                        label='Email'
+                    />
+                    <TextInput
+                        label='Password'
+                    />
                 </Card.Content>
 
-                <Card.Actions>
-                    <Button>Cancel</Button>
-                    <Button>Login</Button>
-                </Card.Actions>
-            </Card>
-            <Button
-                onPress={() => navigation.navigate('Register')}>
-                Register
-            </Button>
+                <Button style={styles.button} mode="contained" >Login</Button>
+                <Button style={styles.button} mode="contained" >Password forgotten</Button>
+                <Button style={styles.button} mode="contained" onPress={() => navigation.navigate('Register')}>Register</Button>
         </SafeAreaView>
     );
 }

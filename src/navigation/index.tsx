@@ -11,15 +11,32 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const isSignedIn = false;
 
 function HomeStack() {
 	return (
+	isSignedIn ? (
+		<>
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
-			<Stack.Screen name="Login" component={LoginScreen} />
-			<Stack.Screen name="Home" component={HomeScreen} />
-			<Stack.Screen name="Register" component={RegisterScreen} />
+		  <Stack.Screen name="Home" component={HomeScreen} />
 		</Stack.Navigator>
-	);
+		</>
+	  ) : (
+		<>
+			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="Login" component={LoginScreen} />
+				<Stack.Screen name="Register" component={RegisterScreen} />
+			</Stack.Navigator>
+		</>
+	  )
+	)
+	// return (
+	// 	<Stack.Navigator screenOptions={{ headerShown: false }}>
+	// 		<Stack.Screen name="Login" component={LoginScreen} />
+	// 		<Stack.Screen name="Home" component={HomeScreen} />
+	// 		<Stack.Screen name="Register" component={RegisterScreen} />
+	// 	</Stack.Navigator>
+	// );
 }
 
 export default function Navigation() {
@@ -39,6 +56,7 @@ export default function Navigation() {
 						}
 						return <Ionicons name={iconName} size={size} color={color} />;
 					},
+					tabBarVisible: true,
 				})}
 				tabBarOptions={{
 					activeTintColor: 'tomato',
