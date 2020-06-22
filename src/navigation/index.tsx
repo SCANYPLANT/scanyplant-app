@@ -49,18 +49,20 @@ export default function Navigation() {
 						let iconName;
 						if (route.name === 'Home') {
 							iconName = focused ? 'ios-home' : 'ios-home';
-						} else if (route.name === 'Search') {
-							iconName = focused ? 'ios-search' : 'ios-search';
-						} else if (route.name === 'Information') {
-							iconName = focused ? 'ios-information' : 'ios-information';
+						} else if (route.name === 'Login') {
+							iconName = focused ? 'md-person' : 'md-person';
+						} else if (route.name === 'Register') {
+							iconName = focused ? 'md-person-add' : 'md-person-add';
 						}
 						return <Ionicons name={iconName} size={size} color={color} />;
 					},
 					tabBarVisible: true,
 				})}
 				tabBarOptions={{
-					activeTintColor: 'tomato',
-					inactiveTintColor: 'gray',
+					activeTintColor: '#ffffff',
+					inactiveTintColor: '#ffffff',
+					inactiveBackgroundColor: '#22577A',
+					activeBackgroundColor: '#29668f',
 				}}
 			>
 				<Tab.Screen name="Home" component={HomeStack} />

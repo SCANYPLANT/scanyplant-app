@@ -4,9 +4,10 @@ const rootThemeStyles = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        primary: '#62b2f0',
+        primary: '#57CC99',
         accent: 'white',
-        color: 'white',
+        text: 'white',
+        surface: 'white',
     },
 };
 export default rootThemeStyles;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, TextInput } from 'react-native-paper';
+import { Button, Card, TextInput, Text } from 'react-native-paper';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -24,9 +24,9 @@ export default function LoginScreen({ navigation }) {
                     />
                 </Card.Content>
 
-                <Button style={styles.button} mode="contained" >Login</Button>
-                <Button style={styles.button} mode="contained" >Password forgotten</Button>
-                <Button style={styles.button} mode="contained" onPress={() => navigation.navigate('Register')}>Register</Button>
+                <Button style={styles.button} mode="contained" ><Text>Login</Text></Button>
+                <Button style={styles.button} mode="contained" ><Text>Password forgotten</Text></Button>
+                <Button style={styles.button} mode="contained" onPress={() => navigation.navigate('Register')}><Text>Register</Text></Button>
         </SafeAreaView>
     );
 }
