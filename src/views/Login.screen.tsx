@@ -27,6 +27,6 @@ export default function LoginScreen({ navigation }) {
                 <Button style={styles.button} mode="contained" ><Text>Login</Text></Button>
                 <Button style={styles.button} mode="contained" ><Text>Password forgotten</Text></Button>
                 <Button style={styles.button} mode="contained" onPress={() => navigation.navigate('Register')}><Text>Register</Text></Button>
-        </SafeAreaView>
+            </SafeAreaView>
     );
 }

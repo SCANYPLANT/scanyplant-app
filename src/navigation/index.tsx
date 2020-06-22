@@ -11,7 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const isSignedIn = true;
+const isSignedIn = false;
 
 export default function Navigation() {
 	return (
@@ -47,7 +47,7 @@ export default function Navigation() {
 					</>
 				) : (
 					<>
-						<Stack.Navigator screenOptions={{ headerShown: false }}>
+						<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"Login"}>
 							<Stack.Screen name="Login" component={LoginScreen} />
 							<Stack.Screen name="Register" component={RegisterScreen} />
 						</Stack.Navigator>
