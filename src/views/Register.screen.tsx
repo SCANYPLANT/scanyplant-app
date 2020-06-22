@@ -3,6 +3,7 @@ import { Button, Card, TextInput } from 'react-native-paper';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import CardContent from 'react-native-paper/lib/typescript/src/components/Card/CardContent';
 
 
 const styles = StyleSheet.create({
@@ -44,46 +45,46 @@ export default function RegisterScreen({navigation}) {
 
     return (
         <SafeAreaView>
-                <form>
+                <CardContent>
                     <TextInput
                         label='Nom'
                         value={ userForm.values.nom}
                         onBlur={userForm.handleBlur}
                         onChangeText={userForm.handleChange}
                     />
-                    <span className="error" style={{color: "red"}}>{userForm.errors.nom}</span>
+                    {/*<span className="error" style={{color: "red"}}>{userForm.errors.nom}</span>*/}
                     <TextInput
                         label='Prenom'
                         value={ userForm.values.prenom}
                         onBlur={userForm.handleBlur}
                         onChangeText={userForm.handleChange}
                     />
-                    <span className="error" style={{color: "red"}}>{userForm.errors.prenom}</span>
+                    {/*<span className="error" style={{color: "red"}}>{userForm.errors.prenom}</span>*/}
                     <TextInput
                         label='Email'
                         value={ userForm.values.email}
                         onBlur={userForm.handleBlur}
                         onChangeText={userForm.handleChange}
                     />
-                    <span className="error" style={{color: "red"}}>{userForm.errors.email}</span>
+                    {/*<span className="error" style={{color: "red"}}>{userForm.errors.email}</span>*/}
                     <TextInput
                         label='Password'
                         value={ userForm.values.password}
                         onBlur={userForm.handleBlur}
                         onChangeText={userForm.handleChange}
                     />
-                    <span className="error" style={{color: "red"}}>{userForm.errors.password}</span>
+                    {/*<span className="error" style={{color: "red"}}>{userForm.errors.password}</span>*/}
                     <TextInput
                         label='confirm Password'
                         value={ userForm.values.confirmPassword}
                         onBlur={userForm.handleBlur}
                         onChangeText={userForm.handleChange}
                     />
-                    <span className="error" style={{color: "red"}}>{userForm.errors.confirmPassword}</span>
+                    {/*<span className="error" style={{color: "red"}}>{userForm.errors.confirmPassword}</span>*/}
                     <Button  disabled={!userForm.isValid}>
                         Register
                     </Button>
-                </form>
+                </CardContent>
                 <Button style={styles.button} mode="contained" >Cancel</Button>
                 <Button style={styles.button} mode="contained" onPress={navigation.navigate('Login')}  >Login</Button>
         </SafeAreaView>

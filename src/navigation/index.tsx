@@ -16,7 +16,7 @@ const isSignedIn = false;
 export default function Navigation() {
 	return (
 		<NavigationContainer>
-				{
+			{
 				isSignedIn ? (
 					<>
 						<Tab.Navigator
@@ -31,7 +31,7 @@ export default function Navigation() {
 									} else if (route.name === 'Register') {
 										iconName = focused ? 'md-person-add' : 'md-person-add';
 									}
-									return <Ionicons name={iconName} size={size} color={color} />;
+									return <Ionicons name={iconName} size={size} color={color}/>;
 								},
 								tabBarVisible: true,
 							})}
@@ -42,18 +42,18 @@ export default function Navigation() {
 								activeBackgroundColor: '#29668f',
 							}}
 						>
-							<Tab.Screen name="Home" component={HomeScreen} />
+							<Tab.Screen name="Home" component={HomeScreen}/>
 						</Tab.Navigator>
 					</>
 				) : (
 					<>
-						<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"Login"}>
-							<Stack.Screen name="Login" component={LoginScreen} />
-							<Stack.Screen name="Register" component={RegisterScreen} />
+						<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'Register'}>
+							<Stack.Screen name="Login" component={LoginScreen}/>
+							<Stack.Screen name="Register" component={RegisterScreen}/>
 						</Stack.Navigator>
 					</>
 				)
-				}
+			}
 		</NavigationContainer>
 	);
 }
