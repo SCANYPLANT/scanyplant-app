@@ -25,17 +25,19 @@ const styles = StyleSheet.create({
 export default function RegisterScreen({ navigation }) {
     const registerUser = (body) => {
         // console.log('fetch');
-        fetch('https://scanyplantback.herokuapp.com/api/users', {
+        console.log('body ====>', body)
+        fetch('http://localhost:3000/api/users', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body,
+            body: JSON.stringify(body),
         })
             .then(response => response.json())
             .then(result => {
                 console.log('result',result);
-                //navigation.navigate('Login')
+                navigation.navigate('Login')
             })
             .catch(err => console.log(err));
     };
@@ -65,8 +67,7 @@ export default function RegisterScreen({ navigation }) {
                         })
                     })}
                     onSubmit={values => {
-                        console.log(values);
-                       return registerUser({ email: values.email , firstname : values.firstName })
+                       return registerUser({ email: values.email , firstName : values.firstName , password: values.password , lastName: values.lastName})
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
