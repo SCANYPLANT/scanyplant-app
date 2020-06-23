@@ -18,7 +18,7 @@ export default function Navigation() {
 	return (
 		<NavigationContainer>
 			{
-				isSignedIn ? (
+				!isSignedIn ? (
 					<>
 						<Tab.Navigator
 							initialRouteName="Home"
