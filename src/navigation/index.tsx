@@ -39,8 +39,8 @@ export default function Navigation() {
 							tabBarOptions={{
 								activeTintColor: '#ffffff',
 								inactiveTintColor: '#ffffff',
-								inactiveBackgroundColor: '#22577A',
-								activeBackgroundColor: '#29668f',
+								inactiveBackgroundColor: '#c5ffe4',
+								activeBackgroundColor: '#57CC99',
 							}}
 						>
 							<Tab.Screen name="Home" component={HomeScreen}/>
