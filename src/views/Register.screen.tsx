@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Card, Subheading, Text, TextInput } from 'react-native-paper';
+import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
 
+import { upperCase } from 'lodash';
 
 const styles = StyleSheet.create({
     button: {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 export default function RegisterScreen({ navigation }) {
     const registerUser = (body) => {
         // console.log('fetch');
-        console.log('body ====>', body)
+        console.log('body ====>', body);
         fetch('http://localhost:3000/api/users', {
             method: 'POST',
             headers: {
@@ -36,14 +37,14 @@ export default function RegisterScreen({ navigation }) {
         })
             .then(response => response.json())
             .then(result => {
-                console.log('result',result);
-                navigation.navigate('Login')
+                console.log('result', result);
+                navigation.navigate('Login');
             })
             .catch(err => console.log(err));
     };
     return (
         <SafeAreaView>
-            <AppBar title ='REGISTER'/>
+            <AppBar title='REGISTER'/>
             <>
                 <Formik
                     initialValues={{
@@ -67,7 +68,12 @@ export default function RegisterScreen({ navigation }) {
                         })
                     })}
                     onSubmit={values => {
-                       return registerUser({ email: values.email , firstName : values.firstName , password: values.password , lastName: values.lastName})
+                        return registerUser({
+                            email: upperCase(values.email),
+                            firstName: values.firstName,
+                            lastName: values.lastName,
+                            password: values.password,
+                        });
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
@@ -76,7 +82,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Nom'
                                 value={values.lastName}
                                 onBlur={handleBlur('lastName')}
-                                onChangeText={e => handleChange('lastName')}
+                                onChangeText={handleChange('lastName')}
                             />
                             {errors.lastName &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.lastName}</Text>
@@ -85,7 +91,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Prenom'
                                 value={values.firstName}
                                 onBlur={handleBlur('firstName')}
-                                onChangeText={e =>handleChange('firstName')}
+                                onChangeText={handleChange('firstName')}
                             />
                             {errors.firstName &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.firstName}</Text>
@@ -94,7 +100,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Email'
                                 value={values.email}
                                 onBlur={handleBlur('email')}
-                                onChangeText={e => handleChange('email')}
+                                onChangeText={handleChange('email')}
                             />
                             {errors.email &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
@@ -119,11 +125,12 @@ export default function RegisterScreen({ navigation }) {
                             {errors.confirmPassword &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.confirmPassword}</Text>
                             }
-                            <Button disabled={!isValid} style={styles.button} mode="contained" onPress={handleSubmit}  >Register</Button>
+                            <Button disabled={!isValid} style={styles.button} mode="contained"
+                                    onPress={handleSubmit}>Register</Button>
                         </>
                     )}
                 </Formik>
-                <Button onPress={() => navigation.navigate('Login')} >Login</Button>
+                <Button onPress={() => navigation.navigate('Login')}>Login</Button>
             </>
         </SafeAreaView>
     );
