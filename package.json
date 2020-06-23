@@ -17,7 +17,7 @@
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.5.2",
-    "@react-navigation/native": "^5.0.9",
+    "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
     "@types/styled-components": "^5.1.0",
     "babel-preset-expo": "^8.1.0",
