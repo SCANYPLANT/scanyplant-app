@@ -49,14 +49,17 @@ export default function RegisterScreen({ navigation }) {
                             )
                         })
                     })}
-                    onSubmit={values => console.log(values)}
+                    onSubmit={values => {
+                        console.log(values);
+                       return values.nom && navigation.navigate('Login')
+                    }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
                         <>
                             <TextInput
                                 label='Nom'
                                 value={values.nom}
-                                onBlur={handleBlur}
+                                onBlur={handleBlur('nom')}
                                 onChangeText={handleChange('nom')}
                             />
                             {errors.nom &&
@@ -65,7 +68,7 @@ export default function RegisterScreen({ navigation }) {
                             <TextInput
                                 label='Prenom'
                                 value={values.prenom}
-                                onBlur={handleBlur}
+                                onBlur={handleBlur('prenom')}
                                 onChangeText={handleChange('prenom')}
                             />
                             {errors.prenom &&
@@ -74,7 +77,7 @@ export default function RegisterScreen({ navigation }) {
                             <TextInput
                                 label='Email'
                                 value={values.email}
-                                onBlur={handleBlur}
+                                onBlur={handleBlur('email')}
                                 onChangeText={handleChange('email')}
                             />
                             {errors.email &&
@@ -83,7 +86,8 @@ export default function RegisterScreen({ navigation }) {
                             <TextInput
                                 label='Password'
                                 value={values.password}
-                                onBlur={handleBlur}
+                                onBlur={handleBlur('password')}
+                                secureTextEntry={true}
                                 onChangeText={handleChange('password')}
                             />
                             {errors.password &&
@@ -92,13 +96,14 @@ export default function RegisterScreen({ navigation }) {
                             <TextInput
                                 label='confirm Password'
                                 value={values.confirmPassword}
-                                onBlur={handleBlur}
+                                onBlur={handleBlur('confirmPassword')}
+                                secureTextEntry={true}
                                 onChangeText={handleChange('confirmPassword')}
                             />
                             {errors.confirmPassword &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.confirmPassword}</Text>
                             }
-                            <Button disabled={!isValid} style={styles.button} mode="contained" onPress={()=> handleSubmit}>Register</Button>
+                            <Button disabled={!isValid} style={styles.button} mode="contained" onPress={handleSubmit}  >Register</Button>
                         </>
                     )}
                 </Formik>
