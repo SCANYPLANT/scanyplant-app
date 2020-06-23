@@ -31,15 +31,17 @@ export default function Navigation() {
 										iconName = focused ? 'md-person' : 'md-person';
 									} else if (route.name === 'Register') {
 										iconName = focused ? 'md-person-add' : 'md-person-add';
+									}else if (route.name === 'My Plants') {
+										iconName = focused ? 'md-person-add' : 'md-person-add';
 									}
 									return <Ionicons name={iconName} size={size} color={color}/>;
 								},
 								tabBarVisible: true,
 							})}
 							tabBarOptions={{
-								activeTintColor: '#ffffff',
-								inactiveTintColor: '#ffffff',
-								inactiveBackgroundColor: '#c5ffe4',
+								activeTintColor: '#22577A',
+								inactiveTintColor: '#22577A',
+								inactiveBackgroundColor: '#c7F9CC',
 								activeBackgroundColor: '#57CC99',
 							}}
 						>
