@@ -23,22 +23,36 @@ const styles = StyleSheet.create({
 });
 
 export default function RegisterScreen({ navigation }) {
-
+    const registerUser = (body) => {
+        // console.log('fetch');
+        fetch('https://scanyplantback.herokuapp.com/api/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body,
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => console.log(err));
+    };
     return (
         <SafeAreaView>
             <AppBar title ='REGISTER'/>
             <>
                 <Formik
                     initialValues={{
-                        nom: '',
-                        prenom: '',
+                        firstName: '',
+                        lastName: '',
                         email: '',
                         password: '',
                         confirmPassword: '',
                     }}
                     validationSchema={Yup.object().shape({
-                        nom: Yup.string().required('This field is required'),
-                        prenom: Yup.string().required('This field is required'),
+                        lastName: Yup.string().required('This field is required'),
+                        firstName: Yup.string().required('This field is required'),
                         email: Yup.string().email().required('This field is required'),
                         password: Yup.string().required('This field is required'),
                         confirmPassword: Yup.string().when('password', {
@@ -51,28 +65,29 @@ export default function RegisterScreen({ navigation }) {
                     })}
                     onSubmit={values => {
                         console.log(values);
-                       return values.nom && navigation.navigate('Login')
+                        registerUser({ email: values.email , firstname : values.firstName })
+                       return values.confirmPassword && navigation.navigate('Login')
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
                         <>
                             <TextInput
                                 label='Nom'
-                                value={values.nom}
-                                onBlur={handleBlur('nom')}
-                                onChangeText={handleChange('nom')}
+                                value={values.lastName}
+                                onBlur={handleBlur('lastName')}
+                                onChangeText={handleChange('lastName')}
                             />
-                            {errors.nom &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.nom}</Text>
+                            {errors.lastName &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.lastName}</Text>
                             }
                             <TextInput
                                 label='Prenom'
-                                value={values.prenom}
-                                onBlur={handleBlur('prenom')}
-                                onChangeText={handleChange('prenom')}
+                                value={values.firstName}
+                                onBlur={handleBlur('firstName')}
+                                onChangeText={handleChange('firstName')}
                             />
-                            {errors.prenom &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.prenom}</Text>
+                            {errors.firstName &&
+                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.firstName}</Text>
                             }
                             <TextInput
                                 label='Email'
