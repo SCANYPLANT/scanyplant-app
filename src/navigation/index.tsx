@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { HomeScreen, LoginScreen, RegisterScreen } from '../views';
+import { HomeScreen, LoginScreen, RegisterScreen, PlantsListScreen } from '../views';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
@@ -44,6 +44,7 @@ export default function Navigation() {
 							}}
 						>
 							<Tab.Screen name="Home" component={HomeScreen}/>
+							<Tab.Screen name="My Plants" component={PlantsListScreen}/>
 						</Tab.Navigator>
 					</>
 				) : (
