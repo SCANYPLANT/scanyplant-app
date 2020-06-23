@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
                 </Card.Content>
 
                 <Button style={styles.button} mode="contained" ><Text>Login</Text></Button>
-                <Button style={styles.button} mode="contained" ><Text>Password forgotten</Text></Button>
+                <Button  onPress={() => navigation.navigate('changePassword')} >Password forgotten</Button>
                 <Button style={styles.button} mode="contained" onPress={() => navigation.navigate('Register')}><Text>Register</Text></Button>
             </SafeAreaView>
     );

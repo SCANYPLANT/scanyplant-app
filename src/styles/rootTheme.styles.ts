@@ -6,7 +6,7 @@ const rootThemeStyles = {
         ...DefaultTheme.colors,
         primary: '#57CC99',
         accent: 'white',
-        text: 'white',
+        text: 'black',
         surface: 'white',
     },
 };

@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { HomeScreen, LoginScreen, RegisterScreen } from '../views';
 
 import { createStackNavigator } from '@react-navigation/stack';
+import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,9 +48,10 @@ export default function Navigation() {
 					</>
 				) : (
 					<>
-						<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'Register'}>
-							<Stack.Screen name="Login" component={LoginScreen}/>
+						<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'Login'}>
+							<Stack.Screen name="Login" component={LoginScreen} />
 							<Stack.Screen name="Register" component={RegisterScreen}/>
+							<Stack.Screen name="changePassword" component={SendMailForChangePassword}/>
 						</Stack.Navigator>
 					</>
 				)

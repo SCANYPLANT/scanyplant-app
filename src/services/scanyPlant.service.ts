@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const hospitalService = {
+export const scanyPlantService = {
     getAll
 };
 

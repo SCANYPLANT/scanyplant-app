@@ -1,1 +1,1 @@
-export * from './hospital.service';
+export * from './scanyPlant.service';
