@@ -76,7 +76,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Nom'
                                 value={values.lastName}
                                 onBlur={handleBlur('lastName')}
-                                onChangeText={handleChange('lastName')}
+                                onChangeText={e => handleChange('lastName')}
                             />
                             {errors.lastName &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.lastName}</Text>
@@ -85,7 +85,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Prenom'
                                 value={values.firstName}
                                 onBlur={handleBlur('firstName')}
-                                onChangeText={handleChange('firstName')}
+                                onChangeText={e =>handleChange('firstName')}
                             />
                             {errors.firstName &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.firstName}</Text>
@@ -94,7 +94,7 @@ export default function RegisterScreen({ navigation }) {
                                 label='Email'
                                 value={values.email}
                                 onBlur={handleBlur('email')}
-                                onChangeText={handleChange('email')}
+                                onChangeText={e => handleChange('email')}
                             />
                             {errors.email &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
@@ -128,3 +128,4 @@ export default function RegisterScreen({ navigation }) {
         </SafeAreaView>
     );
 }
+
