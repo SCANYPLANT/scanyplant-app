@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
 
     const loginUser = (body) => {
         // console.log('fetch');
-        console.log('body ====>', body);
+
         fetch('http://localhost:3000/api/auth/login', {
             method: 'POST',
             headers: {
@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
         })
             .then(response => response.json())
             .then(result => {
-                AsyncStorage.setItem('token', result.token).then(re => re).catch(e => e);
+                AsyncStorage.setItem('token', result?.meta?.token).then(re => re).catch(e => e);
             })
             .catch(err => console.log(err));
     };

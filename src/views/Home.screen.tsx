@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
+import { AppBar } from '../components';
 
-export default function Home() {
-
+export default function Home({navigation}) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <>
+            <AppBar title='Home' />
             <Text>Home Screen</Text>
-        </View>
+        </>
     );
 }
