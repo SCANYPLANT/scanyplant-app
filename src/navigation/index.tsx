@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { HomeScreen, LoginScreen, PlantsListScreen, RegisterScreen } from '../views';
+import { HomeScreen, LoginScreen, PlantsListScreen, RegisterScreen, PlantIdentificationScreen, CameraScreen } from '../views';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-let isSignedIn =  AsyncStorage.getItem('token').then(() =>  true).catch(() =>  false);
+let isSignedIn = AsyncStorage.getItem('token').then(() =>  true).catch(() =>  false);
 export default function Navigation() {
 
     useEffect(() => {
@@ -27,7 +27,7 @@ console.log(isSignedIn)
     return (
         <NavigationContainer>
             {
-                isSignedIn === null ? (
+                isSignedIn != null ? (
                     <>
                         <Tab.Navigator
                             initialRouteName="Home"
@@ -41,7 +41,13 @@ console.log(isSignedIn)
                                     } else if (route.name === 'Register') {
                                         iconName = focused ? 'md-person-add' : 'md-person-add';
                                     } else if (route.name === 'My Plants') {
-                                        iconName = focused ? 'md-person-add' : 'md-person-add';
+                                        iconName = focused ? 'ios-leaf' : 'ios-leaf';
+                                    } else if (route.name === 'Identify') {
+                                        iconName = focused ? 'ios-images' : 'ios-images';
+                                    } else if (route.name === 'Camera') {
+                                        iconName = focused ? 'ios-camera' : 'ios-camera';
+                                    } else if (route.name === 'Gallery') {
+                                        iconName = focused ? 'ios-images' : 'ios-images';
                                     }
                                     return <Ionicons name={iconName} size={size} color={color}/>;
                                 },
@@ -56,6 +62,9 @@ console.log(isSignedIn)
                         >
                             <Tab.Screen name="Home" component={HomeScreen}/>
                             <Tab.Screen name="My Plants" component={PlantsListScreen}/>
+                            <Tab.Screen name="Identify" component={PlantIdentificationScreen}/>
+                            <Tab.Screen name="Camera" component={CameraScreen}/>
+                            <Tab.Screen name="Gallery" component={GalleryScreen}/>
                         </Tab.Navigator>
                     </>
                 ) : (

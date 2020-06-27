@@ -30,6 +30,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "expo": "~37.0.12",
+    "expo-camera": "~8.2.0",
+    "expo-image-picker": "~8.1.0",
     "expo-location": "~8.1.0",
     "expo-permissions": "~8.1.0",
     "formik": "^2.1.4",

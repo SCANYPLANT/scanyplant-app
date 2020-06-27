@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function Home({ navigation }) {
+export default function PlantsListScreen({ navigation }) {
 	const [search, setSearch] = useState('');
 	const [plants, setPlants] = useState<any[]>([]);
 
