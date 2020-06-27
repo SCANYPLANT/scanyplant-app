@@ -34,9 +34,9 @@ export default function Home({ navigation }) {
 		// console.log('plant click:', plant.fields.raison_sociale);
 		navigation.navigate('Discover', { query: plant });
     };
-    
+
     return (
-        <SafeAreaView>
+        <>
             <AppBar title ='MY PLANTS'/>
             <>
             <View style={styles.container}>
@@ -70,6 +70,6 @@ export default function Home({ navigation }) {
 			</View>
 		</View>
             </>
-        </SafeAreaView>
+        </>
     );
 }
