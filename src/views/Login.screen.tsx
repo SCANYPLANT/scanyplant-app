@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
+import {toLower} from 'lodash'
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -19,8 +20,7 @@ const styles = StyleSheet.create({
 export default function LoginScreen({ navigation }) {
 
     const loginUser = (body) => {
-        // console.log('fetch');
-
+        console.log('fetch' ,body);
         fetch('http://localhost:3000/api/auth/login', {
             method: 'POST',
             headers: {
@@ -36,7 +36,7 @@ export default function LoginScreen({ navigation }) {
             .catch(err => console.log(err));
     };
     return (
-        <SafeAreaView>
+        <>
             <AppBar title='LOGIN'/>
             <>
                 <Formik
@@ -48,7 +48,7 @@ export default function LoginScreen({ navigation }) {
                         email: Yup.string().email().required('This field is required'),
                         password: Yup.string().required('This field is required'),
                     })}
-                    onSubmit={values => loginUser({ email: values.email, password: values.password })}
+                    onSubmit={values => loginUser({ email: toLower(values.email), password: values.password })}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
                         <>
@@ -79,6 +79,6 @@ export default function LoginScreen({ navigation }) {
                 <Button onPress={() => navigation.navigate('changePassword')}>Password forgotten</Button>
                 <Button style={styles.button} onPress={() => navigation.navigate('Register')}>Register</Button>
             </>
-        </SafeAreaView>
+        </>
     );
 }

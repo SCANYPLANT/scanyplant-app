@@ -27,7 +27,7 @@ console.log(isSignedIn)
     return (
         <NavigationContainer>
             {
-                isSignedIn ? (
+                isSignedIn === null ? (
                     <>
                         <Tab.Navigator
                             initialRouteName="Home"

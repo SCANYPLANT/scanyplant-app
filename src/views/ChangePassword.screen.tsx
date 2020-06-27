@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 export default function ChangePasswordScreen({ navigation }) {
 
     return (
-        <SafeAreaView>
+        <>
             <AppBar title ='CHANGE PASSWORD'/>
             <>
             <Formik
@@ -57,6 +57,6 @@ export default function ChangePasswordScreen({ navigation }) {
                     )}
                 </Formik>
             </>
-        </SafeAreaView>
+        </>
     );
 }

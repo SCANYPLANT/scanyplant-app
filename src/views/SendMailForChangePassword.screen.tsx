@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 export default function SendMailForChangePassword({ navigation }) {
 
     return (
-        <SafeAreaView>
+        <>
             <AppBar title ='Change Password'/>
             <>
                 <Formik
@@ -49,6 +49,6 @@ export default function SendMailForChangePassword({ navigation }) {
                 </Formik>
                 <Button onPress={() => navigation.navigate('Login')} >Login</Button>
             </>
-        </SafeAreaView>
+        </>
     );
 }

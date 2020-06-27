@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 export default function ProfilScreen({ navigation }) {
 
     return (
-        <SafeAreaView>
+        <>
             <AppBar title ='MON COMPTE'/>
             <>
             <Formik
@@ -60,6 +60,6 @@ export default function ProfilScreen({ navigation }) {
                 <Button style={styles.button} onPress={() => navigation.navigate('Register')}>Me deconnecter</Button>
                 <Button style={styles.button} onPress={() => navigation.navigate('Register')}>Me désinscrire</Button>
             </>
-        </SafeAreaView>
+        </>
     );
 }

@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
 export default function RegisterScreen({ navigation }) {
     const registerUser = (body) => {
         // console.log('fetch');
-        console.log('body ====>', body);
-        fetch('http://localhost:3000/api/users', {
+        console.log('body ====>', process.env.REACT_APP_API_URL);
+        fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +43,7 @@ export default function RegisterScreen({ navigation }) {
             .catch(err => console.log(err));
     };
     return (
-        <SafeAreaView>
+        <>
             <AppBar title='REGISTER'/>
             <>
                 <Formik
@@ -132,7 +132,7 @@ export default function RegisterScreen({ navigation }) {
                 </Formik>
                 <Button onPress={() => navigation.navigate('Login')}>Login</Button>
             </>
-        </SafeAreaView>
+        </>
     );
 }
 
