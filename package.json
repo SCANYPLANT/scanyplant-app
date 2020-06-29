@@ -52,6 +52,7 @@
 		"react-native-vector-icons": "^6.6.0",
 		"react-native-web": "~0.11.7",
 		"react-navigation": "^4.2.2",
+		"redux-logger": "^3.0.6",
 		"shx": "^0.3.2",
 		"styled-components": "^5.1.1",
 		"yup": "^0.29.1"

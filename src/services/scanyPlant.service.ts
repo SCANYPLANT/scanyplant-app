@@ -1,5 +1,5 @@
-import { AsyncStorage } from 'react-native';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const scanyPlantService = {
 	getAll,
@@ -20,7 +20,7 @@ function getAll() {
 }
 
 async function logout() {
-	await AsyncStorage.removeItem('user');
+	 AsyncStorage.removeItem('user').then(e => e).catch(e => e);
 }
 
 function handleResponse(response: {
