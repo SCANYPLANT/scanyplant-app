@@ -19,7 +19,7 @@ function login(username, password) {
 		body: JSON.stringify({email: toLower(username), password})
 	};
 
-	return fetch(`${process.env.REACT_APP_API_URL}/auth/login`, requestOptions)
+	return fetch(`${REACT_APP_API_URL}/auth/login`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			AsyncStorage.setItem('user', JSON.stringify(user)).then(e => e).catch(e => e);
@@ -61,7 +61,6 @@ function handleResponse(response: {
 			if (response.status === 401) {
 				// auto logout if 401 response returned from api
 				logout().then(r => r);
-				window.location.reload();
 			}
 			const error = (data && data.message) || response.statusText;
 			return Promise.reject(error);

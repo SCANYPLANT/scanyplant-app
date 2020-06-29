@@ -1,1 +1,2 @@
-export * from './scanyPlant.service';
+
+export { userService } from './user.service';
