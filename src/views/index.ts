@@ -4,4 +4,7 @@ export { default as RegisterScreen } from './Register.screen';
 export { default as PlantsListScreen } from './PlantsList.screen';
 export { default as PlantIdentificationScreen } from './PlantIdentification.screen';
 export { default as CameraScreen } from './Camera.screen';
+export { default as GalleryScreen } from './Gallery.screen';
+export { default as ImageIdentificationScreen } from './ImageIdentification.screen';
+export { default as IdentificationResultScreen } from './IdentificationResult.screen';
 export { default as SendMail } from './SendMailForChangePassword.screen';

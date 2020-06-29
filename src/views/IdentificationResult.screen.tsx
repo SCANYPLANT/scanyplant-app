@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function PlantsListScreen({ navigation }) {
+export default function IdentificationResultScreen({ navigation }) {
 	const [search, setSearch] = useState('');
 	const [plants, setPlants] = useState<any[]>([]);
 
@@ -40,6 +40,13 @@ export default function PlantsListScreen({ navigation }) {
             <AppBar title ='MY PLANTS'/>
             <>
             <View style={styles.container}>
+			<View style={styles.header}>
+				<Searchbar
+					placeholder="Search"
+					onChangeText={text => setSearch(text)}
+					value={search}
+				/>
+			</View>
 			<View style={styles.body}>
 				<ScrollView>
 					{plants.map(plant => {
