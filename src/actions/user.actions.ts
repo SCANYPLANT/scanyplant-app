@@ -26,11 +26,11 @@ function login(username, password) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-function register({firstName, lastName, email}) {
+function register({email, firstName, lastName, password}) {
     return dispatch => {
         dispatch(request({ email }));
 
-        userService.register(firstName, lastName, email)
+        userService.register(firstName, lastName, email, password)
             .then(
                 user => {
                     dispatch(success(user));

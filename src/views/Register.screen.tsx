@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import { AppBar } from '../components';
 
 import { upperCase } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../actions';
 
 const styles = StyleSheet.create({
     button: {
@@ -24,23 +26,26 @@ const styles = StyleSheet.create({
 });
 
 export default function RegisterScreen({ navigation }) {
-    const registerUser = body => {
+    const uDispatch = useDispatch();
+
+    const registerUser = (email, firstName, lastName, password) => {
         // console.log('fetch');
-        console.log('body ====>', process.env);
-        fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        })
-            .then(response => response.json())
-            .then(result => {
-                console.log('result', result);
-                navigation.navigate('Login');
-            })
-            .catch(err => console.log(err));
+        // fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
+        //     method: 'POST',
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(body),
+        // })
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         console.log('result', result);
+        //         navigation.navigate('Login');
+        //     })
+        //     .catch(err => console.log(err));
+        uDispatch(userActions.register({ email, firstName, lastName, password }));
+       return  navigation.navigate('Login')
     };
     return (
         <>
@@ -68,12 +73,12 @@ export default function RegisterScreen({ navigation }) {
                         }),
                     })}
                     onSubmit={values => {
-                        return registerUser({
-                            email: upperCase(values.email),
-                            firstName: values.firstName,
-                            lastName: values.lastName,
-                            password: values.password,
-                        });
+                        return registerUser(
+                           values.email,
+                            values.firstName,
+                            values.lastName,
+                            values.password,
+                        );
                     }}
                 >
                     {({

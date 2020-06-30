@@ -27,17 +27,17 @@ function login(username, password) {
         });
 }
 
-function register(firstName, lastName, email) {
+function register(firstName, lastName, email, password) {
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ email: email, firstName: firstName, lastName: lastName })
+        body: JSON.stringify({ email: toLower(email), firstName: firstName, lastName: lastName, password })
     };
 
-    return fetch(`${process.env.REACT_APP_API_URL}/auth/register`, requestOptions)
+    return fetch(`http://localhost:3000/api/users`, requestOptions)
         .then(handleResponse)
         .then(user => {
             return user;
