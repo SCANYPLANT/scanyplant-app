@@ -19,6 +19,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector } from 'react-redux';
+import ProfilScreen from '../views/Profil.screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -81,6 +82,8 @@ export default function Navigation() {
 									iconName = focused ? 'ios-images' : 'ios-images';
 								} else if (route.name === 'ImageIdentification') {
 									iconName = focused ? 'ios-images' : 'ios-images';
+								} else if (route.name === 'Profil') {
+									iconName = focused ? 'md-person' : 'md-person';
 								}
 								return <Ionicons name={iconName} size={size} color={color} />;
 							},
@@ -95,6 +98,7 @@ export default function Navigation() {
 					>
 						<Tab.Screen name="Mes plantes" component={PlantsListScreen} />
 						<Tab.Screen name="Identification" component={HomeStack} />
+						<Tab.Screen name="Profil" component={ProfilScreen} />
 					</Tab.Navigator>
 				</>
 			) : (

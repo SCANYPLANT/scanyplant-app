@@ -18,7 +18,7 @@ function login(username, password) {
 		body: JSON.stringify({ email: toLower(username), password }),
 	};
 
-	return fetch(`http://localhost:3000/api/auth/login`, requestOptions)
+	return fetch(`https://scanyplantback.herokuapp.com/api/auth/login`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
@@ -40,7 +40,7 @@ function register(firstName, lastName, email, password) {
 		}),
 	};
 
-	return fetch(`http://localhost:3000/api/users`, requestOptions)
+	return fetch(`https://scanyplantback.herokuapp.com/api/users`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;

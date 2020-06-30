@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../actions';
 
 const styles = StyleSheet.create({
 	button: {
@@ -15,6 +18,20 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfilScreen({ navigation }) {
+
+
+	const uDispatch = useDispatch();
+	const loginUser = (email, password) => {
+		uDispatch(userActions.login(email, password));
+	};
+
+	let user;
+
+	useEffect(() => {(async() => {
+		user = await AsyncStorage.getItem('user')
+		console.log(user)
+	})()}, [])
+
 	return (
 		<>
 			<AppBar title="MON COMPTE" />
@@ -39,7 +56,7 @@ export default function ProfilScreen({ navigation }) {
 						isValid,
 					}) => (
 						<>
-							<Text>Bienvenue xxx</Text>
+							<Text>Bienvenue {user&&user}</Text>
 							<TextInput
 								label="Nom"
 								value={values.lastName}
