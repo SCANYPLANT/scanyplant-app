@@ -5,39 +5,50 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { HomeScreen, LoginScreen, PlantsListScreen, RegisterScreen, PlantIdentificationScreen, CameraScreen, GalleryScreen, ImageIdentificationScreen, IdentificationResultScreen } from '../views';
+import {
+    CameraScreen,
+    IdentificationResultScreen,
+    ImageIdentificationScreen,
+    LoginScreen,
+    PlantIdentificationScreen,
+    PlantsListScreen,
+    RegisterScreen
+} from '../views';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../actions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
     return (
-      <Stack.Navigator initialRouteName="Identification" screenOptions={{ headerShown: false }} > 
-        <Stack.Screen name="Identification" component={PlantIdentificationScreen}/>
-        <Stack.Screen name="imageIdentification" component={ImageIdentificationScreen} />
-        <Stack.Screen name="identificationResult" component={IdentificationResultScreen} />
-      </Stack.Navigator>
+        <Stack.Navigator initialRouteName="Identification" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Identification" component={PlantIdentificationScreen}/>
+            <Stack.Screen name="imageIdentification" component={ImageIdentificationScreen}/>
+            <Stack.Screen name="identificationResult" component={IdentificationResultScreen}/>
+            <Stack.Screen name="Camera" component={CameraScreen}/>
+        </Stack.Navigator>
     );
-  }
+};
 
-let isSignedIn = AsyncStorage.getItem('token').then(() =>  true).catch(() =>  false);
+let isSignedIn = AsyncStorage.getItem('token').then(() => true).catch(() => false);
 export default function Navigation() {
 
     useEffect(() => {
         async function getToken() {
-            isSignedIn
+            isSignedIn;
         }
-console.log(isSignedIn)
+        console.log(isSignedIn);
         getToken().then(r => r);
     }, []);
     return (
         <NavigationContainer>
             {
-                isSignedIn != null ? (
+                isSignedIn == null ? (
                     <>
                         <Tab.Navigator
                             initialRouteName="Home"
