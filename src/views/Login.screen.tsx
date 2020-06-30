@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { Formik } from 'formik';
+import {  StyleSheet } from 'react-native';
+import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
 import {toLower} from 'lodash'
@@ -50,7 +50,7 @@ export default function LoginScreen({ navigation }) {
                     })}
                     onSubmit={values => loginUser({ email: toLower(values.email), password: values.password })}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, isValid, touched }) => (
                         <>
                             <TextInput
                                 label='Email'
@@ -58,8 +58,8 @@ export default function LoginScreen({ navigation }) {
                                 onBlur={handleBlur('email')}
                                 onChangeText={handleChange('email')}
                             />
-                            {errors.email &&
-                            <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
+                            {errors.email && touched.email &&
+                            <Text style={{ fontSize: 10, color: 'red' }} >{errors.email}</Text>
                             }
                             <TextInput
                                 label='Password'
@@ -68,7 +68,7 @@ export default function LoginScreen({ navigation }) {
                                 secureTextEntry={true}
                                 onChangeText={handleChange('password')}
                             />
-                            {errors.password &&
+                            {errors.password && touched.password &&
                             <Text style={{ fontSize: 10, color: 'red' }}>{errors.password}</Text>
                             }
                             <Button disabled={!isValid} style={styles.button} mode="contained"
