@@ -1,6 +1,4 @@
-import config from '../../config';
 import AsyncStorage from '@react-native-community/async-storage';
-import { toLower } from 'lodash';
 
 export const plantService = {
 	searchByImg,

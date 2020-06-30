@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View, SafeAreaView, Image } from 'react-native';
-import { Card, Searchbar, Text } from 'react-native-paper';
+import React, { useState } from 'react';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Card, Text } from 'react-native-paper';
 import { AppBar } from '../components';
 
 const styles = StyleSheet.create({
@@ -33,36 +33,36 @@ export default function PlantsListScreen({ navigation }) {
 	const plantClick = plant => {
 		// console.log('plant click:', plant.fields.raison_sociale);
 		navigation.navigate('Discover', { query: plant });
-    };
+	};
 
-    return (
-        <>
-            <AppBar title ='MY PLANTS'/>
-            <>
-            <View style={styles.container}>
-			<View style={styles.body}>
-				<ScrollView>
-					{plants.map(plant => {
-						return (
-							<Card
-								style={styles.item}
-								key={plant.recordid}
-								onPress={() => plantClick(plant)}
-							>
-								<Card.Content>
-                                    <Image
-                                        source={plant.imageUrl}
-                                        style={{ width: 16, height: 16, borderRadius: 10 }}
-                                    />
-									<Text>{plant.name}</Text>
-								</Card.Content>
-							</Card>
-						);
-					})}
-				</ScrollView>
-			</View>
-		</View>
-            </>
-        </>
-    );
+	return (
+		<>
+			<AppBar title="MY PLANTS" />
+			<>
+				<View style={styles.container}>
+					<View style={styles.body}>
+						<ScrollView>
+							{plants.map(plant => {
+								return (
+									<Card
+										style={styles.item}
+										key={plant.recordid}
+										onPress={() => plantClick(plant)}
+									>
+										<Card.Content>
+											<Image
+												source={plant.imageUrl}
+												style={{ width: 16, height: 16, borderRadius: 10 }}
+											/>
+											<Text>{plant.name}</Text>
+										</Card.Content>
+									</Card>
+								);
+							})}
+						</ScrollView>
+					</View>
+				</View>
+			</>
+		</>
+	);
 }

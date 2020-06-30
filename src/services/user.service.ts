@@ -1,4 +1,3 @@
-import config from '../../config';
 import AsyncStorage from '@react-native-community/async-storage';
 import { toLower } from 'lodash';
 
@@ -53,6 +52,7 @@ async function logout() {
 		.then(e => e)
 		.catch(e => e);
 }
+
 async function StorageUser(user) {
 	AsyncStorage.setItem('user', user)
 		.then(e => e)
