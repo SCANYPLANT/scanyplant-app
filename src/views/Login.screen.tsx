@@ -7,6 +7,8 @@ import { AppBar } from '../components';
 import {toLower} from 'lodash'
 
 import AsyncStorage from '@react-native-community/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../actions';
 
 const styles = StyleSheet.create({
     button: {
@@ -18,22 +20,9 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginScreen({ navigation }) {
-
-    const loginUser = (body) => {
-        console.log('fetch' ,body);
-        fetch('http://localhost:3000/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body),
-        })
-            .then(response => response.json())
-            .then(result => {
-                AsyncStorage.setItem('token', result?.meta?.token).then(re => re).catch(e => e);
-            })
-            .catch(err => console.log(err));
+const uDispatch= useDispatch()
+    const loginUser = (email, password) => {
+        uDispatch(userActions.login(email, password))
     };
     return (
         <>
@@ -48,7 +37,7 @@ export default function LoginScreen({ navigation }) {
                         email: Yup.string().email().required('This field is required'),
                         password: Yup.string().required('This field is required'),
                     })}
-                    onSubmit={values => loginUser({ email: toLower(values.email), password: values.password })}
+                    onSubmit={values => loginUser(values.email, values.password)}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, isValid, touched }) => (
                         <>

@@ -18,7 +18,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import SendMailForChangePassword from '../views/SendMailForChangePassword.screen';
 import AsyncStorage from '@react-native-community/async-storage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions';
 
 const Stack = createStackNavigator();
@@ -35,20 +35,16 @@ const HomeStack = () => {
     );
 };
 
-let isSignedIn = AsyncStorage.getItem('token').then(() => true).catch(() => false);
 export default function Navigation() {
-
-    useEffect(() => {
-        async function getToken() {
-            isSignedIn;
+    const isSignedIn = useSelector((state: any) => {
+        if(state.authentication) {
+            return state.authentication.user?.meta?.token
         }
-        console.log(isSignedIn);
-        getToken().then(r => r);
-    }, []);
+    })
     return (
         <NavigationContainer>
             {
-                isSignedIn == null ? (
+                isSignedIn  ? (
                     <>
                         <Tab.Navigator
                             initialRouteName="Home"
