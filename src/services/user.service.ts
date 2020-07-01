@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { toLower } from 'lodash';
-import getToken from '../utils/getToken';
+import config from '../../config';
 
 export const userService = {
 	login,
@@ -19,13 +19,13 @@ function login(username, password) {
 		},
 		body: JSON.stringify({ email: toLower(username), password }),
 	};
-
-	return fetch(`http://localhost:3000/api/auth/login`, requestOptions)
+	return fetch(`${config.API_URL}/api/auth/login`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
 		});
 }
+
 function me(token) {
 	const requestOptions = {
 		method: 'GET',
@@ -37,7 +37,7 @@ function me(token) {
 		},
 	};
 
-	return fetch(`http://localhost:3000/api/users/me`, requestOptions)
+	return fetch(`${config.API_URL}/api/users/me`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
@@ -59,7 +59,7 @@ function register(firstName, lastName, email, password) {
 		}),
 	};
 
-	return fetch(`http://localhost:3000/api/users`, requestOptions)
+	return fetch(`${config.API_URL}/api/users`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
