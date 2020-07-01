@@ -1,9 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { toLower } from 'lodash';
+import getToken from '../utils/getToken';
 
 export const userService = {
 	login,
 	logout,
+	me,
 	register,
 };
 
@@ -18,7 +20,24 @@ function login(username, password) {
 		body: JSON.stringify({ email: toLower(username), password }),
 	};
 
-	return fetch(`https://scanyplantback.herokuapp.com/api/auth/login`, requestOptions)
+	return fetch(`http://localhost:3000/api/auth/login`, requestOptions)
+		.then(handleResponse)
+		.then(user => {
+			return user;
+		});
+}
+function me(token) {
+	const requestOptions = {
+		method: 'GET',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	return fetch(`http://localhost:3000/api/users/me`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
@@ -40,7 +59,7 @@ function register(firstName, lastName, email, password) {
 		}),
 	};
 
-	return fetch(`https://scanyplantback.herokuapp.com/api/users`, requestOptions)
+	return fetch(`http://localhost:3000/api/users`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			return user;
@@ -73,6 +92,7 @@ function handleResponse(response: {
 				logout().then(r => r);
 			}
 			// const error = (data && data.message) || response.statusText;
+			console.log(data);
 			return data;
 		}
 		return data;

@@ -4,9 +4,9 @@ import { StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
-import AsyncStorage from '@react-native-community/async-storage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions';
+import User from '../models/user';
 
 const styles = StyleSheet.create({
 	button: {
@@ -16,36 +16,31 @@ const styles = StyleSheet.create({
 		marginVertical: 10,
 	},
 });
-
 export default function ProfilScreen({ navigation }) {
-
-
 	const uDispatch = useDispatch();
-	const loginUser = (email, password) => {
-		uDispatch(userActions.login(email, password));
-	};
-
-	let user;
-
-	useEffect(() => {(async() => {
-		user = await AsyncStorage.getItem('user')
-		console.log(user)
-	})()}, [])
-
+	useEffect(() => {
+		uDispatch(userActions.me());
+	}, []);
+	const user: User = useSelector((state: any) => state.users?.user);
 	return (
 		<>
 			<AppBar title="MON COMPTE" />
 			<>
+				<Text>Bienvenue </Text>
 				<Formik
 					initialValues={{
-						email: '',
-						password: '',
+						email: user && user.email,
+						firstName: user && user.firstName,
+						lastName: user && user.lastName,
 					}}
 					validationSchema={Yup.object().shape({
 						email: Yup.string().email().required('This field is required'),
-						password: Yup.string().required('This field is required'),
+						firstName: Yup.string().required('This field is required'),
+						lastName: Yup.string().required('This field is required'),
 					})}
-					onSubmit={values => console.log(values)}
+					onSubmit={values =>
+						console.log('values ====>=====>====>====>', values)
+					}
 				>
 					{({
 						handleChange,
@@ -53,17 +48,17 @@ export default function ProfilScreen({ navigation }) {
 						handleSubmit,
 						values,
 						errors,
+						touched,
 						isValid,
 					}) => (
 						<>
-							<Text>Bienvenue {user&&user}</Text>
 							<TextInput
 								label="Nom"
 								value={values.lastName}
 								onBlur={handleBlur('lastName')}
 								onChangeText={e => handleChange('lastName')}
 							/>
-							{errors.lastName && (
+							{errors.lastName && touched.lastName && (
 								<Text style={{ fontSize: 10, color: 'red' }}>
 									{errors.lastName}
 								</Text>
@@ -74,28 +69,30 @@ export default function ProfilScreen({ navigation }) {
 								onBlur={handleBlur('firstName')}
 								onChangeText={e => handleChange('firstName')}
 							/>
-							{errors.firstName && (
+							{errors.firstName && touched.firstName && (
 								<Text style={{ fontSize: 10, color: 'red' }}>
 									{errors.firstName}
 								</Text>
 							)}
-							<Button onPress={() => navigation.navigate('ChangePassword')}>
-								Modifier mon mot de passe
+							<TextInput
+								label="Email"
+								value={values.email}
+								onBlur={handleBlur('email')}
+								onChangeText={e => handleChange('email')}
+							/>
+							{errors.email && touched.email && (
+								<Text style={{ fontSize: 10, color: 'red' }}>
+									{errors.email}
+								</Text>
+							)}
+							<Button onPress={handleSubmit} mode="contained">
+								Enregistrer
 							</Button>
 						</>
 					)}
 				</Formik>
-				<Button
-					onPress={() => navigation.navigate('changePassword')}
-					mode="contained"
-				>
-					<Text>Enregistrer</Text>
-				</Button>
-				<Button
-					style={styles.button}
-					onPress={() => navigation.navigate('Register')}
-				>
-					Me deconnecter
+				<Button onPress={() => navigation.navigate('ChangePassword')}>
+					Modifier mon mot de passe
 				</Button>
 				<Button
 					style={styles.button}
