@@ -85,6 +85,7 @@ function handleResponse(response: {
 	statusText: any;
 }) {
 	return response.text().then(text => {
+		console.log(text)
 		const data = text && JSON.parse(text);
 		if (!response.ok) {
 			if (response.status === 401) {
