@@ -68,11 +68,11 @@ function me() {
 	}
 }
 
-function register({ email, firstName, lastName, password }) {
+function register(email, firstName, lastName, password ) {
 	return dispatch => {
 		dispatch(request({ email }));
 
-		userService.register(firstName, lastName, email, password).then(
+		userService.register(email, firstName, lastName,  password ).then(
 			user => {
 				dispatch(success(user));
 			},

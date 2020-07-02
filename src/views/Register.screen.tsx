@@ -27,8 +27,8 @@ export default function RegisterScreen({ navigation }) {
 	const uDispatch = useDispatch();
 
 	const registerUser = (email, firstName, lastName, password) => {
-		uDispatch(userActions.register({ email, firstName, lastName, password }));
-		return navigation.navigate('Login');
+		uDispatch(userActions.register(email, firstName, lastName, password));
+		// return navigation.navigate('Login');
 	};
 	return (
 		<>

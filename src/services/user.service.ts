@@ -44,7 +44,7 @@ async function me() {
         });
 }
 
-function register({ firstName, lastName, email, password }) {
+function register(email,firstName, lastName, password ) {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -53,8 +53,8 @@ function register({ firstName, lastName, email, password }) {
         },
         body: JSON.stringify({
             email: toLower(email),
-            firstName: firstName,
-            lastName: lastName,
+            firstName,
+            lastName,
             password,
         }),
     };
