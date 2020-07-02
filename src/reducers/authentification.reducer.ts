@@ -1,9 +1,8 @@
 import { userConstants } from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
+import { readStorage } from '../utils/storage';
 
-let user = AsyncStorage.getItem('user')
-	.then(r => r)
-	.catch(e => e);
+let user = readStorage('user')
 const initialState = user ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState, action) {
