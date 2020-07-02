@@ -7,7 +7,7 @@ export default function handleResponseAPi(response: {
     statusText: any;
 }) {
     return response.text().then(async text => {
-        console.log(text)
+        // console.log(text)
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {

@@ -2,8 +2,9 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { AppBar } from '../components';
 import { Button } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { plantActions } from '../actions';
+import Plant from '../models/plant';
 
 const styles = StyleSheet.create({
     container: {
@@ -46,8 +47,15 @@ const styles = StyleSheet.create({
 export default function ImageIdentificationScreen({ route, navigation }) {
     const { image } = route.params;
     const uDispatch = useDispatch();
+    let plants: [Plant] = useSelector((state : any) => {
+        return(state.searchPlant?.data)
+        // state.plants?.data
+    });
     const plantIdentification = async () => {
         uDispatch(plantActions.searchPlantByImg(image));
+        if(plants?.length > 0) {
+            navigation.navigate('identificationResult');
+        }
     };
 
     return (
