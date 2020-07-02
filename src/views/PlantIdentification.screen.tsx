@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Searchbar } from 'react-native-paper';
+import { Button, Searchbar, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { AppBar } from '../components';
+import { debounce } from 'lodash';
+import { plantActions } from '../actions';
+import { useDispatch } from 'react-redux';
 
 const styles = StyleSheet.create({
     container: {
@@ -44,12 +47,17 @@ export default function PlantIdentificationScreen({ navigation }) {
     const [search, setSearch] = useState('');
     const [plants, setPlants] = useState<any[]>([]);
     const [image, setImage] = useState('');
-
+    const uDispatch = useDispatch();
     const plantClick = plant => {
         // console.log('plant click:', plant.fields.raison_sociale);
         navigation.navigate('Discover', { query: plant });
     };
-
+    const searchPlant = (text) => {
+        setSearch(text);
+        (debounce(() => {
+            uDispatch(plantActions.searchPlantByName(search));
+        }, 500))();
+    };
     const pickImage = async () => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -76,9 +84,10 @@ export default function PlantIdentificationScreen({ navigation }) {
                     <View style={styles.header}>
                         <Searchbar
                             placeholder="Nom de la plante"
-                            onChangeText={text => setSearch(text)}
+                            onChangeText={text => searchPlant(text)}
                             value={search}
                         />
+                        <Text> {search}</Text>
                     </View>
                     <View style={styles.body}>
                         <Button
