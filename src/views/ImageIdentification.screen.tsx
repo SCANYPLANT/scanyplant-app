@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 export default function ImageIdentificationScreen({ route, navigation }) {
     const { image } = route.params;
     const uDispatch = useDispatch();
-    console.log('image base 64 ====> ====> ', image);
     const plantIdentification = async () => {
         uDispatch(plantActions.searchPlantByImg(image));
     };

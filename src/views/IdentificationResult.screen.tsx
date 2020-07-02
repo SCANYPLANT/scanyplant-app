@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Card, Searchbar, Text } from 'react-native-paper';
 import { AppBar } from '../components';
+import { useDispatch } from 'react-redux';
+import { plantActions } from '../actions';
 
 const styles = StyleSheet.create({
 	container: {
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
 });
 
 export default function IdentificationResultScreen({ navigation }) {
+	const uDispatch= useDispatch()
 	const [search, setSearch] = useState('');
 	const [plants, setPlants] = useState<any[]>([]);
 
@@ -34,7 +37,6 @@ export default function IdentificationResultScreen({ navigation }) {
 		// console.log('plant click:', plant.fields.raison_sociale);
 		navigation.navigate('Discover', { query: plant });
 	};
-
 	return (
 		<>
 			<AppBar title="MY PLANTS" />

@@ -4,6 +4,7 @@ import { plantService } from '../services/plant.service';
 export const plantActions = {
 	searchPlantByImg,
 	searchPlantByName,
+	getPlantSearch,
 };
 
 function searchPlantByImg(data) {
@@ -57,5 +58,32 @@ function searchPlantByName(data) {
 
 	function failure(error) {
 		return { type: plantConstants.SEARCH_PLANT_BY_NAME_FAILURE, error };
+	}
+}
+
+function getPlantSearch(id) {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.getPlantSearch(id).then(
+			id => {
+				dispatch(success(id));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.GET_PLANT_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.GET_PLANT_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.GET_PLANT_FAILURE, error };
 	}
 }

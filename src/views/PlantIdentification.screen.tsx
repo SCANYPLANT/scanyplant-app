@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Searchbar, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
@@ -58,6 +58,10 @@ export default function PlantIdentificationScreen({ navigation }) {
             uDispatch(plantActions.searchPlantByName(search));
         }, 500))();
     };
+    // comment avoir les informations d'une plante
+    // useEffect(() =>{
+    //     uDispatch(plantActions.getPlantSearch(175675))
+    // },[] )
     const pickImage = async () => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({

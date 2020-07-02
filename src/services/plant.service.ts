@@ -7,6 +7,7 @@ import FormData from 'form-data';
 export const plantService = {
     searchByImg,
     searchByName,
+    getPlantSearch
 };
 
 const createFormData = (image, body= {}) => {
@@ -35,24 +36,41 @@ async function searchByImg(image) {
         body: createFormData(image),
     };
 
-    return fetch(`${config.API_URL}/api/plant/searchByImg`, requestOptions)
+    return fetch(`${config.API_URL}/api/plant/searchByImg`, requestOptions as any)
         .then(handleResponse)
         .then(user => {
             return user;
         });
 }
 
-function searchByName(name) {
+async function searchByName(name) {
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
         },
         body: JSON.stringify({ name }),
     };
 
     return fetch(`${config.API_URL}/api/plant/searchByName`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+async function getPlantSearch(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+    };
+
+    return fetch(`${config.API_URL}/api/plant/trefle/${id}`, requestOptions)
         .then(handleResponse)
         .then(user => {
             return user;
