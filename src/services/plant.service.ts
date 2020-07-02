@@ -1,20 +1,38 @@
 import handleResponse from '../utils/handleResponse';
 import config from '../../config';
+import { readStorage } from '../utils/storage';
+import { Platform } from 'react-native';
+import FormData from 'form-data';
 
 export const plantService = {
     searchByImg,
     searchByName,
 };
 
-function searchByImg(data) {
+const createFormData = (image, body= {}) => {
+    const data = new FormData();
+    data.append('image', {
+        uri: Platform.OS === 'android' ? image.uri : image.uri.replace('file://', ''),
+        name: 'image'
+    });
+
+    Object.keys(body).forEach(key => {
+        data.append(key, body[key]);
+    });
+
+    return data;
+};
+async function searchByImg(image) {
+
     const requestOptions = {
         method: 'POST',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
         },
-        body: JSON.stringify({ image: data }),
+        body: createFormData(image),
     };
 
     return fetch(`${config.API_URL}/api/plant/searchByImg`, requestOptions)
