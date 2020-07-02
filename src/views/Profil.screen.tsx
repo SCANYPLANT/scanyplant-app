@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import { Formik } from 'formik';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions';
 import User from '../models/user';
+import { Formik } from 'formik';
 
 const styles = StyleSheet.create({
     button: {
@@ -18,28 +18,36 @@ const styles = StyleSheet.create({
 });
 export default function ProfilScreen({ navigation }) {
     const uDispatch = useDispatch();
+    let user: User = useSelector(({ users }: any) => users.user);
     useEffect(() => {
         uDispatch(userActions.me());
+
     }, []);
-    const user: User = useSelector(({ users }: any) => users.user);
     return (
         <>
             <AppBar title="MON COMPTE"/>
-            <>
+            {user && (<View>
+
                 <Text>Bienvenue </Text>
                 <Formik
                     initialValues={{
-                        email: user?.email,
-                        firstName: user?.firstName,
-                        lastName: user?.lastName,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                     }}
                     validationSchema={Yup.object().shape({
                         email: Yup.string().email().required('This field is required'),
                         firstName: Yup.string().required('This field is required'),
                         lastName: Yup.string().required('This field is required'),
                     })}
-                    onSubmit={(values, a,) => {
+                    onSubmit={values => {
                         console.log('values ====>=====>====>====>', values);
+                        uDispatch(userActions.update({
+                            id: user.uuid,
+                            email: values.email,
+                            firstName: values.firstName,
+                            lastName: values.lastName
+                        }));
                     }
                     }
                 >
@@ -54,6 +62,7 @@ export default function ProfilScreen({ navigation }) {
                         <>
                             <TextInput
                                 label="Nom"
+                                defaultValue={user.lastName}
                                 onBlur={handleBlur('lastName')}
                                 onChangeText={handleChange('lastName')}
                             />
@@ -64,6 +73,7 @@ export default function ProfilScreen({ navigation }) {
                             )}
                             <TextInput
                                 label="Prenom"
+                                defaultValue={user.firstName}
                                 onBlur={handleBlur('firstName')}
                                 onChangeText={handleChange('firstName')}
                             />
@@ -74,8 +84,10 @@ export default function ProfilScreen({ navigation }) {
                             )}
                             <TextInput
                                 label="Email"
+                                defaultValue={user.email}
                                 onBlur={handleBlur('email')}
                                 onChangeText={handleChange('email')}
+                                disabled={true}
                             />
                             {errors.email && touched.email && (
                                 <Text style={{ fontSize: 10, color: 'red' }}>
@@ -97,7 +109,8 @@ export default function ProfilScreen({ navigation }) {
                 >
                     Me désinscrire
                 </Button>
-            </>
+
+            </View>)}
         </>
     );
 }

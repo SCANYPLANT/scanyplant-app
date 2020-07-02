@@ -3,10 +3,12 @@ import { userService } from '../services';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector } from 'react-redux';
 import getToken from '../utils/getToken';
+import { removeStorage, setStorage } from '../utils/storage';
 
 export const userActions = {
 	login,
 	register,
+	update,
 	me,
 	logout,
 };
@@ -17,7 +19,7 @@ function login(username, password) {
 
 		userService.login(username, password).then(
 			async user => {
-				await AsyncStorage.setItem('token', user.meta.token).then(r => r);
+				await setStorage('token', user.meta.token)
 				dispatch(success(user));
 			},
 			error => {
@@ -43,7 +45,7 @@ function login(username, password) {
 function me() {
 	return async dispatch => {
 		dispatch(request());
-		userService.me(await getToken().then(data => data)).then(
+		userService.me().then(
 			async user => {
 				dispatch(success(user));
 			},
@@ -93,7 +95,34 @@ function register({ email, firstName, lastName, password }) {
 	}
 }
 
+function update({ id,email, firstName, lastName }) {
+	return dispatch => {
+		dispatch(request({ email }));
+
+		userService.update(id,firstName, lastName, email).then(
+			user => {
+				dispatch(success(user));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request(user) {
+		return { type: userConstants.UPDATE_REQUEST, user };
+	}
+
+	function success(user) {
+		return { type: userConstants.UPDATE_SUCCESS, user };
+	}
+
+	function failure(error) {
+		return { type: userConstants.UPDATE_FAILURE, error };
+	}
+}
+
 function logout() {
-	userService.logout();
+	removeStorage('token').then(r => r)
 	return { type: userConstants.LOGOUT };
 }
