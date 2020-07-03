@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Card, Colors, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, Card, Colors, Text } from 'react-native-paper';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import Plant from '../models/plant';
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 export default function IdentificationResultScreen({ route, navigation }) {
     const uDispatch = useDispatch();
     let plants: [Plant] = useSelector((state: any) => state.searchPlant?.data);
-    const [search, setSearch] = useState('');
+    const [pagination, setPagination] = useState(4);
 
     console.log('======', plants && plants);
 
@@ -57,7 +57,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                     <View style={styles.body}>
                         <ScrollView>
                             {!plants && <ActivityIndicator accessibilityStates animating={true} color={Colors.red800}/>}
-                            {plants && plants.slice(0, 1).map(plant => {
+                            {plants && plants.slice(0, pagination).map(plant => {
                                 return (
                                     <Card
                                         style={styles.item}
@@ -87,6 +87,10 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                 );
                             })}
                         </ScrollView>
+                        {
+                            plants.length >= pagination && <Button accessibilityStates onPress={() => setPagination(pagination+2)}> Next</Button>
+                        }
+
                     </View>
                 </View>
             </>
