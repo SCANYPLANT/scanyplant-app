@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
 	};
 	return (
 		<ImageBackground source={{ uri: "https://png.pngtree.com/thumb_back/fw800/back_our/20190617/ourmid/pngtree-green-spring-pear-flower-mobile-phone-side-h5-background-image_128569.jpg" }} style={{width: '100%', height: '100%'}}>
-			<AppBar title="LOGIN" />
+			{/*<AppBar title="LOGIN" />*/}
 			<View style={{display:'flex', alignContent:'center'}} >
 				<Formik
 					initialValues={{
