@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 	},
 	viewStyle: {
 		marginLeft: "10%",
-		marginTop: "50%",
+		// marginTop: "50%",
 		width: "80%",
 		display:'flex',
 		alignContent:'center'
@@ -29,8 +29,8 @@ export default function LoginScreen({ navigation }) {
 		uDispatch(userActions.login(email, password));
 	};
 	return (
-		<ImageBackground source={{ uri: "https://png.pngtree.com/thumb_back/fw800/back_our/20190617/ourmid/pngtree-green-spring-pear-flower-mobile-phone-side-h5-background-image_128569.jpg" }} style={{width: '100%', height: '100%'}}>
-			{/*<AppBar title="LOGIN" />*/}
+		<>
+			<AppBar title="LOGIN" />
 			<View style={styles.viewStyle} >
 				<Formik
 					initialValues={{
@@ -102,6 +102,6 @@ export default function LoginScreen({ navigation }) {
 					Register
 				</Button>
 			</View>
-		</ImageBackground>
+		</>
 	);
 }
