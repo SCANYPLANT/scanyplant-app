@@ -72,7 +72,7 @@ export default function ImageIdentificationScreen({ route, navigation }) {
                             source={{ uri: image.uri }}
                             style={{ width: '90%', height: '80%', left: '5%', top: '5%' }}
                         />
-                        <Button mode="contained" style={styles.buttonback}>Retour</Button>
+                        <Button mode="contained" style={styles.buttonback} onPress={() => navigation.navigate('Identification')}>Retour</Button>
                         <Button mode="contained" style={styles.buttonvalidation}
                                disabled={loading===true} onPress={plantIdentification}> {loading === true ? <ActivityIndicator accessibilityStates animating={true} size='small' color={Colors.red800}/> : 'Valider'}</Button>
                     </View>

@@ -39,7 +39,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
 
     const plantClick = plant => {
         // console.log('plant click:', plant.fields.raison_sociale);
-        navigation.navigate('plantDetail', { query: plant });
+        navigation.navigate('plantDetails', { myPlant: plant });
     };
 
     return (
