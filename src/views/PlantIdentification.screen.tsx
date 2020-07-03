@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Searchbar, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { AppBar } from '../components';
-import { debounce } from 'lodash';
 import { plantActions } from '../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,23 +45,21 @@ const styles = StyleSheet.create({
 
 export default function PlantIdentificationScreen({ navigation }) {
     const [search, setSearch] = useState('');
-    const [plants, setPlants] = useState<any[]>([]);
-    const [image, setImage] = useState('');
+    const loading = useSelector((state: any) => state.plant?.loading);
     const uDispatch = useDispatch();
-    const plantClick = plant => {
-        // console.log('plant click:', plant.fields.raison_sociale);
-        navigation.navigate('Discover', { query: plant });
-    };
+
     const searchPlant = (text) => {
         setSearch(text);
-        (debounce(() => {
-            uDispatch(plantActions.searchPlantByName(search));
-        }, 500))();
+
     };
     // comment avoir les informations d'une plante
     // useEffect(() =>{
     //     uDispatch(plantActions.getPlantSearch(175675))
     // },[] )
+    const handleSearch = () => {
+        uDispatch(plantActions.searchPlantByName(search));
+        loading === true && navigation.navigate('identificationResult')
+    };
     const pickImage = async () => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -89,12 +87,16 @@ export default function PlantIdentificationScreen({ navigation }) {
                         <Searchbar
                             placeholder="Nom de la plante"
                             onChangeText={text => searchPlant(text)}
+                            accessibilityStates
                             value={search}
+                            icon={() => <MaterialCommunityIcon name="flower" size={30}/>}
+                            onIconPress={() => handleSearch()}
                         />
-                        <Text> {search}</Text>
+                        <Text accessibilityStates> {search}</Text>
                     </View>
                     <View style={styles.body}>
                         <Button
+                            accessibilityStates
                             style={styles.fabcamera}
                             mode="contained"
                             icon="camera"
@@ -103,6 +105,7 @@ export default function PlantIdentificationScreen({ navigation }) {
                             Caméra
                         </Button>
                         <Button
+                            accessibilityStates
                             style={styles.fabphoto}
                             mode="contained"
                             icon="image"
