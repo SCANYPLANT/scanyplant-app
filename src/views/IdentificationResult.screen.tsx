@@ -88,7 +88,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                             })}
                         </ScrollView>
                         {
-                            plants.length >= pagination && <Button accessibilityStates onPress={() => setPagination(pagination+2)}> Next</Button>
+                            plants?.length >= pagination && <Button accessibilityStates onPress={() => setPagination(pagination+2)}> Next</Button>
                         }
 
                     </View>
