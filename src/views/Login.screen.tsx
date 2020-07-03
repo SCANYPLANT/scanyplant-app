@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
@@ -22,9 +22,9 @@ export default function LoginScreen({ navigation }) {
 		uDispatch(userActions.login(email, password));
 	};
 	return (
-		<>
+		<ImageBackground source={{ uri: "https://png.pngtree.com/thumb_back/fw800/back_our/20190617/ourmid/pngtree-green-spring-pear-flower-mobile-phone-side-h5-background-image_128569.jpg" }} style={{width: '100%', height: '100%'}}>
 			<AppBar title="LOGIN" />
-			<>
+			<View style={{display:'flex', alignContent:'center'}} >
 				<Formik
 					initialValues={{
 						email: '',
@@ -48,8 +48,10 @@ export default function LoginScreen({ navigation }) {
 						<>
 							<TextInput
 								label="Email"
+								accessibilityStates
 								value={values.email}
 								onBlur={handleBlur('email')}
+								style={{backgroundColor:'transparent'}}
 								onChangeText={handleChange('email')}
 							/>
 							{errors.email && touched.email && (
@@ -60,8 +62,10 @@ export default function LoginScreen({ navigation }) {
 							<TextInput
 								label="Password"
 								value={values.password}
+								accessibilityStates
 								onBlur={handleBlur('password')}
 								secureTextEntry={true}
+								style={{backgroundColor:'transparent'}}
 								onChangeText={handleChange('password')}
 							/>
 							{errors.password && touched.password && (
@@ -90,7 +94,7 @@ export default function LoginScreen({ navigation }) {
 				>
 					Register
 				</Button>
-			</>
-		</>
+			</View>
+		</ImageBackground>
 	);
 }

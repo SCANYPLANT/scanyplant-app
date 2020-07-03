@@ -39,7 +39,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
 
     const plantClick = plant => {
         // console.log('plant click:', plant.fields.raison_sociale);
-        navigation.navigate('Discover', { query: plant });
+        navigation.navigate('plantDetail', { query: plant });
     };
 
     return (
@@ -63,7 +63,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                         style={styles.item}
                                         key={plant.id}
                                         accessibilityStates
-                                        // onPress={() => plantClick(plant)}
+                                        onPress={() => plantClick(plant)}
                                     >
                                         <Card.Content
                                             style={{
