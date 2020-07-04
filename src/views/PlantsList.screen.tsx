@@ -44,6 +44,7 @@ export default function PlantsListScreen({ navigation }) {
 							{plants.map(plant => {
 								return (
 									<Card
+										accessibilityStates
 										style={styles.item}
 										key={plant.recordid}
 										onPress={() => plantClick(plant)}
@@ -53,7 +54,7 @@ export default function PlantsListScreen({ navigation }) {
 												source={plant.imageUrl}
 												style={{ width: 16, height: 16, borderRadius: 10 }}
 											/>
-											<Text>{plant.name}</Text>
+											<Text accessibilityStates >{plant.name}</Text>
 										</Card.Content>
 									</Card>
 								);

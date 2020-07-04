@@ -41,18 +41,20 @@ export default function SendMailForChangePassword({ navigation }) {
 						<>
 							<TextInput
 								label="Email"
+								accessibilityStates
 								value={values.email}
 								onBlur={handleBlur}
 								onChangeText={handleChange('email')}
 							/>
 							{errors.email && (
-								<Text style={{ fontSize: 10, color: 'red' }}>
+								<Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
 									{errors.email}
 								</Text>
 							)}
 							<Button
 								disabled={!isValid}
 								style={styles.button}
+								accessibilityStates
 								mode="contained"
 								onPress={() => handleSubmit}
 							>
@@ -61,7 +63,7 @@ export default function SendMailForChangePassword({ navigation }) {
 						</>
 					)}
 				</Formik>
-				<Button onPress={() => navigation.navigate('Login')}>Login</Button>
+				<Button  accessibilityStates onPress={() => navigation.navigate('Login')}>Login</Button>
 			</>
 		</>
 	);

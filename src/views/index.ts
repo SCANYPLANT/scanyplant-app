@@ -7,4 +7,9 @@ export { default as CameraScreen } from './Camera.screen';
 export { default as GalleryScreen } from './Gallery.screen';
 export { default as ImageIdentificationScreen } from './ImageIdentification.screen';
 export { default as IdentificationResultScreen } from './IdentificationResult.screen';
-export { default as SendMail } from './SendMailForChangePassword.screen';
+export { default as SendMailForChangePassword } from './SendMailForChangePassword.screen';
+export { default as ChangePasswordScreen } from './ChangePassword.screen';
+export { default as PlantProgrammingScreen } from './PlantProgramming.screen';
+export { default as ProfilScreen } from './Profil.screen';
+export { default as PlantDetailsScreen } from './PlantDetails.screen';
+
