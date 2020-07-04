@@ -20,6 +20,8 @@ import SendMailForChangePassword from '../views/SendMailForChangePassword.screen
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector } from 'react-redux';
 import ProfilScreen from '../views/Profil.screen';
+import PlantDetailsScreen from '../views/PlantDetails.screen';
+import PlantProgrammingScreen from '../views/PlantProgramming.screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,6 +43,14 @@ const HomeStack = () => {
 			<Stack.Screen
 				name="identificationResult"
 				component={IdentificationResultScreen}
+			/>
+			<Stack.Screen
+				name="plantDetails"
+				component={PlantDetailsScreen}
+			/>
+			<Stack.Screen
+				name="plantProgramming"
+				component={PlantProgrammingScreen}
 			/>
 			<Stack.Screen name="Camera" component={CameraScreen} />
 		</Stack.Navigator>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, TextInput } from 'react-native-paper';
 import { AppBar } from '../components';
 import Plant from '../models/plant';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,19 +46,19 @@ export default function PlantDetailsScreen({ route, navigation }) {
 						/> */}
 						<TextInput
 							label="Plant Name"
-							onChangeText={handleChange('plantName')}
+							// onChangeText={handleChange('plantName')}
 						/>
                         <Text>Votre plante est une: {plant.scientific_name}</Text>
                         <Text>Programme proposé:</Text>
-						<Button mode="contained" style={styles.buttonback}>
+						<Button mode="contained" style={styles.buttonback} onPress={() => navigation.goBack()}>
 							{' '}
 							Retour{' '}
 						</Button>
 						<Button
 							mode="contained"
-						>
+							onPress={() => navigation.navigate('plantProgramming')} >
 							{' '}
-							Valider{' '}
+							Sélectionner{' '}
 						</Button>
 					</View>
 				</View>

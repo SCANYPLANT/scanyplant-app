@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Camera } from 'expo-camera';
+import * as ImageManipulator from "expo-image-manipulator";
 
 export default function CameraScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
+	const [cameraRef, setCameraRef] = useState(null);
 
 	useEffect(() => {
 		(async () => {
@@ -21,7 +23,9 @@ export default function CameraScreen({ navigation }) {
 	}
 	return (
 		<View style={{ flex: 1 }}>
-			<Camera style={{ flex: 1 }} type={type}>
+			<Camera style={{ flex: 1 }} type={type} ref={ref => {
+				setCameraRef(ref) ;
+			}}>
 				<View
 					style={{
 						flex: 1,
@@ -31,21 +35,26 @@ export default function CameraScreen({ navigation }) {
 				>
 					<TouchableOpacity
 						style={{
-							flex: 0.1,
 							alignSelf: 'flex-end',
 							alignItems: 'center',
 						}}
-						onPress={() => {
-							setType(
-								type === Camera.Constants.Type.back
-									? Camera.Constants.Type.front
-									: Camera.Constants.Type.back,
+						onPress={async() => {
+							if(cameraRef){
+							  let photo = await cameraRef.takePictureAsync();
+							  let result = await ImageManipulator.manipulateAsync(
+								photo.uri,
+								[],
+								{ compress: 0, format: ImageManipulator.SaveFormat.JPEG }
 							);
-						}}
+							navigation.navigate('imageIdentification', {
+								image: result
+							});
+							}
+						  }}
 					>
 						<Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
 							{' '}
-							Flip{' '}
+							Take Picture{' '}
 						</Text>
 					</TouchableOpacity>
 				</View>
