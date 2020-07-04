@@ -119,13 +119,12 @@ export default function ProfilScreen({ navigation }) {
                     </Button>
                     <Portal>
                         <Dialog visible={visible} onDismiss={hideDialog}>
-                            <Dialog.Title accessibilityStates>Me desinscrire</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>This is simple dialog</Paragraph>
+                                <Paragraph>Etes-vous certain de vouloir vous desinscrire 😢</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions style={{ display:'flex', justifyContent:'space-around'}}>
-                                <Button accessibilityStates onPress={hideDialog}>Oui</Button>
                                 <Button accessibilityStates onPress={hideDialog}>Non</Button>
+                                <Button accessibilityStates onPress={hideDialog}>Oui</Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
