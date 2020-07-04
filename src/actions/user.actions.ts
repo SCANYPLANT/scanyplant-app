@@ -9,6 +9,7 @@ export const userActions = {
 	login,
 	register,
 	update,
+	updatePassword,
 	me,
 	logout,
 };
@@ -119,6 +120,33 @@ function update({ id,email, firstName, lastName }) {
 
 	function failure(error) {
 		return { type: userConstants.UPDATE_FAILURE, error };
+	}
+}
+
+function updatePassword({ password, confirmPassword }) {
+	return dispatch => {
+		dispatch(request());
+
+		userService.updatePassword(password, confirmPassword).then(
+			user => {
+				dispatch(success(user));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: userConstants.UPDATE_PASSWORD_REQUEST };
+	}
+
+	function success(user) {
+		return { type: userConstants.UPDATE_PASSWORD_SUCCESS, user };
+	}
+
+	function failure(error) {
+		return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
 	}
 }
 
