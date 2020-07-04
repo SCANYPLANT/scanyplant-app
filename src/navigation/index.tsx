@@ -23,10 +23,11 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeStack = () => {
     return (
@@ -58,6 +59,22 @@ const HomeStack = () => {
                 name="ChangePassword"
                 component={ChangePasswordScreen}/>
             <Stack.Screen name="Camera" component={CameraScreen}/>
+        </Stack.Navigator>
+    );
+};
+const ProfilStack = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="ProfilScreen"
+            screenOptions={{ headerShown: false }}
+        >
+            <Stack.Screen
+                name="ProfilScreen"
+                component={ProfilScreen}
+            />
+            <Stack.Screen
+                name="ChangePassword"
+                component={ChangePasswordScreen}/>
         </Stack.Navigator>
     );
 };
@@ -113,7 +130,7 @@ export default function Navigation() {
                     >
                         <Tab.Screen name="Mes plantes" component={PlantsListScreen}/>
                         <Tab.Screen name="Identification" component={HomeStack}/>
-                        <Tab.Screen name="Profil" component={ProfilScreen}/>
+                        <Tab.Screen name="Profil" component={ProfilStack}/>
                     </Tab.Navigator>
                 </>
             ) : (
