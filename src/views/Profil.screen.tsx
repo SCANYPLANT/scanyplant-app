@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, Dialog, Paragraph, Portal, Text, TextInput } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
@@ -21,8 +21,12 @@ export default function ProfilScreen({ navigation }) {
     let user: User = useSelector(({ users }: any) => users.user);
     useEffect(() => {
         uDispatch(userActions.me());
-
     }, []);
+    const [visible, setVisible] = React.useState(false);
+
+    const showDialog = () => setVisible(true);
+
+    const hideDialog = () => setVisible(false);
     return (
         <>
             <AppBar title="MON COMPTE"/>
@@ -109,10 +113,22 @@ export default function ProfilScreen({ navigation }) {
                     <Button
                         accessibilityStates
                         style={styles.button}
-                        onPress={() => navigation.navigate('Register')}
+                        onPress={() => showDialog()}
                     >
                         Me désinscrire
                     </Button>
+                    <Portal>
+                        <Dialog visible={visible} onDismiss={hideDialog}>
+                            <Dialog.Title accessibilityStates>Me desinscrire</Dialog.Title>
+                            <Dialog.Content>
+                                <Paragraph>This is simple dialog</Paragraph>
+                            </Dialog.Content>
+                            <Dialog.Actions style={{ display:'flex', justifyContent:'space-around'}}>
+                                <Button accessibilityStates onPress={hideDialog}>Oui</Button>
+                                <Button accessibilityStates onPress={hideDialog}>Non</Button>
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
                 </View>
             )}
         </>
