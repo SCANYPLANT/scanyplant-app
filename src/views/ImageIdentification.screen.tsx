@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { AppBar } from '../components';
 import { ActivityIndicator, Button, Colors } from 'react-native-paper';
@@ -47,17 +47,16 @@ const styles = StyleSheet.create({
 export default function ImageIdentificationScreen({ route, navigation }) {
     const { image } = route.params;
     const uDispatch = useDispatch();
-    const loading =useSelector((state:any) => state.searchPlant?.loading);
-    let plants: [Plant] = useSelector((state : any) => {
-        return(state.searchPlant?.data)
-        // state.plants?.data
+    const loading = useSelector((state: any) => state.searchPlant?.loading);
+    let plants: [Plant] = useSelector((state: any) => {
+        return (state.searchPlant?.data);
     });
     useEffect(() => {
-        console.log(loading)
-    }, [loading])
+        console.log(loading);
+    }, [loading]);
     const plantIdentification = async () => {
         uDispatch(plantActions.searchPlantByImg(image));
-        if (plants ) {
+        if (plants) {
             navigation.navigate('identificationResult');
         }
     };
@@ -72,9 +71,12 @@ export default function ImageIdentificationScreen({ route, navigation }) {
                             source={{ uri: image.uri }}
                             style={{ width: '90%', height: '80%', left: '5%', top: '5%' }}
                         />
-                        <Button mode="contained" style={styles.buttonback} onPress={() => navigation.navigate('Identification')}>Retour</Button>
+                        <Button mode="contained" style={styles.buttonback}
+                                onPress={() => navigation.navigate('Identification')}>Retour</Button>
                         <Button mode="contained" style={styles.buttonvalidation}
-                               disabled={loading===true} onPress={plantIdentification}> {loading === true ? <ActivityIndicator accessibilityStates animating={true} size='small' color={Colors.red800}/> : 'Valider'}</Button>
+                                disabled={loading === true} onPress={plantIdentification}> {loading === true ?
+                            <ActivityIndicator accessibilityStates animating={true} size='small'
+                                               color={Colors.red800}/> : 'Valider'}</Button>
                     </View>
                 </View>
             </>

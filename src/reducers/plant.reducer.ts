@@ -2,15 +2,27 @@ import { plantConstants } from '../constants';
 
 export function plant(state = {}, action) {
     switch (action.type) {
-        case plantConstants.SEARCH_PLANT_BY_NAME_REQUEST:
+        case plantConstants.GET_PLANT_BDD_REQUEST:
             return {
                 loading: true,
             };
-        case plantConstants.SEARCH_PLANT_BY_NAME_SUCCESS:
+        case plantConstants.GET_PLANT_BDD_SUCCESS:
             return {
                 data: action.data,
             };
-        case plantConstants.SEARCH_PLANT_BY_NAME_FAILURE:
+        case plantConstants.GET_PLANT_BDD_FAILURE:
+            return {
+                error: action.error,
+            };
+        case plantConstants.GET_PLANT_SUCCESS:
+            return {
+                data: action.data,
+            };
+        case plantConstants.GET_PLANT_REQUEST:
+            return {
+                loading: true,
+            };
+        case plantConstants.GET_PLANT_FAILURE:
             return {
                 error: action.error,
             };

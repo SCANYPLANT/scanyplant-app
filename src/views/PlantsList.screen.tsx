@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 });
 
 export default function PlantsListScreen({ navigation }) {
-	const [search, setSearch] = useState('');
 	const [plants, setPlants] = useState<any[]>([]);
 
 	const plantClick = plant => {

@@ -14,15 +14,15 @@ export function searchPlant(state = {}, action) {
             return {
                 error: action.error,
             };
-        case plantConstants.GET_PLANT_REQUEST:
+        case plantConstants.SEARCH_PLANT_BY_NAME_REQUEST:
             return {
                 loading: true,
             };
-        case plantConstants.GET_PLANT_SUCCESS:
+        case plantConstants.SEARCH_PLANT_BY_NAME_SUCCESS:
             return {
                 data: action.data,
             };
-        case plantConstants.GET_PLANT_FAILURE:
+        case plantConstants.SEARCH_PLANT_BY_NAME_FAILURE:
             return {
                 error: action.error,
             };

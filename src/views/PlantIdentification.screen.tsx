@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Searchbar, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
@@ -6,6 +6,7 @@ import { AppBar } from '../components';
 import { plantActions } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { plant } from '../reducers/plant.reducer';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 
 export default function PlantIdentificationScreen({ navigation }) {
     const [search, setSearch] = useState('');
-    const loading = useSelector((state: any) => state.plant?.loading);
+    const loading = useSelector((state: any) => state.searchPlant.loading);
     const uDispatch = useDispatch();
 
     const searchPlant = (text) => {
@@ -53,12 +54,14 @@ export default function PlantIdentificationScreen({ navigation }) {
 
     };
     // comment avoir les informations d'une plante
-    // useEffect(() =>{
-    //     uDispatch(plantActions.getPlantSearch(175675))
-    // },[] )
+    useEffect(() => {
+        console.log(loading)
+        if (loading === true) {
+            navigation.navigate('identificationResult');
+        }
+    }, [loading]);
     const handleSearch = () => {
         uDispatch(plantActions.searchPlantByName(search));
-        loading === true && navigation.navigate('identificationResult')
     };
     const pickImage = async () => {
         try {
