@@ -8,6 +8,7 @@ export const userService = {
     me,
     register,
     update,
+    updatePassword,
 };
 
 function login(username, password) {
@@ -26,6 +27,7 @@ function login(username, password) {
             return user;
         });
 }
+
 async function me() {
     const requestOptions = {
         method: 'GET',
@@ -82,6 +84,27 @@ async function update(id,firstName, lastName, email) {
     };
 
     return fetch(`${config.API_URL}/api/users/${id}`, requestOptions)
+        .then(handleResponseApi)
+        .then(user => {
+            return user;
+        });
+}
+
+async function updatePassword(password, confirmPassword) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+        body: JSON.stringify({
+            password,
+            passwordConfirm: confirmPassword,
+        }),
+    };
+
+    return fetch(`${config.API_URL}/api/users/resetPassword`, requestOptions)
         .then(handleResponseApi)
         .then(user => {
             return user;
