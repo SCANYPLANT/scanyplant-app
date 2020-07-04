@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
+import { readStorage } from '../utils/storage';
+import { useDispatch, useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
     button: {
@@ -15,18 +17,25 @@ const styles = StyleSheet.create({
 });
 
 export default function ChangePasswordScreen({ navigation }) {
+    const uDispatch= useDispatch()
+   // useSelector(state => console.log(state))
     return (
         <>
             <AppBar title="CHANGE PASSWORD"/>
-            <>
                 <Formik
                     initialValues={{
                         password: '',
                         confirmPassword: '',
                     }}
                     validationSchema={Yup.object().shape({
-                        password: Yup.string().email().required('This field is required'),
-                        confirmPassword: Yup.string().required('This field is required'),
+                        password: Yup.string().required('This field is required'),
+                        confirmPassword: Yup.string().when('password', {
+                            is: val => (!!(val && val.length > 0)),
+                            then: Yup.string().oneOf(
+                                [Yup.ref('password')],
+                                'Both password need to be the same',
+                            ),
+                        }),
                     })}
                     onSubmit={values => console.log(values)}
                 >
@@ -37,15 +46,17 @@ export default function ChangePasswordScreen({ navigation }) {
                           values,
                           errors,
                           isValid,
+                          touched
                       }) => (
                         <>
                             <TextInput accessibilityStates
                                        label="Password"
+                                       secureTextEntry={true}
                                        value={values.password}
-                                       onBlur={handleBlur}
+                                       onBlur={handleBlur('password')}
                                        onChangeText={handleChange('password')}
                             />
-                            {errors.password && (
+                            {errors.password && touched.password && (
                                 <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.password}
                                 </Text>
@@ -57,7 +68,7 @@ export default function ChangePasswordScreen({ navigation }) {
                                        secureTextEntry={true}
                                        onChangeText={handleChange('confirmPassword')}
                             />
-                            {errors.confirmPassword && (
+                            {errors.confirmPassword && touched.confirmPassword && (
                                 <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.confirmPassword}
                                 </Text>
@@ -66,13 +77,11 @@ export default function ChangePasswordScreen({ navigation }) {
                                     disabled={!isValid}
                                     style={styles.button}
                                     mode="contained"
-                            >
-                                <Text accessibilityStates>Change Password</Text>
-                            </Button>
+                                    onPress={handleSubmit}
+                            >Change Password</Button>
                         </>
                     )}
                 </Formik>
-            </>
         </>
     );
 }

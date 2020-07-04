@@ -55,9 +55,8 @@ const HomeStack = () => {
                 component={PlantProgrammingScreen}
             />
             <Stack.Screen
-                name="changePassword"
-                component={ChangePasswordScreen}
-            />
+                name="ChangePassword"
+                component={ChangePasswordScreen}/>
             <Stack.Screen name="Camera" component={CameraScreen}/>
         </Stack.Navigator>
     );

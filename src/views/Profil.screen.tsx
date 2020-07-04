@@ -103,7 +103,7 @@ export default function ProfilScreen({ navigation }) {
                             </>
                         )}
                     </Formik>
-                    <Button accessibilityStates onPress={() => navigation.navigate('changePassword')}>
+                    <Button accessibilityStates onPress={() => navigation.navigate('ChangePassword')}>
                         Modifier mon mot de passe
                     </Button>
                     <Button
