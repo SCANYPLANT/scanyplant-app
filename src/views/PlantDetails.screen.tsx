@@ -61,7 +61,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
     }, [route.params.myPlant.id]);
     return (
         <>
-            <AppBar title=''/>
+            <AppBar title={plant != null ? plant.class?.name : 'Aucune donnée.'} />
             <View style={styles.container}>
                 {plant && (
                     <View>
@@ -113,7 +113,8 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             <View style={{
                                 flex: 1,
                                 flexDirection: 'row',
-                                alignItems: 'center'}}>
+                                alignItems: 'center',
+                                marginBottom: 20}}>
                                 <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.goBack()}>
                                     Retour
