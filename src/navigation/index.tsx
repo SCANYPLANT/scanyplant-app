@@ -24,6 +24,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { readStorage } from '../utils/storage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -80,14 +81,18 @@ const ProfilStack = () => {
 };
 
 export default function Navigation() {
-    const user = async () => await AsyncStorage.getItem('user').then(e => e);
-    let isSignedIn = useSelector((state: any) => {
-        if (state.authentication) {
-            return state.authentication.user?.meta?.token;
+    let isSignedIn
+    readStorage('token').then(r => isSignedIn = r);
+    useSelector((state:any) => {
+        if(state.authentication.user) {
+            return isSignedIn = true
         }
-    });
+    })
     useEffect(() => {
-        user && (isSignedIn = user);
+        console.log('token',isSignedIn)
+        if(isSignedIn) {
+            isSignedIn = true
+        }
     }, []);
     return (
         <NavigationContainer>

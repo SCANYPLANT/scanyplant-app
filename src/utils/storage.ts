@@ -11,7 +11,7 @@ const setStorage = async (key, json) => {
 const readStorage = async (key) => {
     try {
         const value = await AsyncStorage.getItem(key);
-        if (value !== null) {
+        if (value) {
             return value;
         }
     } catch (e) {
