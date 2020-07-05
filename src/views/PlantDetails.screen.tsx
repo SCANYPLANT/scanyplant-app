@@ -61,7 +61,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
     }, [route.params.myPlant.id]);
     return (
         <>
-            <AppBar title=''/>
+            <AppBar title={plant != null ? plant.class?.name : 'Aucune donnée.'} />
             <View style={styles.container}>
                 {plant && (
                     <View>
