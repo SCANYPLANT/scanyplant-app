@@ -113,7 +113,8 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             <View style={{
                                 flex: 1,
                                 flexDirection: 'row',
-                                alignItems: 'center'}}>
+                                alignItems: 'center',
+                                marginBottom: 20}}>
                                 <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.goBack()}>
                                     Retour
