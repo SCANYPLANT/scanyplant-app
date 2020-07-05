@@ -10,6 +10,8 @@ import PlantDetails from '../models/plantDetails';
 const styles = StyleSheet.create({
     container: {
         marginTop: 20,
+        flex:1,
+        paddingBottom: '30%'
     },
     header: {
         justifyContent: 'center',
@@ -108,20 +110,20 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 <Title style={styles.detailLabel}> Longeur age adulte :</Title>
                                 <Subheading style={styles.detailText}>{plant?.main_species?.specifications?.mature_height.cm != null ? plant?.main_species?.specifications?.mature_height.cm : 'Aucune donnée.'}</Subheading>
                             </View>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center'}}>
+                                <Button accessibilityStates mode="contained"
+                                        onPress={() => navigation.goBack()}>
+                                    Retour
+                                </Button>
+                                <Button accessibilityStates mode="contained"
+                                        onPress={() => navigation.navigate('plantProgramming')}>
+                                    Sélectionner
+                                </Button>
+                            </View>
                         </ScrollView>
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            alignItems: 'stretch'}}>
-                            <Button accessibilityStates
-                                    onPress={() => navigation.goBack()}>
-                                Retour
-                            </Button>
-                            <Button accessibilityStates
-                                    onPress={() => navigation.navigate('plantProgramming')}>
-                                Sélectionner
-                            </Button>
-                        </View>
                     </View>
                 )}
             </View>
