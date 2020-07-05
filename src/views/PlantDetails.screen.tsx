@@ -108,6 +108,11 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                     style={styles.detailText}>{plant?.main_species?.growth?.temperature_minimum?.deg_c != null ? plant?.main_species?.growth?.temperature_minimum?.deg_c : emptyInfos}</Subheading>
                             </View>
                             <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Temperature max :</Title>
+                                <Subheading
+                                    style={styles.detailText}>{plant?.main_species?.growth?.temperature_maximum?.deg_c != null ? plant?.main_species?.growth?.temperature_maximum?.deg_c : emptyInfos}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
                                 <Title style={styles.detailLabel}> Tolerance a la secheresse :</Title>
                                 <Subheading
                                     style={styles.detailText}>{plant?.main_species?.growth?.drought_tolerance != null ? plant?.main_species?.growth?.drought_tolerance : emptyInfos}</Subheading>
