@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 20,
         flex: 1,
-        paddingBottom: '35%'
+        flexDirection: 'column',
+        alignItems: 'stretch'
     },
     header: {
         justifyContent: 'center',
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     },
     detailButton: {
         marginTop: 20,
+        marginBottom: 20,
         width: '40%',
         marginLeft: '5%'
     },
@@ -62,9 +64,8 @@ export default function PlantDetailsScreen({ route, navigation }) {
     return (
         <>
             <AppBar title={plant != null ? plant.class?.name : 'Aucune donnée.'}/>
-            <View style={styles.container}>
                 {plant && (
-                    <View>
+            <View style={styles.container}>
                         <View>
                         {plant.images ? <Carousel
                             data={plant?.images}
@@ -87,7 +88,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             }}
                         />}
                         </View>
-                        <ScrollView>
+                        <ScrollView style={{}}>
                             <View style={styles.viewColumn}>
                                 <Title style={styles.detailLabel}>Nom : </Title>
                                 <Subheading
@@ -136,8 +137,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             <View style={{
                                 flex: 1,
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                                marginBottom: 30
+                                alignItems: 'center'
                             }}>
                                 <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.goBack()}>
@@ -149,9 +149,8 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 </Button>
                             </View>
                         </ScrollView>
-                    </View>
-                )}
             </View>
+                )}
         </>
     );
 }
