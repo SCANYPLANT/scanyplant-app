@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Divider, Subheading, Title } from 'react-native-paper';
+import { Button, Caption, Divider, Subheading, Title } from 'react-native-paper';
 import { plantActions } from '../actions';
 import Carousel from 'react-native-snap-carousel';
 import PlantDetails from '../models/plantDetails';
@@ -43,7 +43,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
     return (
         <>
             <AppBar title=''/>
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 {plant && (
                     <View>
                         <Carousel
@@ -53,56 +53,63 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             sliderHeight={ITEM_HEIGHT}
                             itemWidth={ITEM_WIDTH}
                         />
-                        {plant.common_name != null ?
-                            <><Title> Nom :</Title>
-                                <Subheading>{plant.common_name}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant.class?.name != null ?
-                            <><Title> Nom II :</Title>
-                                <Subheading>{plant.class?.name}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant.family?.common_name != null ?
-                            <><Title> Famille :</Title>
-                                <Subheading>{plant.family?.common_name}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant?.main_species?.growth?.temperature_minimum?.deg_c != null ?
-                            <><Title> Temperature min :</Title>
-                                <Subheading>{plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant?.main_species?.growth?.drought_tolerance != null ?
-                            <><Title> Tolerance a la secheresse :</Title>
-                                <Subheading>{plant?.main_species?.growth?.drought_tolerance}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant?.duration != null ?
-                            <><Title> Durée de vie :</Title>
-                                <Subheading>{plant?.duration}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant?.main_species?.specifications?.max_height_at_base_age.cm != null ?
-                            <><Title> Longeur maximum :</Title>
-                                <Subheading>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
-                                <Divider accessibilityStates/></>
-                            : <></>}
-                        {plant?.main_species?.specifications?.mature_height.cm != null ?
-                            <><Title> Longeur age adulte :</Title>
-                                <Subheading>{plant?.main_species?.specifications?.mature_height.cm}</Subheading></>
-                            : <></>}
-                        <Button accessibilityStates mode="contained" style={styles.detailButton}
-                                onPress={() => navigation.goBack()}>
-                            Retour
-                        </Button>
-                        <Button accessibilityStates mode="contained" style={styles.detailButton}
-                                onPress={() => navigation.navigate('plantProgramming')}>
-                            Sélectionner
-                        </Button>
+                        <ScrollView>
+                            {plant.common_name != null ?
+                                <Caption>
+                                    <Subheading> Nom : {plant.common_name}</Subheading>
+                                    <Divider accessibilityStates/>
+                                </Caption>
+                                : <></>}
+                            {plant.class?.name != null ?
+                                <Caption>
+                                    <Subheading>Nom II : {plant.class?.name}</Subheading>
+                                    <Divider accessibilityStates/>
+                                </Caption>
+                                : <></>}
+                            {plant.family?.common_name != null ?
+                                <Caption>
+                                    <Subheading>Famille : {plant.family?.common_name}</Subheading>
+                                    <Divider accessibilityStates/>
+                                </Caption>
+                                : <></>}
+                            {plant?.main_species?.growth?.temperature_minimum?.deg_c != null ?
+                                <><Title> Temperature min :</Title>
+                                    <Subheading>{plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
+                                    <Divider accessibilityStates/></>
+                                : <></>}
+                            {plant?.main_species?.growth?.drought_tolerance != null ?
+                                <><Title> Tolerance a la secheresse :</Title>
+                                    <Subheading>{plant?.main_species?.growth?.drought_tolerance}</Subheading>
+                                    <Divider accessibilityStates/></>
+                                : <></>}
+                            {plant?.duration != null ?
+                                <><Title> Durée de vie :</Title>
+                                    <Subheading>{plant?.duration}</Subheading>
+                                    <Divider accessibilityStates/></>
+                                : <></>}
+                            {plant?.main_species?.specifications?.max_height_at_base_age.cm != null ?
+                                <><Title> Longeur maximum :</Title>
+                                    <Subheading>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
+                                    <Divider accessibilityStates/></>
+                                : <></>}
+                            {plant?.main_species?.specifications?.mature_height.cm != null ?
+                                <><Title> Longeur age adulte :</Title>
+                                    <Subheading>{plant?.main_species?.specifications?.mature_height.cm}</Subheading></>
+                                : <></>}
+                        </ScrollView>
+                        <View style={{ display: 'flex', justifyContent: 'center', bottom:0 }}>
+                            <Button accessibilityStates mode="contained"
+                                    onPress={() => navigation.goBack()}>
+                                Retour
+                            </Button>
+                            <Button accessibilityStates mode="contained"
+                                    onPress={() => navigation.navigate('plantProgramming')}>
+                                Sélectionner
+                            </Button>
+                        </View>
                     </View>
                 )}
-            </ScrollView>
+            </View>
         </>
     );
 }
