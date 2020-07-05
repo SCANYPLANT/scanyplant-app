@@ -21,9 +21,9 @@ export default function ChangePasswordScreen({ navigation }) {
     const uDispatch = useDispatch();
     const reset = useSelector(state => state.resetPassword?.user?.meta?.token);
     useEffect(() => {
-        if (reset){
-            removeStorage('token')
-            navigation.navigate('ProfilScreen')
+        if (reset) {
+            removeStorage('token');
+            navigation.navigate('ProfilScreen');
         }
     }, []);
     return (
@@ -92,7 +92,14 @@ export default function ChangePasswordScreen({ navigation }) {
                                 style={styles.button}
                                 mode="contained"
                                 onPress={handleSubmit}>
-                            Change Password
+                            Valider
+                        </Button>
+                        <Button
+                            accessibilityStates
+                            mode="contained"
+                            style={styles.button}
+                            onPress={() => navigation.goBack()}>
+                            Retour
                         </Button>
                     </>
                 )}
