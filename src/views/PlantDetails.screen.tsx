@@ -68,6 +68,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
                         <View>
                         {plant.images ? <Carousel
                             data={plant?.images}
+                            layout={'stack'}
                             renderItem={renderItem}
                             sliderWidth={SLIDER_WIDTH}
                             sliderHeight={ITEM_HEIGHT}
