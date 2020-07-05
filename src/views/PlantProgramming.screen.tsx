@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
+import { Slider } from 'react-native-elements';
 
 const styles = StyleSheet.create({
     button: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 export default function PlantProgrammingScreen({ navigation }) {
 
     //Récupérer plant name
-
+    const [temperature, setTemperature] = useState(0);
     return (
         <>
             <AppBar title="PROGRAMMATION"/>
@@ -34,14 +35,15 @@ export default function PlantProgrammingScreen({ navigation }) {
                         nextWatering: '',
                         shift: '',
                         repetition: '',
-                        temperature: '',
+                        temperature: 6,
                         brightness: '',
                     }}
-                    validationSchema={Yup.object().shape({
+                    validationSchema={
+                        Yup.object().shape({
                         nextWatering: Yup.string().required('This field is required'),
                         shift: Yup.string().required('This field is required'),
                         repetition: Yup.string().email().required('This field is required'),
-                        temperature: Yup.string().required('This field is required'),
+                        temperature: Yup.number().required('This field is required'),
                         brightness: Yup.string().required('This field is required'),
                     })}
                     onSubmit={values => {
@@ -102,6 +104,16 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     {errors.repetition}
                                 </Text>
                             )}
+                            <View style={{marginLeft:20, marginRight:20}}>
+                                <Slider
+                                    value={temperature}
+                                    maximumValue={30}
+                                    minimumValue={6}
+                                    step={1}
+                                    onValueChange={(v) => setTemperature(v)}
+                                />
+                                <Text accessibilityStates>Temperature: {temperature}°C</Text>
+                            </View>
                             <TextInput
                                 accessibilityStates
                                 label="Température"

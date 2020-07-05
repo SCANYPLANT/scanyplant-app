@@ -65,7 +65,8 @@ export default function PlantDetailsScreen({ route, navigation }) {
             <View style={styles.container}>
                 {plant && (
                     <View>
-                        {!plant.images ? <Carousel
+                        <View>
+                        {plant.images ? <Carousel
                             data={plant?.images}
                             renderItem={renderItem}
                             sliderWidth={SLIDER_WIDTH}
@@ -84,6 +85,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 margin: 10
                             }}
                         />}
+                        </View>
                         <ScrollView>
                             <View style={styles.viewColumn}>
                                 <Title style={styles.detailLabel}>Nom : </Title>
@@ -129,7 +131,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 flex: 1,
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                marginBottom: 20
+                                marginBottom: 30
                             }}>
                                 <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.goBack()}>

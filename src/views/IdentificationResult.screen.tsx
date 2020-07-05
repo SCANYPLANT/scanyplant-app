@@ -99,9 +99,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                 <Button accessibilityStates style={styles.detailButton}
                                         onPress={() => setPagination(pagination + 2)}> Plus</Button>
                             }
-
                         </View>
-
                     </View>
                 </View>
             </>

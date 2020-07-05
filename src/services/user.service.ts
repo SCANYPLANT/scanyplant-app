@@ -21,6 +21,7 @@ function login(username, password) {
         },
         body: JSON.stringify({ email: toLower(username), password }),
     };
+
     return fetch(`${config.API_URL}/api/auth/login`, requestOptions)
         .then(handleResponseApi)
         .then(user => {
