@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View} from 'react-native';
+import { Avatar } from 'react-native-paper';
 import { Camera } from 'expo-camera';
 import * as ImageManipulator from "expo-image-manipulator";
 
@@ -30,14 +31,12 @@ export default function CameraScreen({ navigation }) {
 					style={{
 						flex: 1,
 						backgroundColor: 'transparent',
-						flexDirection: 'row',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'flex-end'
 					}}
 				>
 					<TouchableOpacity
-						style={{
-							alignSelf: 'flex-end',
-							alignItems: 'center',
-						}}
 						onPress={async() => {
 							if(cameraRef){
 							  let photo = await cameraRef.takePictureAsync();
@@ -52,10 +51,12 @@ export default function CameraScreen({ navigation }) {
 							}
 						  }}
 					>
-						<Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-							{' '}
-							Take Picture{' '}
-						</Text>
+						<Avatar.Icon
+                        accessibilityStates
+                        icon={'flower'}
+                        size={100}
+                        style={{ width: 75, height: 75, borderRadius: 10 ,display:'flex', alignSelf:'center', margin:10}}
+                    />
 					</TouchableOpacity>
 				</View>
 			</Camera>
