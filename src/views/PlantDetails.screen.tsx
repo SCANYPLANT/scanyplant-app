@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Caption, Divider, Subheading, Title } from 'react-native-paper';
+import { Text, Button, Caption, Divider, Subheading, Title } from 'react-native-paper';
 import { plantActions } from '../actions';
 import Carousel from 'react-native-snap-carousel';
 import PlantDetails from '../models/plantDetails';
@@ -19,6 +19,21 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: '80%',
         marginLeft: '10%'
+    },
+    detailLabel: {
+        height: 30,
+        backgroundColor: '#57CC99',
+        color: '#ffffff',
+        paddingLeft: 5,
+        fontSize: 17
+    },
+    viewColumn: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch'
+    },
+    detailText: {
+        paddingLeft: 10
     }
 });
 
@@ -54,55 +69,48 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             itemWidth={ITEM_WIDTH}
                         />
                         <ScrollView>
-                            {plant.common_name != null ?
-                                <Caption>
-                                    <Subheading> Nom : {plant.common_name}</Subheading>
-                                    <Divider accessibilityStates/>
-                                </Caption>
-                                : <></>}
-                            {plant.class?.name != null ?
-                                <Caption>
-                                    <Subheading>Nom II : {plant.class?.name}</Subheading>
-                                    <Divider accessibilityStates/>
-                                </Caption>
-                                : <></>}
-                            {plant.family?.common_name != null ?
-                                <Caption>
-                                    <Subheading>Famille : {plant.family?.common_name}</Subheading>
-                                    <Divider accessibilityStates/>
-                                </Caption>
-                                : <></>}
-                            {plant?.main_species?.growth?.temperature_minimum?.deg_c != null ?
-                                <><Title> Temperature min :</Title>
-                                    <Subheading>{plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
-                                    <Divider accessibilityStates/></>
-                                : <></>}
-                            {plant?.main_species?.growth?.drought_tolerance != null ?
-                                <><Title> Tolerance a la secheresse :</Title>
-                                    <Subheading>{plant?.main_species?.growth?.drought_tolerance}</Subheading>
-                                    <Divider accessibilityStates/></>
-                                : <></>}
-                            {plant?.duration != null ?
-                                <><Title> Durée de vie :</Title>
-                                    <Subheading>{plant?.duration}</Subheading>
-                                    <Divider accessibilityStates/></>
-                                : <></>}
-                            {plant?.main_species?.specifications?.max_height_at_base_age.cm != null ?
-                                <><Title> Longeur maximum :</Title>
-                                    <Subheading>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
-                                    <Divider accessibilityStates/></>
-                                : <></>}
-                            {plant?.main_species?.specifications?.mature_height.cm != null ?
-                                <><Title> Longeur age adulte :</Title>
-                                    <Subheading>{plant?.main_species?.specifications?.mature_height.cm}</Subheading></>
-                                : <></>}
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}>Nom : </Title>
+                                <Subheading style={styles.detailText}>{plant.common_name != null ? plant.common_name : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}>Nom II :</Title>
+                                <Subheading style={styles.detailText}>{plant.class?.name != null ? plant.class?.name : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}>Famille :</Title>
+                                <Subheading style={styles.detailText}>{plant.family?.common_name != null ? plant.family?.common_name : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Temperature min :</Title>
+                                <Subheading style={styles.detailText}>{plant?.main_species?.growth?.temperature_minimum?.deg_c != null ? plant?.main_species?.growth?.temperature_minimum?.deg_c : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Tolerance a la secheresse :</Title>
+                                <Subheading style={styles.detailText}>{plant?.main_species?.growth?.drought_tolerance != null ? plant?.main_species?.growth?.drought_tolerance : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Durée de vie :</Title>
+                                <Subheading style={styles.detailText}>{plant?.duration != null ? plant?.duration : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Longeur maximum :</Title>
+                                <Subheading style={styles.detailText}>{plant?.main_species?.specifications?.max_height_at_base_age.cm != null ? plant?.main_species?.specifications?.max_height_at_base_age.cm : 'Aucune donnée.'}</Subheading>
+                            </View>
+                            <View style={styles.viewColumn}>
+                                <Title style={styles.detailLabel}> Longeur age adulte :</Title>
+                                <Subheading style={styles.detailText}>{plant?.main_species?.specifications?.mature_height.cm != null ? plant?.main_species?.specifications?.mature_height.cm : 'Aucune donnée.'}</Subheading>
+                            </View>
                         </ScrollView>
-                        <View style={{ display: 'flex', justifyContent: 'center', bottom:0 }}>
-                            <Button accessibilityStates mode="contained"
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'stretch'}}>
+                            <Button accessibilityStates
                                     onPress={() => navigation.goBack()}>
                                 Retour
                             </Button>
-                            <Button accessibilityStates mode="contained"
+                            <Button accessibilityStates
                                     onPress={() => navigation.navigate('plantProgramming')}>
                                 Sélectionner
                             </Button>
