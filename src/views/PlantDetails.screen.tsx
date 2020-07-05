@@ -7,6 +7,7 @@ import { Text, Button, Divider, Title, Subheading } from 'react-native-paper';
 import { plantActions } from '../actions';
 import Carousel from 'react-native-snap-carousel';
 import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
+import PlantDetails from '../models/plantDetails';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 
 export default function PlantDetailsScreen({ route, navigation }) {
     const uDispatch = useDispatch();
-    let plant: Plant = useSelector((state: any) => state.plant?.data);
+    let plant: PlantDetails = useSelector((state: any) => state.plant?.data);
 
     const SLIDER_WIDTH = Dimensions.get('window').width;
     const SLIDER_HEIGHT = Dimensions.get('window').height;
@@ -53,43 +54,43 @@ export default function PlantDetailsScreen({ route, navigation }) {
                             sliderHeight={ITEM_HEIGHT}
                             itemWidth={ITEM_WIDTH}
                         />
-                        {plant.common_name != null ? 
-                            <><Title accessibilityStates> Nom :</Title> 
+                        {plant.common_name != null ?
+                            <><Title accessibilityStates> Nom :</Title>
                             <Subheading accessibilityStates>{plant.common_name}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant.class?.name != null ? 
-                            <><Title accessibilityStates> Nom II :</Title> 
+                        {plant.class?.name != null ?
+                            <><Title accessibilityStates> Nom II :</Title>
                             <Subheading accessibilityStates>{plant.class?.name}</Subheading>
                             <Divider /></>
                         : <></>}
-                            {plant.family?.common_name != null ? 
-                            <><Title accessibilityStates> Famille :</Title> 
+                            {plant.family?.common_name != null ?
+                            <><Title accessibilityStates> Famille :</Title>
                             <Subheading accessibilityStates>{plant.family?.common_name}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant?.growth?.temperature_minimum?.deg_c != null ? 
-                            <><Title accessibilityStates> Temperature min :</Title> 
+                        {plant?.growth?.temperature_minimum?.deg_c != null ?
+                            <><Title accessibilityStates> Temperature min :</Title>
                             <Subheading accessibilityStates>{plant?.growth?.temperature_minimum?.deg_c}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant?.growth?.drought_tolerance != null ? 
-                            <><Title accessibilityStates> Tolerance a la secheresse :</Title> 
+                        {plant?.growth?.drought_tolerance != null ?
+                            <><Title accessibilityStates> Tolerance a la secheresse :</Title>
                             <Subheading accessibilityStates>{plant?.growth?.drought_tolerance}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant?.duration != null ? 
-                            <><Title accessibilityStates> Durée de vie :</Title> 
+                        {plant?.duration != null ?
+                            <><Title accessibilityStates> Durée de vie :</Title>
                             <Subheading accessibilityStates>{plant?.duration}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant?.main_species?.specifications?.max_height_at_base_age.cm != null ? 
-                            <><Title accessibilityStates> Longeur maximum :</Title> 
+                        {plant?.main_species?.specifications?.max_height_at_base_age.cm != null ?
+                            <><Title accessibilityStates> Longeur maximum :</Title>
                             <Subheading accessibilityStates>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
                             <Divider /></>
                         : <></>}
-                        {plant?.main_species?.specifications?.mature_height.cm != null ? 
-                            <><Title accessibilityStates> Longeur age adulte :</Title> 
+                        {plant?.main_species?.specifications?.mature_height.cm != null ?
+                            <><Title accessibilityStates> Longeur age adulte :</Title>
                             <Subheading accessibilityStates>{plant?.main_species?.specifications?.mature_height.cm}</Subheading></>
                         : <></>}
                         <Button accessibilityStates mode="contained" style={styles.detailButton} onPress={() => navigation.goBack()}>
