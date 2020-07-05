@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 20,
         flex:1,
-        paddingBottom: '30%'
+        paddingBottom: '35%'
     },
     header: {
         justifyContent: 'center',
