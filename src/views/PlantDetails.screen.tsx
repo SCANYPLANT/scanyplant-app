@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     },
     detailButton: {
         marginTop: 20,
-        width: '80%',
-        marginLeft: '10%'
+        width: '40%',
+        marginLeft: '5%'
     },
     detailLabel: {
         height: 30,
@@ -114,11 +114,11 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 flex: 1,
                                 flexDirection: 'row',
                                 alignItems: 'center'}}>
-                                <Button accessibilityStates mode="contained"
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.goBack()}>
                                     Retour
                                 </Button>
-                                <Button accessibilityStates mode="contained"
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
                                         onPress={() => navigation.navigate('plantProgramming')}>
                                     Sélectionner
                                 </Button>
