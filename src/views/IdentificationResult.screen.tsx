@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button, Card, Colors, Text, Avatar, Searchbar } from 'react-native-paper';
+import { ActivityIndicator, Avatar, Button, Card, Colors, Text } from 'react-native-paper';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import Plant from '../models/plant';
@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 0,
         justifyContent: 'center',
+    },
+    detailButton: {
+        marginTop: 20,
+        width: '40%',
+        marginLeft: '5%'
     },
 });
 
@@ -57,6 +62,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                     <View style={styles.body}>
                         <ScrollView>
                             {!plants && <ActivityIndicator accessibilityStates animating={true} color={Colors.red800}/>}
+                            {plants && (plants?.length === 0) &&<Text accessibilityStates lineBreakMode={'middle'}> Aucune Donnée </Text>}
                             {plants && plants.slice(0, pagination).map(plant => {
                                 return (
                                     <Card
@@ -89,11 +95,19 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                 );
                             })}
                         </ScrollView>
-                        {
-                            plants?.length >= pagination &&
-                            <Button accessibilityStates onPress={() => setPagination(pagination + 2)}> Next</Button>
-                        }
-                        <Button accessibilityStates  onPress={() => navigation.goBack()}> Back</Button>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginBottom: 10
+                        }} >
+                            <Button accessibilityStates style={styles.detailButton} onPress={() => navigation.goBack()}> Back</Button>
+                            {
+                                plants?.length >= pagination &&
+                                <Button accessibilityStates style={styles.detailButton} onPress={() => setPagination(pagination + 2)}> Plus</Button>
+                            }
+
+                        </View>
+
                     </View>
                 </View>
             </>
