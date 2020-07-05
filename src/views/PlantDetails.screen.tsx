@@ -47,16 +47,11 @@ export default function PlantDetailsScreen({ route, navigation }) {
     const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.2);
 
     const renderItem = ({ item, index }) =>
-        (item.url ? <Image source={{ uri: item?.url }} style={{
+        <Image source={{ uri: item?.url }} style={{
             width: ITEM_WIDTH,
             height: ITEM_HEIGHT,
             marginBottom: 20
-        }}/> : <Avatar.Icon
-            accessibilityStates
-            icon={'flower'}
-            size={100}
-            style={{ width: 80, height: 80, borderRadius: 10 }}
-        />)
+        }}/>
     ;
 
     useEffect(() => {
@@ -68,13 +63,18 @@ export default function PlantDetailsScreen({ route, navigation }) {
             <View style={styles.container}>
                 {plant && (
                     <View>
-                        <Carousel
+                        {!plant.images ?   <Carousel
                             data={plant?.images}
                             renderItem={renderItem}
                             sliderWidth={SLIDER_WIDTH}
                             sliderHeight={ITEM_HEIGHT}
                             itemWidth={ITEM_WIDTH}
-                        />
+                        /> : <Avatar.Icon
+                        accessibilityStates
+                        icon={'flower'}
+                        size={100}
+                        style={{ width: 100, height: 100, borderRadius: 10 ,display:'flex', alignSelf:'center', margin:10}}
+                    /> }
                         <ScrollView>
                             <View style={styles.viewColumn}>
                                 <Title style={styles.detailLabel}>Nom : </Title>
