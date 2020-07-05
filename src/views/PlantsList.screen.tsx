@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Avatar, Card, Text } from 'react-native-paper';
 import { AppBar } from '../components';
 
 const styles = StyleSheet.create({

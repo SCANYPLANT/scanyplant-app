@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button, Card, Colors, Text } from 'react-native-paper';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Button, Card, Colors, Text, Avatar, Searchbar } from 'react-native-paper';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import Plant from '../models/plant';
-import { CardCover } from 'react-native-paper/lib/typescript/src/components/Card/CardCover';
 
 const styles = StyleSheet.create({
     container: {
@@ -21,16 +20,17 @@ const styles = StyleSheet.create({
     },
     item: {
         flex: 1,
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         marginVertical: 10,
         paddingVertical: 10,
-        paddingHorizontal: 10,
+        paddingHorizontal: 0,
         justifyContent: 'center',
     },
 });
 
 export default function IdentificationResultScreen({ route, navigation }) {
     const uDispatch = useDispatch();
+    const [search, setSearch] = useState('');
     let plants: [Plant] = useSelector((state: any) => state.searchPlant?.data);
     const [pagination, setPagination] = useState(4);
 
@@ -70,16 +70,18 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                                 display: 'flex',
                                                 flexDirection: 'row',
                                                 alignItems: 'center',
-                                                justifyContent:'space-around'
+                                                justifyContent: 'space-around'
 
                                             }}>
-                                            <Card.Cover
+                                            <Avatar.Icon
                                                 accessibilityStates
-                                                source={{ uri: 'https://lh3.googleusercontent.com/proxy/-p7q4yG_6AP2RZMs5vvl_D-UVeP_UfMMYVBKB6bb1N04Bdlrp9HvKVNFIQH1GLiKAxI6niIP7O3D8m4W-niJ1cPrpwttYnxDXD9vHOJHRkJjtF4aSgE' }}
+                                                icon={'flower'}
+                                                size={100}
                                                 style={{ width: 80, height: 80, borderRadius: 10 }}
                                             />
                                             <View style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                                <Text accessibilityStates lineBreakMode={'middle'}>{plant.common_name}</Text>
+                                                <Text accessibilityStates
+                                                      lineBreakMode={'middle'}>{plant.common_name}</Text>
                                                 <Text accessibilityStates> {plant.scientific_name}</Text>
                                             </View>
                                         </Card.Content>
@@ -88,9 +90,10 @@ export default function IdentificationResultScreen({ route, navigation }) {
                             })}
                         </ScrollView>
                         {
-                            plants?.length >= pagination && <Button accessibilityStates onPress={() => setPagination(pagination+2)}> Next</Button>
+                            plants?.length >= pagination &&
+                            <Button accessibilityStates onPress={() => setPagination(pagination + 2)}> Next</Button>
                         }
-
+                        <Button accessibilityStates  onPress={() => navigation.goBack()}> Back</Button>
                     </View>
                 </View>
             </>
