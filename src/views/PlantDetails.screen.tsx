@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Button, Caption, Divider, Subheading, Title } from 'react-native-paper';
+import { Text, Button, Caption, Divider, Subheading, Title, Avatar } from 'react-native-paper';
 import { plantActions } from '../actions';
 import Carousel from 'react-native-snap-carousel';
 import PlantDetails from '../models/plantDetails';
@@ -46,11 +46,18 @@ export default function PlantDetailsScreen({ route, navigation }) {
     const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
     const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.2);
 
-    const renderItem = ({ item, index }) => <Image source={{ uri: item?.url }} style={{
-        width: ITEM_WIDTH,
-        height: ITEM_HEIGHT,
-        marginBottom: 20
-    }}/>;
+    const renderItem = ({ item, index }) =>
+        (item.url ? <Image source={{ uri: item?.url }} style={{
+            width: ITEM_WIDTH,
+            height: ITEM_HEIGHT,
+            marginBottom: 20
+        }}/> : <Avatar.Icon
+            accessibilityStates
+            icon={'flower'}
+            size={100}
+            style={{ width: 80, height: 80, borderRadius: 10 }}
+        />)
+    ;
 
     useEffect(() => {
         uDispatch(plantActions.getPlantSearch(route.params.myPlant.id));
