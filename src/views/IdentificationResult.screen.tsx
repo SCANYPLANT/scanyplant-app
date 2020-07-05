@@ -62,6 +62,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                     <View style={styles.body}>
                         <ScrollView>
                             {!plants && <ActivityIndicator accessibilityStates animating={true} color={Colors.red800}/>}
+                            {plants && (plants?.length === 0) &&<Text accessibilityStates lineBreakMode={'middle'}> Aucune Donnée </Text>}
                             {plants && plants.slice(0, pagination).map(plant => {
                                 return (
                                     <Card
