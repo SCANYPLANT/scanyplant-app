@@ -46,7 +46,7 @@ export default function PlantDetailsScreen({ route, navigation }) {
             <AppBar title=''/>
             <ScrollView style={styles.container}>
                 {plant && (
-                    <View style={styles.body}>
+                    <View>
                         <Carousel
                             data={plant?.images}
                             renderItem={renderItem}
@@ -71,12 +71,12 @@ export default function PlantDetailsScreen({ route, navigation }) {
                         : <></>}
                         {plant?.growth?.temperature_minimum?.deg_c != null ?
                             <><Title accessibilityStates> Temperature min :</Title>
-                            <Subheading accessibilityStates>{plant?.growth?.temperature_minimum?.deg_c}</Subheading>
+                            <Subheading accessibilityStates>{plant?.main_species.growth?.temperature_minimum?.deg_c}</Subheading>
                             <Divider /></>
                         : <></>}
                         {plant?.growth?.drought_tolerance != null ?
                             <><Title accessibilityStates> Tolerance a la secheresse :</Title>
-                            <Subheading accessibilityStates>{plant?.growth?.drought_tolerance}</Subheading>
+                            <Subheading accessibilityStates>{plant?.main_species.growth?.drought_tolerance}</Subheading>
                             <Divider /></>
                         : <></>}
                         {plant?.duration != null ?
