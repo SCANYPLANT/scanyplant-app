@@ -122,14 +122,15 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     {errors.nextWatering}
                                 </Text>
                             )}
-                            <Text accessibilityStates>Décaler la tâche de {shift} jours</Text>
+                            <Text accessibilityStates style={{marginTop: 30}}>Décaler la tâche de {shift} jours</Text>
                             <View style={{
                                 flex: 0,
                                 flexDirection: 'row',
                                 justifyContent: 'space-around',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                marginTop: 20
                             }}>
-                                <Chip accessibilityStates selectedColor={'#57cc99'} onPress={() => {
+                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
                                     let value = shift - 1;
                                     if (shift > 0) {
                                         values.shift = value;
@@ -137,7 +138,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                                         handleChange('value');
                                     }
                                 }}><Text accessibilityStates>- 1</Text></Chip>
-                                <Chip accessibilityStates selectedColor={'#57cc99'} onPress={() => {
+                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
                                     let value = shift + 1;
                                     values.shift = value;
                                     setShift(value);
@@ -149,14 +150,15 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     {errors.shift}
                                 </Text>
                             )}
-                            <Text accessibilityStates>Arroser tous les {values.repetition} jours</Text>
+                            <Text accessibilityStates style={{marginTop: 30}}>Arroser tous les {values.repetition} jours</Text>
                             <View style={{
                                 flex: 0,
                                 flexDirection: 'row',
                                 justifyContent: 'space-around',
-                                alignItems: 'space-around'
+                                alignItems: 'space-around',
+                                marginTop: 20
                             }}>
-                                <Chip accessibilityStates selectedColor={'#57cc99'} onPress={() => {
+                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
                                     let value = repetition - 1;
                                     if (repetition > 0) {
                                         values.repetition = value;
@@ -164,7 +166,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                                         handleChange('value');
                                     }
                                 }}><Text accessibilityStates>- 1</Text></Chip>
-                                <Chip accessibilityStates selectedColor={'#57cc99'} onPress={() => {
+                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
                                     let value = repetition + 1;
                                     if (repetition < 7) {
                                         values.repetition = value;
@@ -173,11 +175,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     }
                                 }}><Text accessibilityStates>+ 1</Text></Chip>
                             </View>
-                            <TouchableOpacity onPress={() => setShowTemp(!showTemp)}>
-                                <Text
-                                    accessibilityStates
-                                    style={{ backgroundColor: 'transparent' }}
-                                >Temperature: {temperature} °C</Text>
+                            <Button accessibilityStates mode="contained" onPress={() => setShowTemp(!showTemp)} style={{ marginTop: 30, marginLeft: 20, marginRight: 20 }}>Temperature: {temperature} °C</Button>
                                 {showTemp && (
                                     <Portal>
                                         <Dialog visible={() => setShowTemp(!showTemp)}
@@ -186,12 +184,11 @@ export default function PlantProgrammingScreen({ navigation }) {
                                                 <Slider
                                                     value={temperature}
                                                     maximumValue={30}
-                                                    minimumValue={6}
+                                                    minimumValue={-10}
                                                     step={1}
                                                     onValueChange={(v) => setTemperature(v)}
                                                 />
-                                                <Text accessibilityStates>Temperature: {temperature}°C</Text>
-
+                                            <Text accessibilityStates>Temperature: {temperature}°C</Text>
                                             </Dialog.Content>
                                             <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
                                                 <Button accessibilityStates
@@ -204,7 +201,6 @@ export default function PlantProgrammingScreen({ navigation }) {
                                         </Dialog>
                                     </Portal>
                                 )}
-                            </TouchableOpacity>
                             <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
                             <TextInput accessibilityStates
                                        style={{ backgroundColor:'white',  }}
@@ -224,8 +220,9 @@ export default function PlantProgrammingScreen({ navigation }) {
                                                     selectedValue={values.brightness}
                                                     onValueChange={handleChange('brightness')}
                                                 >
-                                                    <Picker.Item label="Lumiere" value="Lumiere" />
-                                                    <Picker.Item label="Chaud" value="Chaud" />
+                                                    <Picker.Item label="Direct" value="Direct" />
+                                                    <Picker.Item label="Indirect" value="Indirect" />
+                                                    <Picker.Item label="Mixte" value="Mixte" />
                                                 </Picker>
                                             </Dialog.Content>
                                             <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -240,7 +237,6 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     </Portal>
                                 )}
                             </View>
-
                             <Button accessibilityStates
                                     style={styles.button}
                                     mode="contained"
