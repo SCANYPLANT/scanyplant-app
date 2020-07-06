@@ -109,7 +109,7 @@ async function getAllPlantBDD() {
         },
     };
 
-    return fetch(`${config.API_URL}/api/plant/`, requestOptions)
+    return fetch(`${config.API_URL}/api/plant`, requestOptions)
         .then(handleResponse)
         .then(user => {
             return user;

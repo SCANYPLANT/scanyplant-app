@@ -136,15 +136,15 @@ function getAllPlantBDD() {
 	};
 
 	function request() {
-		return { type: plantConstants.GET_BY_ID_PLANT_BDD_REQUEST };
+		return { type: plantConstants.GET_PLANT_BDD_REQUEST };
 	}
 
 	function success(data) {
-		return { type: plantConstants.GET_BY_ID_PLANT_BDD_SUCCESS, data };
+		return { type: plantConstants.GET_PLANT_BDD_SUCCESS, data };
 	}
 
 	function failure(error) {
-		return { type: plantConstants.GET_BY_ID_PLANT_BDD_FAILURE, error };
+		return { type: plantConstants.GET_PLANT_BDD_FAILURE, error };
 	}
 }
 

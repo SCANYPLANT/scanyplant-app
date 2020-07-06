@@ -77,7 +77,8 @@ export default function PlantProgrammingScreen({ navigation }) {
                             nextWatering: values.nextWatering,
                             repetition: values.repetition,
                             shift: values.shift,
-                            temperature: values.temperature
+                            temperature: values.temperature,
+                            images: (plant?.images as any).length !== 0 ? plant?.images[0].url.toString(): null
                         }));
                     }
                     }>
