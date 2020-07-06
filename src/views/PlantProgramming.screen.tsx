@@ -49,11 +49,10 @@ export default function PlantProgrammingScreen({ navigation }) {
     };
 
     return (
-        <>
+        <View style={{ backgroundColor:'white',  }}>
             <AppBar title="PROGRAMMATION"/>
-            <View style={{ marginTop: 10 }}>
+            <View style={{ marginTop: 10,  }}>
                 <Formik
-
                     initialValues={{
                         nextWatering: date,
                         shift: 0,
@@ -82,7 +81,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                           isValid,
                           touched,
                       }) => (
-                        <>
+                        <View style={{ backgroundColor:'white',  }}>
                             <TouchableOpacity onPress={() => setShow(!show)}>
                                 <TextInput
                                     accessibilityStates
@@ -208,6 +207,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
                             <TextInput accessibilityStates
+                                       style={{ backgroundColor:'white',  }}
                                        label="Luminosité"
                                        value={values.brightness}
                                        pointerEvents={'none'}
@@ -248,10 +248,10 @@ export default function PlantProgrammingScreen({ navigation }) {
                             >
                                 Valider
                             </Button>
-                        </>
+                        </View>
                     )}
                 </Formik>
             </View>
-        </>
+        </View>
     );
 }
