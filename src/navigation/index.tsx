@@ -84,7 +84,7 @@ export default function Navigation() {
     let isSignedIn
     readStorage('token').then(r => isSignedIn = r);
     useSelector((state:any) => {
-        if(state.authentication.user) {
+        if(state.authentication.user && state.authentication.user.meta) {
             return isSignedIn = true
         }
     })

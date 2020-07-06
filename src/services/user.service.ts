@@ -1,6 +1,6 @@
 import { toLower } from 'lodash';
 import config from '../../config';
-import { readStorage } from '../utils/storage';
+import { readStorage, setStorage } from '../utils/storage';
 import handleResponseApi   from '../utils/handleResponse';
 
 export const userService = {
@@ -25,6 +25,8 @@ function login(username, password) {
     return fetch(`${config.API_URL}/api/auth/login`, requestOptions)
         .then(handleResponseApi)
         .then(user => {
+            console.log(user)
+            // setStorage('token', action.user?.meta?.token).then(r => r);
             return user;
         });
 }

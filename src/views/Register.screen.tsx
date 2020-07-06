@@ -88,7 +88,7 @@ export default function RegisterScreen({ navigation }) {
                                 onChangeText={handleChange('lastName')}
                             />
                             {errors.lastName && touched.lastName && (
-                                <Text style={{ fontSize: 10, color: 'red' }}>
+                                <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.lastName}
                                 </Text>
                             )}
@@ -100,7 +100,7 @@ export default function RegisterScreen({ navigation }) {
                                 onChangeText={handleChange('firstName')}
                             />
                             {errors.firstName && touched.firstName && (
-                                <Text style={{ fontSize: 10, color: 'red' }}>
+                                <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.firstName}
                                 </Text>
                             )}
