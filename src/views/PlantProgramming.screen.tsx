@@ -51,7 +51,7 @@ export default function PlantProgrammingScreen({ navigation }) {
     return (
         <View style={{ backgroundColor:'white',  }}>
             <AppBar title="PROGRAMMATION"/>
-            <View style={{ marginTop: 10,  }}>
+            <View style={{ margin: 10 }}>
                 <Formik
                     initialValues={{
                         nextWatering: date,
