@@ -1,6 +1,6 @@
 import { plantConstants } from '../constants';
 
-export function plant(state = {}, action) {
+export function plantBDD(state = {}, action) {
     switch (action.type) {
 
         case plantConstants.GET_PLANT_BDD_REQUEST:
@@ -53,20 +53,6 @@ export function plant(state = {}, action) {
                 data: action.data,
             };
         case plantConstants.DELETE_BY_ID_PLANT_BDD_FAILURE:
-            return {
-                error: action.error,
-            };
-
-
-        case plantConstants.POST_PLANT_BDD_REQUEST:
-            return {
-                loading: true,
-            };
-        case plantConstants.POST_PLANT_BDD_SUCCESS:
-            return {
-                data: action.data,
-            };
-        case plantConstants.POST_PLANT_BDD_FAILURE:
             return {
                 error: action.error,
             };

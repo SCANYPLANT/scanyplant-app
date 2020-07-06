@@ -52,7 +52,12 @@ export default function PlantProgrammingScreen({ navigation }) {
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
     };
-
+    useSelector((state: any) => {
+        if (state.plantPOST?.data) {
+            uDispatch(plantActions.clean())
+            return navigation.navigate('Mes plantes');
+        }
+    });
     return (
         <View style={{ backgroundColor: 'white', }}>
             <AppBar title="PROGRAMMATION"/>

@@ -1,4 +1,4 @@
-import { plantConstants } from '../constants';
+import { plantConstants, userConstants } from '../constants';
 import { plantService } from '../services/plant.service';
 
 export const plantActions = {
@@ -9,7 +9,8 @@ export const plantActions = {
 	getByIdPlantBDD,
 	postPlantBDD,
 	updateByIdPlantBDD,
-	deleteByIdPlantBDD
+	deleteByIdPlantBDD,
+	clean
 };
 
 function searchPlantByImg(data) {
@@ -226,4 +227,7 @@ function deleteByIdPlantBDD(body) {
 	function failure(error) {
 		return { type: plantConstants.DELETE_BY_ID_PLANT_BDD_FAILURE, error };
 	}
+}
+function clean() {
+	return { type: plantConstants.POST_PLANT_BDD_CLEAN };
 }
