@@ -7,7 +7,12 @@ import FormData from 'form-data';
 export const plantService = {
     searchByImg,
     searchByName,
-    getPlantSearch
+    getPlantSearch,
+    getAllPlantBDD,
+    getByIdPlantBDD,
+    postPlantBDD,
+    updateByIdPlantBDD,
+    deleteByIdPlantBDD,
 };
 
 const createFormData = (image, body= {}) => {
@@ -71,6 +76,88 @@ async function getPlantSearch(id) {
     };
 
     return fetch(`${config.API_URL}/api/plant/trefle/${id}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+
+async function postPlantBDD(body) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+        body
+    };
+
+    return fetch(`${config.API_URL}/api/plant`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+async function getAllPlantBDD() {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+    };
+
+    return fetch(`${config.API_URL}/api/plant/`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+async function getByIdPlantBDD(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+    };
+
+    return fetch(`${config.API_URL}/api/plant/${id}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+async function updateByIdPlantBDD(id) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+    };
+
+    return fetch(`${config.API_URL}/api/plant/${id}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            return user;
+        });
+}
+async function deleteByIdPlantBDD(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Bearer ${await readStorage('token')}`,
+        },
+    };
+
+    return fetch(`${config.API_URL}/api/plant/${id}`, requestOptions)
         .then(handleResponse)
         .then(user => {
             return user;
