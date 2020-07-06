@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Chip, Dialog, Portal, Text, TextInput } from 'react-native-paper';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {  Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
 import { Slider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {Picker} from '@react-native-community/picker';
 import moment from 'moment';
 
 const styles = StyleSheet.create({
@@ -31,13 +32,15 @@ const styles = StyleSheet.create({
 export default function PlantProgrammingScreen({ navigation }) {
 
     //Récupérer plant name
-    const [temperature, setTemperature] = useState(0);
+    const [temperature, setTemperature] = useState(6);
     const [shift, setShift] = useState(0);
     const [repetition, setRepetition] = useState(0);
 
 
     const [date, setDate] = useState(new Date(1598051730000));
     const [show, setShow] = useState(false);
+    const [showTemp, setShowTemp] = useState(false);
+    const [showPicker, setShowPicker] = useState(false);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -52,20 +55,12 @@ export default function PlantProgrammingScreen({ navigation }) {
                 <Formik
 
                     initialValues={{
-                        nextWatering: '',
+                        nextWatering: date,
                         shift: 0,
                         repetition: 0,
-                        temperature: 6,
+                        temperature: temperature,
                         brightness: '',
                     }}
-                    validationSchema={
-                        Yup.object().shape({
-                            nextWatering: Yup.string().required('This field is required'),
-                            shift: Yup.string().required('This field is required'),
-                            repetition: Yup.string().email().required('This field is required'),
-                            temperature: Yup.number().required('This field is required'),
-                            brightness: Yup.string().required('This field is required'),
-                        })}
                     onSubmit={values => {
                         console.log(values);
                         // return registerPlant(
@@ -106,23 +101,19 @@ export default function PlantProgrammingScreen({ navigation }) {
                                                     testID="dateTimePicker"
                                                     value={date}
                                                     mode={'datetime'}
-                                                    is24Hour={true}
                                                     locale="fr-FR"
-                                                    display="default"
                                                     onChange={onChange}
 
                                                 />
+                                            </Dialog.Content>
+                                            <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
                                                 <Button accessibilityStates
                                                         style={styles.button}
                                                         mode="contained"
                                                         onPress={() => setShow(!show)}>
                                                     Valider
                                                 </Button>
-                                            </Dialog.Content>
-                                            {/*<Dialog.Actions style={{ display:'flex', justifyContent:'space-around'}}>*/}
-                                            {/*    <Button accessibilityStates onPress={hideDialog}>Non</Button>*/}
-                                            {/*    <Button accessibilityStates onPress={hideDialog}>Oui</Button>*/}
-                                            {/*</Dialog.Actions>*/}
+                                            </Dialog.Actions>
                                         </Dialog>
                                     </Portal>
                                 )}
@@ -183,55 +174,74 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     }
                                 }}><Text accessibilityStates>+ 1</Text></Chip>
                             </View>
-                            {errors.repetition && touched.repetition && (
-                                <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
-                                    {errors.repetition}
-                                </Text>
-                            )}
-                            {/*<Text accessibilityStates>Shows one row:</Text>*/}
-                            {/*    <Picker */}
-                            {/*    selectedValue={values.temperature}*/}
-                            {/*    >*/}
-                            {/*    <Picker.Item label="Java" value="java" />*/}
-                            {/*    <Picker.Item label="JavaScript" value="js" />*/}
-                            {/*    <Picker.Item label="Python" value="python" />*/}
-                            {/*    <Picker.Item label="Haxe" value="haxe" />*/}
-                            {/*    </Picker>*/}
-                            <View style={{ marginLeft: 50, marginRight: 50 }}>
-                                <Slider
-                                    value={temperature}
-                                    maximumValue={30}
-                                    minimumValue={6}
-                                    step={1}
-                                    onValueChange={(v) => setTemperature(v)}
-                                />
-                                <Text accessibilityStates>Temperature: {temperature}°C</Text>
-                            </View>
-                            <TextInput
-                                accessibilityStates
-                                label="Température"
-                                value={values.temperature}
-                                onBlur={handleBlur('temperature')}
-                                onChangeText={handleChange('temperature')}
-                            />
-                            {errors.temperature && touched.temperature && (
-                                <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
-                                    {errors.temperature}
-                                </Text>
-                            )}
+                            <TouchableOpacity onPress={() => setShowTemp(!showTemp)}>
+                                <Text
+                                    accessibilityStates
+                                    style={{ backgroundColor: 'transparent' }}
+                                >Temperature: {temperature} °C</Text>
+                                {showTemp && (
+                                    <Portal>
+                                        <Dialog visible={() => setShowTemp(!showTemp)}
+                                                onDismiss={() => setShowTemp(!showTemp)}>
+                                            <Dialog.Content>
+                                                <Slider
+                                                    value={temperature}
+                                                    maximumValue={30}
+                                                    minimumValue={6}
+                                                    step={1}
+                                                    onValueChange={(v) => setTemperature(v)}
+                                                />
+                                                <Text accessibilityStates>Temperature: {temperature}°C</Text>
+
+                                            </Dialog.Content>
+                                            <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                                <Button accessibilityStates
+                                                        style={styles.button}
+                                                        mode="contained"
+                                                        onPress={() => setShowTemp(!showTemp)}>
+                                                    Valider
+                                                </Button>
+                                            </Dialog.Actions>
+                                        </Dialog>
+                                    </Portal>
+                                )}
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
                             <TextInput accessibilityStates
                                        label="Luminosité"
                                        value={values.brightness}
+                                       pointerEvents={'none'}
                                        onBlur={handleBlur('brightness')}
                                        onChangeText={handleChange('brightness')}
                             />
-                            {errors.brightness && touched.brightness && (
-                                <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
-                                    {errors.brightness}
-                                </Text>
-                            )}
+                            </TouchableOpacity>
+                            <View>
+                                {showPicker && (
+                                    <Portal>
+                                        <Dialog visible={() => setShowPicker(!showPicker)} onDismiss={() => setShowPicker(!showPicker)}>
+                                            <Dialog.Content>
+                                                <Picker
+                                                    selectedValue={values.brightness}
+                                                    onValueChange={handleChange('brightness')}
+                                                >
+                                                    <Picker.Item label="Lumiere" value="Lumiere" />
+                                                    <Picker.Item label="Chaud" value="Chaud" />
+                                                </Picker>
+                                            </Dialog.Content>
+                                            <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                                <Button accessibilityStates
+                                                        style={styles.button}
+                                                        mode="contained"
+                                                        onPress={() => setShowPicker(!showPicker)}>
+                                                    Valider
+                                                </Button>
+                                            </Dialog.Actions>
+                                        </Dialog>
+                                    </Portal>
+                                )}
+                            </View>
+
                             <Button accessibilityStates
-                                    disabled={!isValid}
                                     style={styles.button}
                                     mode="contained"
                                     onPress={handleSubmit}
