@@ -55,6 +55,7 @@ export default function PlantProgrammingScreen({ navigation }) {
     useSelector((state: any) => {
         if (state.plantPOST?.data) {
             uDispatch(plantActions.clean())
+            uDispatch(plantActions.getAllPlantBDD())
             return navigation.navigate('Mes plantes');
         }
     });
