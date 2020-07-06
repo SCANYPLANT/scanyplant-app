@@ -46,7 +46,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
 
     return (
         <>
-            <AppBar title="MY PLANTS"/>
+            <AppBar title="IDENTIFICATION RESULTS"/>
             <>
                 <View style={styles.container}>
                     {/*<View style={styles.header}>*/}
