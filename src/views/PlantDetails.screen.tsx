@@ -62,7 +62,15 @@ export default function PlantDetailsScreen({ route, navigation }) {
             marginBottom: 20
         }}/>
     ;
-
+const isEmptyData = (data) => {
+    if(data) {
+        return  <Subheading
+            style={styles.detailText}>{plant.class?.name}</Subheading>
+    }else {
+        return   <Subheading
+            style={styles.detailTextNull}>{emptyInfos}</Subheading>
+    }
+}
     useEffect(() => {
         uDispatch(plantActions.getPlantSearch(route.params.myPlant.id));
     }, [route.params.myPlant.id]);
@@ -97,108 +105,56 @@ export default function PlantDetailsScreen({ route, navigation }) {
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}>Nom : </Title>
                             {
-                                plant.common_name ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant.common_name}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                               isEmptyData(plant.common_name)
                             }
 
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}>Nom II :</Title>
-
                             {
-                                plant.class?.name ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant.class?.name}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant.class?.name)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}>Famille :</Title>
                             {
-                                plant.family?.common_name ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant.family?.common_name}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant.family?.common_name)
                             }
-
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Temperature min :</Title>
                             {
-                                plant?.main_species?.growth?.temperature_minimum?.deg_c ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.main_species?.growth?.temperature_minimum?.deg_c)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Temperature max :</Title>
-
                             {
-                                plant?.main_species?.growth?.temperature_maximum?.deg_c ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.main_species?.growth?.temperature_maximum?.deg_c}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.main_species?.growth?.temperature_maximum?.deg_c)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Tolerance a la secheresse :</Title>
-
                             {
-                                plant?.main_species?.growth?.drought_tolerance ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.main_species?.growth?.drought_tolerance}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.main_species?.growth?.drought_tolerance)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Durée de vie :</Title>
-
                             {
-                                plant?.duration ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.duration}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.duration)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Longeur maximum :</Title>
-
                             {
-                                plant?.main_species?.specifications?.max_height_at_base_age.cm ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.main_species?.specifications?.max_height_at_base_age.cm)
                             }
                         </View>
                         <View style={styles.viewColumn}>
                             <Title style={styles.detailLabel}> Longeur age adulte :</Title>
-
                             {
-                                plant?.main_species?.specifications?.mature_height.cm ?
-                                    <Subheading
-                                        style={styles.detailText}>{plant?.main_species?.specifications?.mature_height.cm}</Subheading>
-                                    :
-                                    <Subheading
-                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                                isEmptyData(plant?.main_species?.specifications?.max_height_at_base_age.cm)
                             }
                         </View>
                         <View style={{
