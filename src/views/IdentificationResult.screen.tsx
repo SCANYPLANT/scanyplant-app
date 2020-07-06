@@ -39,7 +39,9 @@ export default function IdentificationResultScreen({ route, navigation }) {
     const plantClick = plant => navigation.navigate('plantDetails', { myPlant: plant });
 
     const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-        setPagination(pagination + 2)
+        const paddingToBottom = 20;
+        return layoutMeasurement.height + contentOffset.y >=
+          contentSize.height - paddingToBottom;
       };
 
     return (
@@ -58,7 +60,7 @@ export default function IdentificationResultScreen({ route, navigation }) {
                         <ScrollView 
                             onScroll={({nativeEvent}) => {
                             if (isCloseToBottom(nativeEvent)) {
-                                enableSomeButton();
+                                setPagination(pagination + 2);
                             }
                         }}>
                             {!plants && <ActivityIndicator accessibilityStates animating={true} color={Colors.red800}/>}
