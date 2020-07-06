@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     detailButton: {
-        marginTop: 20,
-        width: '40%',
-        marginLeft: '5%'
+        width: '100%',
+        marginTop: 10,
+        marginBottom: 10
     },
 });
 
@@ -37,6 +37,10 @@ export default function IdentificationResultScreen({ route, navigation }) {
     let plants: [Plant] = useSelector((state: any) => state.searchPlant?.data);
     const [pagination, setPagination] = useState(4);
     const plantClick = plant => navigation.navigate('plantDetails', { myPlant: plant });
+
+    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+        setPagination(pagination + 2)
+      };
 
     return (
         <>
@@ -51,7 +55,12 @@ export default function IdentificationResultScreen({ route, navigation }) {
                     {/*	/>*/}
                     {/*</View>*/}
                     <View style={styles.body}>
-                        <ScrollView>
+                        <ScrollView 
+                            onScroll={({nativeEvent}) => {
+                            if (isCloseToBottom(nativeEvent)) {
+                                enableSomeButton();
+                            }
+                        }}>
                             {!plants && <ActivityIndicator accessibilityStates animating={true} color={Colors.red800}/>}
                             {plants && (plants?.length === 0) &&
                             <Text accessibilityStates lineBreakMode={'middle'}> Aucune Donnée </Text>}
@@ -68,37 +77,26 @@ export default function IdentificationResultScreen({ route, navigation }) {
                                                 display: 'flex',
                                                 flexDirection: 'row',
                                                 alignItems: 'center',
-                                                justifyContent: 'space-around'
-
+                                                justifyContent: 'space-around',
+                                                padding: 0,
+                                                margin: 0
                                             }}>
                                             <Avatar.Icon
                                                 accessibilityStates
                                                 icon={'flower'}
-                                                size={100}
-                                                style={{ width: 80, height: 80, borderRadius: 10 }}
+                                                size={70}
+                                                style={{ width: '20%', height: 70, borderRadius: 0 }}
                                             />
-                                            <View style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                                <Text accessibilityStates
-                                                      lineBreakMode={'middle'}>{plant.common_name}</Text>
-                                                <Text accessibilityStates> {plant.scientific_name}</Text>
+                                            <View style={{ width: '75%', right: 0, left: 10 }}>
+                                                <Text accessibilityStates lineBreakMode={'middle'}>Plante: {plant.scientific_name} {plant.common_name}</Text>
                                             </View>
                                         </Card.Content>
                                     </Card>
                                 );
                             })}
                         </ScrollView>
-                        <View style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginBottom: 10
-                        }}>
-                            <Button accessibilityStates style={styles.detailButton}
-                                    onPress={() => navigation.goBack()}> Back</Button>
-                            {
-                                plants?.length >= pagination &&
-                                <Button accessibilityStates style={styles.detailButton}
-                                        onPress={() => setPagination(pagination + 2)}> Plus</Button>
-                            }
+                        <View>
+                            <Button accessibilityStates style={styles.detailButton} onPress={() => navigation.goBack()}> Back</Button>
                         </View>
                     </View>
                 </View>

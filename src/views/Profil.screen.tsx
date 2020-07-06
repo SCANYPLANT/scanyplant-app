@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Dialog, Paragraph, Portal, Text, TextInput } from 'react-native-paper';
+import { Button, Dialog, Paragraph, Portal, Text, TextInput, Title } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
@@ -32,7 +32,7 @@ export default function ProfilScreen({ navigation }) {
             <AppBar title="MON COMPTE"/>
             {user && (
                 <View>
-                    <Text accessibilityStates>Bienvenue</Text>
+                    <Title style= {{textAlign: "center", padding: 15}}>Bienvenue {user.firstName}</Title>
                     <Formik
                         initialValues={{
                             email: user.email,
@@ -101,7 +101,7 @@ export default function ProfilScreen({ navigation }) {
                                         {errors.email}
                                     </Text>
                                 )}
-                                <Button accessibilityStates onPress={handleSubmit} mode="contained">
+                                <Button accessibilityStates style={{margin: 20}} onPress={handleSubmit} mode="contained">
                                     Enregistrer
                                 </Button>
                             </>
