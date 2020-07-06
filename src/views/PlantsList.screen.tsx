@@ -33,9 +33,6 @@ const styles = StyleSheet.create({
 export default function PlantsListScreen({ navigation }) {
     const uDispatch = useDispatch();
     const plants = useSelector((state: any) => {
-        // if(state) {
-        //     images(state?.plantBDD?.data?.images)
-        // }
         return state?.plantBDD?.data;
     });
     const images = (images: string) => {
@@ -45,16 +42,11 @@ export default function PlantsListScreen({ navigation }) {
                 newArrayImg.push(i);
             }
         })
-        console.log(newArrayImg)
        return newArrayImg
     };
     useEffect(() => {
         uDispatch(plantActions.getAllPlantBDD());
     }, []);
-    const plantClick = plant => {
-        // console.log('plant click:', plant.fields.raison_sociale);
-        navigation.navigate('Discover', { query: plant });
-    };
 
     const SLIDER_WIDTH = Dimensions.get('window').width;
     const SLIDER_HEIGHT = Dimensions.get('window').height;

@@ -45,7 +45,6 @@ export default function ProfilScreen({ navigation }) {
                             lastName: Yup.string().required('This field is required'),
                         })}
                         onSubmit={values => {
-                            console.log('values ====>=====>====>====>', values);
                             uDispatch(userActions.update({
                                 id: user.uuid,
                                 email: values.email,

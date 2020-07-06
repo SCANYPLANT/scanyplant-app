@@ -31,7 +31,6 @@ export default function RegisterScreen({ navigation }) {
 
     };
     useEffect(() => {
-        console.log(loginTrue)
        if(loginTrue) {
            return navigation.navigate('Login');
        }

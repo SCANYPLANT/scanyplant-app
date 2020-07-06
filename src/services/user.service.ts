@@ -24,11 +24,7 @@ function login(username, password) {
 
     return fetch(`${config.API_URL}/api/auth/login`, requestOptions)
         .then(handleResponseApi)
-        .then(user => {
-            console.log(user)
-            // setStorage('token', action.user?.meta?.token).then(r => r);
-            return user;
-        });
+        .then(user =>  user);
 }
 
 async function me() {
