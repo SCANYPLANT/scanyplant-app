@@ -38,6 +38,20 @@ export function users(state = {}, action) {
             return {
                 error: action.error,
             };
+        case userConstants.REGISTER_REQUEST:
+            return {
+                loggingIn: true,
+                user: action.user,
+            };
+        case userConstants.REGISTER_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.user,
+            };
+        case userConstants.USERS_CLEAN:
+            return {};
+        case userConstants.REGISTER_FAILURE:
+            return {};
         default:
             return state;
     }

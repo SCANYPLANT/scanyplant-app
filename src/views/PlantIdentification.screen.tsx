@@ -55,7 +55,6 @@ export default function PlantIdentificationScreen({ navigation }) {
     };
     // comment avoir les informations d'une plante
     useEffect(() => {
-        console.log(loading)
         if (loading === true) {
             navigation.navigate('identificationResult');
         }

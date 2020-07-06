@@ -1,156 +1,158 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
-import AsyncStorage from '@react-native-community/async-storage';
-import { useSelector } from 'react-redux';
-import getToken from '../utils/getToken';
 import { removeStorage, setStorage } from '../utils/storage';
 
 export const userActions = {
-	login,
-	register,
-	update,
-	updatePassword,
-	me,
-	logout,
+    login,
+    register,
+    update,
+    updatePassword,
+    me,
+    logout,
+    clean,
 };
 
 function login(username, password) {
-	return dispatch => {
-		dispatch(request({ username }));
+    return dispatch => {
+        dispatch(request({ username }));
 
-		userService.login(username, password).then(
-			async user => {
-				await setStorage('token', user.meta.token)
-				dispatch(success(user));
-			},
-			error => {
-				dispatch(failure(error.toString()));
-			},
-		);
-	};
+        userService.login(username, password).then(
+            async user => {
+                await setStorage('token', user.meta.token);
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            },
+        );
+    };
 
-	function request(user) {
-		return { type: userConstants.LOGIN_REQUEST, user };
-	}
+    function request(user) {
+        return { type: userConstants.LOGIN_REQUEST, user };
+    }
 
-	function success(user) {
-		return { type: userConstants.LOGIN_SUCCESS, user };
-	}
+    function success(user) {
+        return { type: userConstants.LOGIN_SUCCESS, user };
+    }
 
-	function failure(error) {
-		return { type: userConstants.LOGIN_FAILURE, error };
-	}
+    function failure(error) {
+        return { type: userConstants.LOGIN_FAILURE, error };
+    }
 }
 
 // check user info
 function me() {
-	return async dispatch => {
-		dispatch(request());
-		userService.me().then(
-			async user => {
-				dispatch(success(user));
-			},
-			error => {
-				dispatch(failure(error.toString()));
-			},
-		);
-	};
+    return async dispatch => {
+        dispatch(request());
+        userService.me().then(
+            async user => {
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            },
+        );
+    };
 
-	function request() {
-		return { type: userConstants.ME_REQUEST };
-	}
+    function request() {
+        return { type: userConstants.ME_REQUEST };
+    }
 
-	function success(user) {
-		return { type: userConstants.ME_SUCCESS, user };
-	}
+    function success(user) {
+        return { type: userConstants.ME_SUCCESS, user };
+    }
 
-	function failure(error) {
-		return { type: userConstants.ME_FAILURE, error };
-	}
+    function failure(error) {
+        return { type: userConstants.ME_FAILURE, error };
+    }
 }
 
-function register(email, firstName, lastName, password ) {
-	return dispatch => {
-		dispatch(request({ email }));
+function register(email, firstName, lastName, password) {
+    return dispatch => {
+        dispatch(request({ email }));
 
-		userService.register(email, firstName, lastName,  password ).then(
-			user => {
-				dispatch(success(user));
-			},
-			error => {
-				dispatch(failure(error.toString()));
-			},
-		);
-	};
+        userService.register(email, firstName, lastName, password).then(
+            user => {
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            },
+        );
+    };
 
-	function request(user) {
-		return { type: userConstants.REGISTER_REQUEST, user };
-	}
+    function request(user) {
+        return { type: userConstants.REGISTER_REQUEST, user };
+    }
 
-	function success(user) {
-		return { type: userConstants.REGISTER_SUCCESS, user };
-	}
+    function success(user) {
+        return { type: userConstants.REGISTER_SUCCESS, user };
+    }
 
-	function failure(error) {
-		return { type: userConstants.REGISTER_FAILURE, error };
-	}
+    function failure(error) {
+        return { type: userConstants.REGISTER_FAILURE, error };
+    }
 }
 
-function update({ id,email, firstName, lastName }) {
-	return dispatch => {
-		dispatch(request({ email }));
+function update({ id, email, firstName, lastName }) {
+    return dispatch => {
+        dispatch(request({ email }));
 
-		userService.update(id,firstName, lastName, email).then(
-			user => {
-				dispatch(success(user));
-			},
-			error => {
-				dispatch(failure(error.toString()));
-			},
-		);
-	};
+        userService.update(id, firstName, lastName, email).then(
+            user => {
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            },
+        );
+    };
 
-	function request(user) {
-		return { type: userConstants.UPDATE_REQUEST, user };
-	}
+    function request(user) {
+        return { type: userConstants.UPDATE_REQUEST, user };
+    }
 
-	function success(user) {
-		return { type: userConstants.UPDATE_SUCCESS, user };
-	}
+    function success(user) {
+        return { type: userConstants.UPDATE_SUCCESS, user };
+    }
 
-	function failure(error) {
-		return { type: userConstants.UPDATE_FAILURE, error };
-	}
+    function failure(error) {
+        return { type: userConstants.UPDATE_FAILURE, error };
+    }
 }
 
 function updatePassword({ password, confirmPassword }) {
-	return dispatch => {
-		dispatch(request());
+    return dispatch => {
+        dispatch(request());
 
-		userService.updatePassword(password, confirmPassword).then(
-			user => {
-				dispatch(success(user));
-			},
-			error => {
-				dispatch(failure(error.toString()));
-			},
-		);
-	};
+        userService.updatePassword(password, confirmPassword).then(
+            user => {
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            },
+        );
+    };
 
-	function request() {
-		return { type: userConstants.UPDATE_PASSWORD_REQUEST };
-	}
+    function request() {
+        return { type: userConstants.UPDATE_PASSWORD_REQUEST };
+    }
 
-	function success(user) {
-		return { type: userConstants.UPDATE_PASSWORD_SUCCESS, user };
-	}
+    function success(user) {
+        return { type: userConstants.UPDATE_PASSWORD_SUCCESS, user };
+    }
 
-	function failure(error) {
-		return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
-	}
+    function failure(error) {
+        return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
+    }
 }
 
 function logout() {
-	removeStorage('token').then(r => r)
-	return { type: userConstants.LOGOUT };
+    removeStorage('token').then(r => r);
+    return { type: userConstants.LOGOUT };
+}
+
+function clean() {
+    return { type: userConstants.USERS_CLEAN };
 }

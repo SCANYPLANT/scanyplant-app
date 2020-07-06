@@ -89,7 +89,6 @@ export default function Navigation() {
         }
     })
     useEffect(() => {
-        console.log('token',isSignedIn)
         if(isSignedIn) {
             isSignedIn = true
         }

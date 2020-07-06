@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
@@ -29,6 +29,9 @@ export default function LoginScreen({ navigation }) {
     const loginUser = (email, password) => {
         uDispatch(userActions.login(email, password));
     };
+    useEffect(() =>{
+        uDispatch(userActions.clean())
+    }, [])
     return (
         <>
             <AppBar title="LOGIN"/>

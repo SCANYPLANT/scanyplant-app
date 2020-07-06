@@ -51,9 +51,6 @@ export default function ImageIdentificationScreen({ route, navigation }) {
     let plants: [Plant] = useSelector((state: any) => {
         return (state.searchPlant?.data);
     });
-    useEffect(() => {
-        console.log(loading);
-    }, [loading]);
     const plantIdentification = async () => {
         uDispatch(plantActions.searchPlantByImg(image));
         if (plants) {
