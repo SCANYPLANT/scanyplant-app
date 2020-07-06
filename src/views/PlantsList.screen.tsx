@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Dimensions, Image } from 'react-native';
-import { Card, Text, Avatar, Title, Chip } from 'react-native-paper';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Avatar, Card, Chip, Text } from 'react-native-paper';
 import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { plantActions } from '../actions';
@@ -32,7 +32,22 @@ const styles = StyleSheet.create({
 
 export default function PlantsListScreen({ navigation }) {
     const uDispatch = useDispatch();
-    const plants = useSelector((state: any) => state?.plantBDD?.data);
+    const plants = useSelector((state: any) => {
+        // if(state) {
+        //     images(state?.plantBDD?.data?.images)
+        // }
+        return state?.plantBDD?.data;
+    });
+    const images = (images: string) => {
+        const newArrayImg = [];
+        images.split('"').map((i:string) => {
+            if (i.length > 2) {
+                newArrayImg.push(i);
+            }
+        })
+        console.log(newArrayImg)
+       return newArrayImg
+    };
     useEffect(() => {
         uDispatch(plantActions.getAllPlantBDD());
     }, []);
@@ -47,10 +62,10 @@ export default function PlantsListScreen({ navigation }) {
     const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.2);
     const emptyInfos = 'Aucune donnée';
     const renderItem = ({ item, index }) =>
-        <Image source={{ uri: item?.url }} style={{
+        <Image source={{ uri: item }} style={{
             width: ITEM_WIDTH,
             height: ITEM_HEIGHT,
-            marginBottom: 20
+            marginBottom: 10
         }}/>
     ;
 
@@ -59,15 +74,15 @@ export default function PlantsListScreen({ navigation }) {
             <AppBar title="MY PLANTS"/>
             <>
                 <View style={styles.container}>
-                    <View style={styles.body}>
+                    <View>
                         <ScrollView>
                             {plants?.length === 0 && <Text accessibilityStates>Aucune plante pour l'instant</Text>}
-                            {plants?.map(plant => {
+                            {plants?.map((plant, key) => {
                                 return (
                                     <Card
                                         accessibilityStates
                                         style={styles.item}
-                                        key={plant.recordid}
+                                        key={key}
                                     >
                                         <Card.Content
                                             style={{
@@ -77,8 +92,8 @@ export default function PlantsListScreen({ navigation }) {
                                                 padding: 0,
                                                 margin: 0
                                             }}>
-                                            <View style={{marginBottom: 20}}>
-                                                {plant && plant.images == null &&  <Avatar.Icon
+                                            <View style={{ marginBottom: 20 }}>
+                                                {plant && !plant.images && <Avatar.Icon
                                                     accessibilityStates
                                                     icon={'flower'}
                                                     size={100}
@@ -89,12 +104,12 @@ export default function PlantsListScreen({ navigation }) {
                                                         display: 'flex',
                                                         alignSelf: 'center',
                                                     }}
-                                                /> }
+                                                />}
                                                 {plant && plant.images && <Carousel
-                                                    data={plant.images}
-                                                    layout={'stack'}
+                                                    data={images(plant.images)}
+                                                    layout={'default'}
                                                     renderItem={renderItem}
-                                                    sliderWidth={SLIDER_WIDTH}
+                                                    sliderWidth={300}
                                                     sliderHeight={ITEM_HEIGHT}
                                                     itemWidth={ITEM_WIDTH}
                                                 />}
@@ -104,11 +119,19 @@ export default function PlantsListScreen({ navigation }) {
                                                 icon={'flower'}
                                                 style={{ width: '50%', borderRadius: 0, left: '25%', marginBottom: 10 }}
                                             /> */}
-                                            <Chip accessibilityStates icon="flower" style={{backgroundColor:'#57CC99', margin: 5}}>{ plant.name }</Chip>
-                                            <Chip accessibilityStates icon="calendar-range" style={{margin: 5}}>Ajouté le: {plant.createdAt}</Chip>
-                                            <Chip accessibilityStates icon="white-balance-sunny" style={{backgroundColor:'#f5da6e', margin: 5}}>Luminosité: {plant.brightness}</Chip>
-                                            <Chip accessibilityStates icon="water-outline" style={{backgroundColor:'#6ec3f5', margin: 5}}>Prochain arrosage dans {plant.shift} jour(s)</Chip>
-                                            <Chip accessibilityStates icon="repeat" style={{margin: 5}}>Repeter tous les {plant.repetition} jours</Chip>
+                                            <Chip accessibilityStates icon="flower"
+                                                  style={{ backgroundColor: '#57CC99', margin: 5 }}>{plant.name}</Chip>
+                                            <Chip accessibilityStates icon="calendar-range" style={{ margin: 5 }}>Ajouté
+                                                le: {plant.createdAt}</Chip>
+                                            <Chip accessibilityStates icon="white-balance-sunny" style={{
+                                                backgroundColor: '#f5da6e',
+                                                margin: 5
+                                            }}>Luminosité: {plant.brightness}</Chip>
+                                            <Chip accessibilityStates icon="water-outline"
+                                                  style={{ backgroundColor: '#6ec3f5', margin: 5 }}>Prochain arrosage
+                                                dans {plant.shift} jour(s)</Chip>
+                                            <Chip accessibilityStates icon="repeat" style={{ margin: 5 }}>Repeter tous
+                                                les {plant.repetition} jours</Chip>
                                             <Text accessibilityStates></Text>
                                         </Card.Content>
                                     </Card>
