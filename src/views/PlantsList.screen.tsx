@@ -5,10 +5,12 @@ import { AppBar } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { plantActions } from '../actions';
 import Carousel from 'react-native-snap-carousel';
+import moment from 'moment'
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20
+        marginTop: 20,
+        marginBottom:'20%'
     },
     item: {
         marginHorizontal: 20,
@@ -66,7 +68,6 @@ export default function PlantsListScreen({ navigation }) {
             <AppBar title="MY PLANTS"/>
             <>
                 <View style={styles.container}>
-                    <View>
                         <ScrollView>
                             {plants?.length === 0 && <Text accessibilityStates>Aucune plante pour l'instant</Text>}
                             {plants?.map((plant, key) => {
@@ -114,7 +115,7 @@ export default function PlantsListScreen({ navigation }) {
                                             <Chip accessibilityStates icon="flower"
                                                   style={{ backgroundColor: '#57CC99', margin: 5 }}>{plant.name}</Chip>
                                             <Chip accessibilityStates icon="calendar-range" style={{ margin: 5 }}>Ajouté
-                                                le: {plant.createdAt}</Chip>
+                                                le: {moment(plant.createdAt).format('DD/MM/YY HH:mm')}</Chip>
                                             <Chip accessibilityStates icon="white-balance-sunny" style={{
                                                 backgroundColor: '#f5da6e',
                                                 margin: 5
@@ -130,7 +131,6 @@ export default function PlantsListScreen({ navigation }) {
                                 );
                             })}
                         </ScrollView>
-                    </View>
                 </View>
             </>
         </>
