@@ -90,7 +90,7 @@ async function postPlantBDD(body) {
             'Access-Control-Allow-Origin': '*',
             Authorization: `Bearer ${await readStorage('token')}`,
         },
-        body
+        body: JSON.stringify(body)
     };
 
     return fetch(`${config.API_URL}/api/plant`, requestOptions)

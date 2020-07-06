@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Chip, Dialog, Portal, Text, TextInput } from 'react-native-paper';
-import {  Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 import { AppBar } from '../components';
 import { Slider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Picker} from '@react-native-community/picker';
+import { Picker } from '@react-native-community/picker';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import plantDetails from '../models/plantDetails';
+import { plantActions } from '../actions';
 
 const styles = StyleSheet.create({
     button: {
@@ -30,14 +32,17 @@ const styles = StyleSheet.create({
 });
 
 export default function PlantProgrammingScreen({ navigation }) {
-
+    const uDispatch = useDispatch();
     //Récupérer plant name
+    const plant: plantDetails = useSelector((state: any) => state.plant?.data);
+
+    //State temporaire
     const [temperature, setTemperature] = useState(6);
-    const [shift, setShift] = useState(0);
-    const [repetition, setRepetition] = useState(0);
+    const [shift, setShift] = useState(1);
+    const [repetition, setRepetition] = useState(1);
 
-
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
+    const [brightness, setBrightness] = useState('Direct');
     const [show, setShow] = useState(false);
     const [showTemp, setShowTemp] = useState(false);
     const [showPicker, setShowPicker] = useState(false);
@@ -49,27 +54,26 @@ export default function PlantProgrammingScreen({ navigation }) {
     };
 
     return (
-        <View style={{ backgroundColor:'white',  }}>
+        <View style={{ backgroundColor: 'white', }}>
             <AppBar title="PROGRAMMATION"/>
-            <View style={{ margin: 10 }}>
+            <ScrollView style={{ margin: 10, marginBottom: '20%' }}>
                 <Formik
                     initialValues={{
                         nextWatering: date,
-                        shift: 0,
-                        repetition: 0,
+                        shift,
+                        repetition,
                         temperature: temperature,
-                        brightness: '',
+                        brightness: brightness,
                     }}
                     onSubmit={values => {
-                        console.log(values);
-                        // return registerPlant(
-                        //     values?.plant_name,
-                        //     values.nextWatering,
-                        //     values.shift,
-                        //     values.repetition,
-                        //     values.temperature,
-                        //     values.brightness,
-                        // )
+                        uDispatch(plantActions.postPlantBDD({
+                            name: plant?.scientific_name ? plant?.scientific_name : plant?.common_name,
+                            brightness: values.brightness,
+                            nextWatering: values.nextWatering,
+                            repetition: values.repetition,
+                            shift: values.shift,
+                            temperature: values.temperature
+                        }));
                     }
                     }>
                     {({
@@ -81,7 +85,12 @@ export default function PlantProgrammingScreen({ navigation }) {
                           isValid,
                           touched,
                       }) => (
-                        <View style={{ backgroundColor:'white',  }}>
+                        <View style={{ backgroundColor: 'white', }}>
+                            <Button accessibilityStates mode="contained" style={{
+                                marginTop: 30,
+                                marginLeft: 20,
+                                marginRight: 20
+                            }}>Nom: {plant?.scientific_name ? plant?.scientific_name : plant?.common_name}</Button>
                             <TouchableOpacity onPress={() => setShow(!show)}>
                                 <TextInput
                                     accessibilityStates
@@ -101,7 +110,10 @@ export default function PlantProgrammingScreen({ navigation }) {
                                                     value={date}
                                                     mode={'datetime'}
                                                     locale="fr-FR"
-                                                    onChange={onChange}
+                                                    onChange={(v, d) => {
+                                                        values.nextWatering = d;
+                                                        return onChange(v, d);
+                                                    }}
 
                                                 />
                                             </Dialog.Content>
@@ -122,7 +134,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     {errors.nextWatering}
                                 </Text>
                             )}
-                            <Text accessibilityStates style={{marginTop: 30}}>Décaler la tâche de {shift} jours</Text>
+                            <Text accessibilityStates style={{ marginTop: 30 }}>Décaler la tâche de {shift} jours</Text>
                             <View style={{
                                 flex: 0,
                                 flexDirection: 'row',
@@ -130,27 +142,30 @@ export default function PlantProgrammingScreen({ navigation }) {
                                 alignItems: 'center',
                                 marginTop: 20
                             }}>
-                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
-                                    let value = shift - 1;
-                                    if (shift > 0) {
-                                        values.shift = value;
-                                        setShift(value);
-                                        handleChange('value');
-                                    }
-                                }}><Text accessibilityStates>- 1</Text></Chip>
-                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
-                                    let value = shift + 1;
-                                    values.shift = value;
-                                    setShift(value);
-                                    handleChange('value');
-                                }}><Text accessibilityStates>+ 1</Text></Chip>
+                                <Chip accessibilityStates style={{ padding: 10 }} selectedColor={'#57cc99'}
+                                      onPress={() => {
+                                          let value = shift - 1;
+                                          if (shift > 0) {
+                                              values.shift = value;
+                                              setShift(value);
+                                              handleChange('value');
+                                          }
+                                      }}><Text accessibilityStates>- 1</Text></Chip>
+                                <Chip accessibilityStates style={{ padding: 10 }} selectedColor={'#57cc99'}
+                                      onPress={() => {
+                                          let value = shift + 1;
+                                          values.shift = value;
+                                          setShift(value);
+                                          handleChange('value');
+                                      }}><Text accessibilityStates>+ 1</Text></Chip>
                             </View>
                             {errors.shift && touched.shift && (
                                 <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.shift}
                                 </Text>
                             )}
-                            <Text accessibilityStates style={{marginTop: 30}}>Arroser tous les {values.repetition} jours</Text>
+                            <Text accessibilityStates style={{ marginTop: 30 }}>Arroser tous
+                                les {values.repetition} jours</Text>
                             <View style={{
                                 flex: 0,
                                 flexDirection: 'row',
@@ -158,71 +173,83 @@ export default function PlantProgrammingScreen({ navigation }) {
                                 alignItems: 'space-around',
                                 marginTop: 20
                             }}>
-                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
-                                    let value = repetition - 1;
-                                    if (repetition > 0) {
-                                        values.repetition = value;
-                                        setRepetition(value);
-                                        handleChange('value');
-                                    }
-                                }}><Text accessibilityStates>- 1</Text></Chip>
-                                <Chip accessibilityStates style={{padding: 10}} selectedColor={'#57cc99'} onPress={() => {
-                                    let value = repetition + 1;
-                                    if (repetition < 7) {
-                                        values.repetition = value;
-                                        setRepetition(value);
-                                        handleChange('value');
-                                    }
-                                }}><Text accessibilityStates>+ 1</Text></Chip>
+                                <Chip accessibilityStates style={{ padding: 10 }} selectedColor={'#57cc99'}
+                                      onPress={() => {
+                                          let value = repetition - 1;
+                                          if (repetition > 0) {
+                                              values.repetition = value;
+                                              setRepetition(value);
+                                              handleChange('value');
+                                          }
+                                      }}><Text accessibilityStates>- 1</Text></Chip>
+                                <Chip accessibilityStates style={{ padding: 10 }} selectedColor={'#57cc99'}
+                                      onPress={() => {
+                                          let value = repetition + 1;
+                                          if (repetition < 7) {
+                                              values.repetition = value;
+                                              setRepetition(value);
+                                              handleChange('value');
+                                          }
+                                      }}><Text accessibilityStates>+ 1</Text></Chip>
                             </View>
-                            <Button accessibilityStates mode="contained" onPress={() => setShowTemp(!showTemp)} style={{ marginTop: 30, marginLeft: 20, marginRight: 20 }}>Temperature: {temperature} °C</Button>
-                                {showTemp && (
-                                    <Portal>
-                                        <Dialog visible={() => setShowTemp(!showTemp)}
-                                                onDismiss={() => setShowTemp(!showTemp)}>
-                                            <Dialog.Content>
-                                                <Slider
-                                                    value={temperature}
-                                                    maximumValue={30}
-                                                    minimumValue={-10}
-                                                    step={1}
-                                                    onValueChange={(v) => setTemperature(v)}
-                                                />
+                            <Button accessibilityStates mode="contained" onPress={() => setShowTemp(!showTemp)} style={{
+                                marginTop: 30,
+                                marginLeft: 20,
+                                marginRight: 20
+                            }}>Temperature: {temperature} °C</Button>
+                            {showTemp && (
+                                <Portal>
+                                    <Dialog visible={() => setShowTemp(!showTemp)}
+                                            onDismiss={() => setShowTemp(!showTemp)}>
+                                        <Dialog.Content>
+                                            <Slider
+                                                value={temperature}
+                                                maximumValue={30}
+                                                minimumValue={-10}
+                                                step={1}
+
+                                                onValueChange={(v) => {
+                                                    setTemperature(v);
+                                                    values.temperature = v;
+                                                }}
+                                            />
                                             <Text accessibilityStates>Temperature: {temperature}°C</Text>
-                                            </Dialog.Content>
-                                            <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
-                                                <Button accessibilityStates
-                                                        style={styles.button}
-                                                        mode="contained"
-                                                        onPress={() => setShowTemp(!showTemp)}>
-                                                    Valider
-                                                </Button>
-                                            </Dialog.Actions>
-                                        </Dialog>
-                                    </Portal>
-                                )}
+                                        </Dialog.Content>
+                                        <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                            <Button accessibilityStates
+                                                    style={styles.button}
+                                                    mode="contained"
+                                                    onPress={() => setShowTemp(!showTemp)}>
+                                                Valider
+                                            </Button>
+                                        </Dialog.Actions>
+                                    </Dialog>
+                                </Portal>
+                            )}
                             <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
-                            <TextInput accessibilityStates
-                                       style={{ backgroundColor:'white',  }}
-                                       label="Luminosité"
-                                       value={values.brightness}
-                                       pointerEvents={'none'}
-                                       onBlur={handleBlur('brightness')}
-                                       onChangeText={handleChange('brightness')}
-                            />
+                                <TextInput accessibilityStates
+                                           style={{ backgroundColor: 'white', }}
+                                           label="Luminosité"
+                                           value={values.brightness}
+                                           pointerEvents={'none'}
+
+                                           onBlur={handleBlur('brightness')}
+                                           onChangeText={handleChange('brightness')}
+                                />
                             </TouchableOpacity>
                             <View>
                                 {showPicker && (
                                     <Portal>
-                                        <Dialog visible={() => setShowPicker(!showPicker)} onDismiss={() => setShowPicker(!showPicker)}>
+                                        <Dialog visible={() => setShowPicker(!showPicker)}
+                                                onDismiss={() => setShowPicker(!showPicker)}>
                                             <Dialog.Content>
                                                 <Picker
                                                     selectedValue={values.brightness}
                                                     onValueChange={handleChange('brightness')}
                                                 >
-                                                    <Picker.Item label="Direct" value="Direct" />
-                                                    <Picker.Item label="Indirect" value="Indirect" />
-                                                    <Picker.Item label="Mixte" value="Mixte" />
+                                                    <Picker.Item label="Direct" value="Direct"/>
+                                                    <Picker.Item label="Indirect" value="Indirect"/>
+                                                    <Picker.Item label="Mixte" value="Mixte"/>
                                                 </Picker>
                                             </Dialog.Content>
                                             <Dialog.Actions style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -247,7 +274,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                         </View>
                     )}
                 </Formik>
-            </View>
+            </ScrollView>
         </View>
     );
 }
