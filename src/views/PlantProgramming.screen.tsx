@@ -71,6 +71,8 @@ export default function PlantProgrammingScreen({ navigation }) {
                         brightness: brightness,
                     }}
                     onSubmit={values => {
+                        const images = []
+                        plant?.images.map(({ url }) => images.push(url))
                         uDispatch(plantActions.postPlantBDD({
                             name: plant?.scientific_name ? plant?.scientific_name : plant?.common_name,
                             brightness: values.brightness,
@@ -78,7 +80,7 @@ export default function PlantProgrammingScreen({ navigation }) {
                             repetition: values.repetition,
                             shift: values.shift,
                             temperature: values.temperature,
-                            images: (plant?.images as any).length !== 0 ? plant?.images[0].url.toString(): null
+                            images: (plant?.images as any).length !== 0 ? images : null
                         }));
                     }
                     }>
