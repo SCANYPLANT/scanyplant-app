@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Picker } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AppBar } from '../components';
@@ -20,12 +20,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
     },
+    detailButton: {
+        width: '40%',
+        marginLeft: '5%'
+    },
 });
 
 export default function PlantProgrammingScreen({ navigation }) {
 
     //Récupérer plant name
     const [temperature, setTemperature] = useState(0);
+    const [shift, setShift] = useState(0);
+    const [repetition, setRepetition] = useState(0);
+
     return (
         <>
             <AppBar title="PROGRAMMATION"/>
@@ -33,8 +40,8 @@ export default function PlantProgrammingScreen({ navigation }) {
                 <Formik
                     initialValues={{
                         nextWatering: '',
-                        shift: '',
-                        repetition: '',
+                        shift: 0,
+                        repetition: 0,
                         temperature: 6,
                         brightness: '',
                     }}
@@ -80,31 +87,78 @@ export default function PlantProgrammingScreen({ navigation }) {
                                     {errors.nextWatering}
                                 </Text>
                             )}
-                            <TextInput
-                                accessibilityStates
-                                label="Décaler la tâche (jours)"
-                                value={values.shift}
-                                onBlur={handleBlur('shift')}
-                                onChangeText={handleChange('shift')}
-                            />
+                            <Text accessibilityStates>Décaler la tâche de {shift} jours</Text>
+                            <View style={{
+                                flex: 0,
+                                flexDirection: 'row',
+                                alignItems: 'center'}}>
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                        onPress={() => {
+                                            let value = shift - 1;
+                                            if (shift > 0) {
+                                                values.shift = value
+                                                setShift(value)
+                                                handleChange('value')
+                                            }}}>
+                                    -1
+                                </Button>
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                        onPress={() => {
+                                            let value = shift + 1
+                                            values.shift = value
+                                            setShift(value)
+                                            handleChange('value')
+                                        }}>
+                                    +1
+                                </Button>
+                            </View>
                             {errors.shift && touched.shift && (
                                 <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.shift}
                                 </Text>
                             )}
-                            <TextInput
-                                accessibilityStates
-                                label="Répétition"
-                                value={values.repetition}
-                                onBlur={handleBlur('repetition')}
-                                onChangeText={handleChange('repetition')}
-                            />
+                            <Text accessibilityStates>Arroser tous les {values.repetition} jours</Text>
+                            <View style={{
+                                flex: 0,
+                                flexDirection: 'row',
+                                alignItems: 'center'}}>
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                        onPress={() => {
+                                            let value = repetition - 1;
+                                            if (repetition > 0) {
+                                                values.repetition = value
+                                                setRepetition(value)
+                                                handleChange('value')
+                                            }}}>
+                                    -1
+                                </Button>
+                                <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                        onPress={() => {
+                                            let value = repetition + 1
+                                            if (repetition < 7 ) {
+                                                values.repetition = value
+                                                setRepetition(value)
+                                                handleChange('value')
+                                            }
+                                        }}>
+                                    +1
+                                </Button>
+                            </View>
                             {errors.repetition && touched.repetition && (
                                 <Text accessibilityStates style={{ fontSize: 10, color: 'red' }}>
                                     {errors.repetition}
                                 </Text>
                             )}
-                            <View style={{marginLeft:20, marginRight:20}}>
+                                    <Text accessibilityStates>Shows one row:</Text>
+                                        <Picker 
+                                        selectedValue={values.temperature}
+                                        >
+                                        <Picker.Item label="Java" value="java" />
+                                        <Picker.Item label="JavaScript" value="js" />
+                                        <Picker.Item label="Python" value="python" />
+                                        <Picker.Item label="Haxe" value="haxe" />
+                                        </Picker>
+                            <View style={{marginLeft:50, marginRight:50}}>
                                 <Slider
                                     value={temperature}
                                     maximumValue={30}
