@@ -5,6 +5,11 @@ export const plantActions = {
 	searchPlantByImg,
 	searchPlantByName,
 	getPlantSearch,
+	getAllPlantBDD,
+	getByIdPlantBDD,
+	postPlantBDD,
+	updateByIdPlantBDD,
+	deleteByIdPlantBDD
 };
 
 function searchPlantByImg(data) {
@@ -85,5 +90,140 @@ function getPlantSearch(id) {
 
 	function failure(error) {
 		return { type: plantConstants.GET_PLANT_FAILURE, error };
+	}
+}
+
+function getByIdPlantBDD(id) {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.getByIdPlantBDD(id).then(
+			id => {
+				dispatch(success(id));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_FAILURE, error };
+	}
+}
+
+function getAllPlantBDD() {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.getAllPlantBDD().then(
+			plant => {
+				dispatch(success(plant));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.GET_BY_ID_PLANT_BDD_FAILURE, error };
+	}
+}
+
+function postPlantBDD(body) {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.postPlantBDD(body).then(
+			plant => {
+				dispatch(success(plant));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.POST_PLANT_BDD_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.POST_PLANT_BDD_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.POST_PLANT_BDD_FAILURE, error };
+	}
+}
+
+function updateByIdPlantBDD(body) {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.updateByIdPlantBDD(body).then(
+			plant => {
+				dispatch(success(plant));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.UPDATE_BY_ID_PLANT_BDD_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.UPDATE_BY_ID_PLANT_BDD_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.UPDATE_BY_ID_PLANT_BDD_FAILURE, error };
+	}
+}
+
+function deleteByIdPlantBDD(body) {
+	return dispatch => {
+		dispatch(request());
+
+		plantService.deleteByIdPlantBDD(body).then(
+			plant => {
+				dispatch(success(plant));
+			},
+			error => {
+				dispatch(failure(error.toString()));
+			},
+		);
+	};
+
+	function request() {
+		return { type: plantConstants.DELETE_BY_ID_PLANT_BDD_REQUEST };
+	}
+
+	function success(data) {
+		return { type: plantConstants.DELETE_BY_ID_PLANT_BDD_SUCCESS, data };
+	}
+
+	function failure(error) {
+		return { type: plantConstants.DELETE_BY_ID_PLANT_BDD_FAILURE, error };
 	}
 }
