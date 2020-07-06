@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     detailTextNull: {
         paddingLeft: 10,
         fontSize: 12,
-        color: "#757575"
+        color: '#757575'
     }
 });
 
@@ -69,17 +69,10 @@ export default function PlantDetailsScreen({ route, navigation }) {
     return (
         <>
             <AppBar title={plant != null ? plant.class?.name : 'Aucune donnée.'}/>
-                {plant && (
-            <View style={styles.container}>
-                        <View>
-                        {plant.images ? <Carousel
-                            data={plant?.images}
-                            layout={'stack'}
-                            renderItem={renderItem}
-                            sliderWidth={SLIDER_WIDTH}
-                            sliderHeight={ITEM_HEIGHT}
-                            itemWidth={ITEM_WIDTH}
-                        /> : <Avatar.Icon
+            {plant && (
+                <View style={styles.container}>
+                    <View>
+                        {plant && plant.images.length === 0 &&  <Avatar.Icon
                             accessibilityStates
                             icon={'flower'}
                             size={100}
@@ -89,135 +82,142 @@ export default function PlantDetailsScreen({ route, navigation }) {
                                 borderRadius: 10,
                                 display: 'flex',
                                 alignSelf: 'center',
-                                margin: 10
                             }}
+                        /> }
+                        {plant && plant.images && <Carousel
+                            data={plant.images}
+                            layout={'stack'}
+                            renderItem={renderItem}
+                            sliderWidth={SLIDER_WIDTH}
+                            sliderHeight={ITEM_HEIGHT}
+                            itemWidth={ITEM_WIDTH}
                         />}
-                        </View>
-                        <ScrollView style={{}}>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}>Nom : </Title>
-                                {
-                                    plant.common_name ?
-                                        <Subheading
-                                    style={styles.detailText}>{ plant.common_name  }</Subheading>
-                                        :
+                    </View>
+                    <ScrollView style={{}}>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}>Nom : </Title>
+                            {
+                                plant.common_name ?
                                     <Subheading
-                                    style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
+                                        style={styles.detailText}>{plant.common_name}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
 
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}>Nom II :</Title>
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}>Nom II :</Title>
 
-                                {
-                                    plant.class?.name ?
-                                        <Subheading
-                                            style={styles.detailText}>{  plant.class?.name }</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}>Famille :</Title>
-                                {
-                                    plant.family?.common_name ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant.family?.common_name}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
+                            {
+                                plant.class?.name ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant.class?.name}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}>Famille :</Title>
+                            {
+                                plant.family?.common_name ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant.family?.common_name}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
 
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Temperature min :</Title>
-                                {
-                                    plant?.main_species?.growth?.temperature_minimum?.deg_c ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Temperature max :</Title>
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Temperature min :</Title>
+                            {
+                                plant?.main_species?.growth?.temperature_minimum?.deg_c ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.main_species?.growth?.temperature_minimum?.deg_c}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Temperature max :</Title>
 
-                                    {
-                                    plant?.main_species?.growth?.temperature_maximum?.deg_c ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.main_species?.growth?.temperature_maximum?.deg_c}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Tolerance a la secheresse :</Title>
+                            {
+                                plant?.main_species?.growth?.temperature_maximum?.deg_c ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.main_species?.growth?.temperature_maximum?.deg_c}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Tolerance a la secheresse :</Title>
 
-                                    {
-                                    plant?.main_species?.growth?.drought_tolerance ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.main_species?.growth?.drought_tolerance}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Durée de vie :</Title>
+                            {
+                                plant?.main_species?.growth?.drought_tolerance ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.main_species?.growth?.drought_tolerance}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Durée de vie :</Title>
 
-                                    {
-                                    plant?.duration ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.duration}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Longeur maximum :</Title>
+                            {
+                                plant?.duration ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.duration}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Longeur maximum :</Title>
 
-                                    {
-                                    plant?.main_species?.specifications?.max_height_at_base_age.cm ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={styles.viewColumn}>
-                                <Title style={styles.detailLabel}> Longeur age adulte :</Title>
+                            {
+                                plant?.main_species?.specifications?.max_height_at_base_age.cm ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.main_species?.specifications?.max_height_at_base_age.cm}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Title style={styles.detailLabel}> Longeur age adulte :</Title>
 
-                                    {
-                                    plant?.main_species?.specifications?.mature_height.cm ?
-                                        <Subheading
-                                            style={styles.detailText}>{ plant?.main_species?.specifications?.mature_height.cm}</Subheading>
-                                        :
-                                        <Subheading
-                                            style={styles.detailTextNull}>{  emptyInfos }</Subheading>
-                                }
-                            </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                                <Button accessibilityStates style={styles.detailButton} mode="contained"
-                                        onPress={() => navigation.goBack()}>
-                                    Retour
-                                </Button>
-                                <Button accessibilityStates style={styles.detailButton} mode="contained"
-                                        onPress={() => navigation.navigate('plantProgramming')}>
-                                    Sélectionner
-                                </Button>
-                            </View>
-                        </ScrollView>
-            </View>
-                )}
+                            {
+                                plant?.main_species?.specifications?.mature_height.cm ?
+                                    <Subheading
+                                        style={styles.detailText}>{plant?.main_species?.specifications?.mature_height.cm}</Subheading>
+                                    :
+                                    <Subheading
+                                        style={styles.detailTextNull}>{emptyInfos}</Subheading>
+                            }
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                            <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                    onPress={() => navigation.goBack()}>
+                                Retour
+                            </Button>
+                            <Button accessibilityStates style={styles.detailButton} mode="contained"
+                                    onPress={() => navigation.navigate('plantProgramming')}>
+                                Sélectionner
+                            </Button>
+                        </View>
+                    </ScrollView>
+                </View>
+            )}
         </>
     );
 }
