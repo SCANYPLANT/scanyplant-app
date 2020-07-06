@@ -53,9 +53,9 @@ export default function CameraScreen({ navigation }) {
 					>
 						<Avatar.Icon
                         accessibilityStates
-                        icon={'flower'}
+                        icon={'checkbox-blank-circle-outline'}
                         size={100}
-                        style={{ width: 75, height: 75, borderRadius: 10 ,display:'flex', alignSelf:'center', margin:10}}
+                        style={{ width: 75, height: 75 ,display:'flex', alignSelf:'center', margin:10, backgroundColor: 'transparent'}}
                     />
 					</TouchableOpacity>
 				</View>

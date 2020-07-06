@@ -79,7 +79,7 @@ const isEmptyData = (data) => {
             <AppBar title={plant != null ? plant.class?.name : 'Aucune donnée.'}/>
             {plant && (
                 <View style={styles.container}>
-                    <View>
+                    <View style={{marginBottom: 20}}>
                         {plant && plant.images.length === 0 &&  <Avatar.Icon
                             accessibilityStates
                             icon={'flower'}
