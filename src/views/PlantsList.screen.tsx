@@ -57,7 +57,7 @@ export default function PlantsListScreen({ navigation }) {
                                     >
                                         <Card.Content>
                                             <Image
-                                                source={plant.imageUrl}
+                                                source={plant.images}
                                                 style={{ width: 16, height: 16, borderRadius: 10 }}
                                             />
                                             <Text accessibilityStates>{plant.name}</Text>
