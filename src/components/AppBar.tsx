@@ -18,15 +18,17 @@ export default function AppBar({ title }) {
 			.catch(e => e);
 	};
 	// let user = AsyncStorage.getItem('user').then(r => r).catch(e => e);
-	let token = useSelector((state: any) => {
+	const token = useSelector((state: any) => {
 		if (state.authentication) {
 			return state.authentication.user?.meta?.token;
 		}
 	});
 	return (
-		<Appbar.Header style={styles.bottom} dark={false}>
-			<Appbar.Content title={title} />
-			{token && <Appbar.Action icon="login" onPress={_handleMore} />}
+		<Appbar.Header accessibilityStates style={styles.bottom} dark={false}>
+			<Appbar.Content title={title} accessibilityStates />
+			{token && (
+				<Appbar.Action accessibilityStates icon="login" onPress={_handleMore} />
+			)}
 		</Appbar.Header>
 	);
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { Camera } from 'expo-camera';
-import * as ImageManipulator from "expo-image-manipulator";
+import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function CameraScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -24,39 +24,50 @@ export default function CameraScreen({ navigation }) {
 	}
 	return (
 		<View style={{ flex: 1 }}>
-			<Camera style={{ flex: 1 }} type={type} ref={ref => {
-				setCameraRef(ref) ;
-			}}>
+			<Camera
+				style={{ flex: 1 }}
+				type={type}
+				ref={ref => {
+					setCameraRef(ref);
+				}}
+			>
 				<View
 					style={{
 						flex: 1,
 						backgroundColor: 'transparent',
 						flexDirection: 'column',
 						alignItems: 'center',
-						justifyContent: 'flex-end'
+						justifyContent: 'flex-end',
 					}}
 				>
 					<TouchableOpacity
-						onPress={async() => {
-							if(cameraRef){
-							  let photo = await cameraRef.takePictureAsync();
-							  let result = await ImageManipulator.manipulateAsync(
-								photo.uri,
-								[],
-								{ compress: 0, format: ImageManipulator.SaveFormat.JPEG }
-							);
-							navigation.navigate('imageIdentification', {
-								image: result
-							});
+						onPress={async () => {
+							if (cameraRef) {
+								let photo = await cameraRef.takePictureAsync();
+								let result = await ImageManipulator.manipulateAsync(
+									photo.uri,
+									[],
+									{ compress: 0, format: ImageManipulator.SaveFormat.JPEG },
+								);
+								navigation.navigate('imageIdentification', {
+									image: result,
+								});
 							}
-						  }}
+						}}
 					>
 						<Avatar.Icon
-                        accessibilityStates
-                        icon={'checkbox-blank-circle-outline'}
-                        size={100}
-                        style={{ width: 75, height: 75 ,display:'flex', alignSelf:'center', margin:10, backgroundColor: 'transparent'}}
-                    />
+							accessibilityStates
+							icon={'checkbox-blank-circle-outline'}
+							size={100}
+							style={{
+								width: 75,
+								height: 75,
+								display: 'flex',
+								alignSelf: 'center',
+								margin: 10,
+								backgroundColor: 'transparent',
+							}}
+						/>
 					</TouchableOpacity>
 				</View>
 			</Camera>
