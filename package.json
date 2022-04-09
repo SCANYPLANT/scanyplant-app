@@ -44,7 +44,7 @@
 		"expo-permissions": "~9.0.1",
 		"form-data": "^3.0.0",
 		"formik": "^2.1.4",
-		"moment": "^2.27.0",
+		"moment": "^2.29.2",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1",
 		"react": "16.13.1",
